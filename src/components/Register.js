@@ -16,17 +16,17 @@ export const Register = () => {
   const title = document.createElement('h1');
   title.innerText = 'REGISTER USER';
 
-  const labelNombre = document.createElement('label');
-  labelNombre.className = 'label-form';
-  labelNombre.innerText = 'Nombre';
-  const inputNombre = document.createElement('input');
-  inputNombre.className = 'input-form';
+  const labelName = document.createElement('label');
+  labelName.className = 'label-form';
+  labelName.innerText = 'Nombre';
+  const inputName = document.createElement('input');
+  inputName.className = 'input-form';
 
-  const labelCorreo = document.createElement('label');
-  labelCorreo.className = 'label-form';
-  labelCorreo.innerText = 'Correo';
-  const inputCorreo = document.createElement('input');
-  inputCorreo.className = 'input-form';
+  const labelEmail = document.createElement('label');
+  labelEmail.className = 'label-form';
+  labelEmail.innerText = 'Correo';
+  const inputEmail = document.createElement('input');
+  inputEmail.className = 'input-form';
 
   const labelPassword = document.createElement('label');
   labelPassword.className = 'label-form';
@@ -34,23 +34,23 @@ export const Register = () => {
   const inputPassword = document.createElement('input');
   inputPassword.className = 'input-form';
 
-  const labelConfirmarPassword = document.createElement('label');
-  labelConfirmarPassword.className = 'label-form';
-  labelConfirmarPassword.innerText = 'ConfirmarPassword';
-  const inputConfirmarPassword = document.createElement('input');
-  inputConfirmarPassword.className = 'input-form';
+  const labelConfirmPassword = document.createElement('label');
+  labelConfirmPassword.className = 'label-form';
+  labelConfirmPassword.innerText = 'Confirmar password';
+  const inputConfirmPassword = document.createElement('input');
+  inputConfirmPassword.className = 'input-form';
 
-  const labelFechaNacimiento = document.createElement('label');
-  labelFechaNacimiento.className = 'label-form';
-  labelFechaNacimiento.innerText = 'FechaNacimiento';
-  const inputFechaNacimiento = document.createElement('input');
-  inputFechaNacimiento.className = 'input-form';
+  const labelDateOfBirth = document.createElement('label');
+  labelDateOfBirth.className = 'label-form';
+  labelDateOfBirth.innerText = 'Fecha de nacimiento';
+  const inputDateOfBirth = document.createElement('input');
+  inputDateOfBirth.className = 'input-form';
 
-  const labelCelular = document.createElement('label');
-  labelCelular.className = 'label-form';
-  labelCelular.innerText = 'Celular';
-  const inputCelular = document.createElement('input');
-  inputCelular.className = 'input-form';
+  const labelCellphone = document.createElement('label');
+  labelCellphone.className = 'label-form';
+  labelCellphone.innerText = 'Celular';
+  const inputCellphone = document.createElement('input');
+  inputCellphone.className = 'input-form';
 
   const labelFoto = document.createElement('label');
   labelFoto.className = 'label-form';
@@ -63,7 +63,7 @@ export const Register = () => {
   const buttonRegister = document.createElement('button');
   buttonRegister.className = 'button-form';
   buttonRegister.innerText = 'Register';
-  buttonRegister.addEventListener('click', () => onNavigate('/'));
+  buttonRegister.addEventListener('click', () => onNavigate('/feed'));
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-form';
   buttonReturn.innerText = 'Return';
@@ -72,18 +72,18 @@ export const Register = () => {
   divHeader.appendChild(imgLogo);
   divContent.appendChild(title);
 
-  divContent.appendChild(labelNombre);
-  divContent.appendChild(inputNombre);
-  divContent.appendChild(labelCorreo);
-  divContent.appendChild(inputCorreo);
+  divContent.appendChild(labelName);
+  divContent.appendChild(inputName);
+  divContent.appendChild(labelEmail);
+  divContent.appendChild(inputEmail);
   divContent.appendChild(labelPassword);
   divContent.appendChild(inputPassword);
-  divContent.appendChild(labelConfirmarPassword);
-  divContent.appendChild(inputConfirmarPassword);
-  divContent.appendChild(labelFechaNacimiento);
-  divContent.appendChild(inputFechaNacimiento);
-  divContent.appendChild(labelCelular);
-  divContent.appendChild(inputCelular);
+  divContent.appendChild(labelConfirmPassword);
+  divContent.appendChild(inputConfirmPassword);
+  divContent.appendChild(labelDateOfBirth);
+  divContent.appendChild(inputDateOfBirth);
+  divContent.appendChild(labelCellphone);
+  divContent.appendChild(inputCellphone);
   divContent.appendChild(labelFoto);
   divContent.appendChild(inputFoto);
 

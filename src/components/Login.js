@@ -59,10 +59,12 @@ export const Login = () => {
   const buttonLogIn = document.createElement('button');
   buttonLogIn.className = 'buttonLogin';
   buttonLogIn.innerText = 'Log in';
-  buttonLogIn.addEventListener('click', () => onNavigate('/muro'));
+  // evento del boton Login
+  buttonLogIn.addEventListener('click', () => onNavigate('/feed'));
   const buttonSignUp = document.createElement('button');
   buttonSignUp.className = 'buttonLogin';
   buttonSignUp.innerText = 'Sign Up';
+  // evento del boton sing up(registrarse)
   buttonSignUp.addEventListener('click', () => onNavigate('/register'));
   const linkLogin = document.createElement('a');
   linkLogin.className = 'link-login';

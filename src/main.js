@@ -4,16 +4,19 @@
 
 myFunction();
  */
-import {Home} from './components/Home.js';
+// import {Home} from './components/Home.js';
 import { Register } from './components/Register.js';
 import { Login } from './components/Login.js';
+import { Feed } from './components/Feed.js';
+import { Profile } from './components/Profile.js';
 
 const rootDiv = document.getElementById('root');
 
 const routes = {
   '/': Login,
   '/register': Register,
-  '/muro': Home,
+  '/feed': Feed,
+  '/profile': Profile,
 };
 
 export const onNavigate = (pathname) => {
