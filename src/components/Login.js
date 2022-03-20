@@ -14,7 +14,6 @@ export const Login = () => {
   const imgLogo = document.createElement('img');
   imgLogo.className = 'img-login';
   imgLogo.src = 'img/logo5.png';
-  imgLogo.addEventListener('click', () => onNavigate('/'));
 
   const title = document.createElement('p');
   title.className = 'text-center';
@@ -60,6 +59,7 @@ export const Login = () => {
   const buttonLogIn = document.createElement('button');
   buttonLogIn.className = 'buttonLogin';
   buttonLogIn.innerText = 'Log in';
+  buttonLogIn.addEventListener('click', () => onNavigate('/muro'));
   const buttonSignUp = document.createElement('button');
   buttonSignUp.className = 'buttonLogin';
   buttonSignUp.innerText = 'Sign Up';
