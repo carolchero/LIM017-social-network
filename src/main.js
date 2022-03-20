@@ -11,9 +11,9 @@ import { Login } from './components/Login.js';
 const rootDiv = document.getElementById('root');
 
 const routes = {
-  '/': Home,
+  '/': Login,
   '/register': Register,
-  '/Login': Login,
+  '/muro': Home,
 };
 
 export const onNavigate = (pathname) => {
