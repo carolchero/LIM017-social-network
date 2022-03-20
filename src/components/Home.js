@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-cycle
+/* // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 
 export const Home = () => {
@@ -17,3 +17,4 @@ export const Home = () => {
 
   return HomeDiv;
 };
+ */
