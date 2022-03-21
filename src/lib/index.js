@@ -1,6 +1,7 @@
 // aqui exportaras las funciones que necesites
+import { getUser } from './firebase.js';
 
-export const myFunction = () => {
+export const users = () => {
   // aqui tu codigo
-  console.log('Hola mundo!');
+  getUser();
 };
