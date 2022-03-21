@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
+import { register } from '../auth.js';
 
 export const Register = () => {
   const sectionRegister = document.createElement('section');
@@ -33,18 +34,21 @@ export const Register = () => {
   labelPassword.innerText = 'Password';
   const inputPassword = document.createElement('input');
   inputPassword.className = 'input-form';
+  inputPassword.type = 'password';
 
   const labelConfirmPassword = document.createElement('label');
   labelConfirmPassword.className = 'label-form';
   labelConfirmPassword.innerText = 'Confirmar password';
   const inputConfirmPassword = document.createElement('input');
   inputConfirmPassword.className = 'input-form';
+  inputConfirmPassword.type = 'password';
 
   const labelDateOfBirth = document.createElement('label');
   labelDateOfBirth.className = 'label-form';
   labelDateOfBirth.innerText = 'Fecha de nacimiento';
   const inputDateOfBirth = document.createElement('input');
   inputDateOfBirth.className = 'input-form';
+  inputDateOfBirth.type = 'date';
 
   const labelCellphone = document.createElement('label');
   labelCellphone.className = 'label-form';
@@ -52,18 +56,19 @@ export const Register = () => {
   const inputCellphone = document.createElement('input');
   inputCellphone.className = 'input-form';
 
-  const labelFoto = document.createElement('label');
-  labelFoto.className = 'label-form';
-  labelFoto.innerText = 'Foto';
-  const inputFoto = document.createElement('input');
-  inputFoto.className = 'input-form';
+  const labelPhoto = document.createElement('label');
+  labelPhoto.className = 'label-form';
+  labelPhoto.innerText = 'Foto';
+  const inputPhoto = document.createElement('input');
+  inputPhoto.className = 'input-form';
 
   const divButtons = document.createElement('div');
   divButtons.className = 'text-center';
   const buttonRegister = document.createElement('button');
   buttonRegister.className = 'button-form';
   buttonRegister.innerText = 'Register';
-  buttonRegister.addEventListener('click', () => onNavigate('/feed'));
+  buttonRegister.addEventListener('click', () => register(inputEmail.value, inputPassword.value));
+  console.log(register(inputEmail, inputPassword));
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-form';
   buttonReturn.innerText = 'Return';
@@ -84,8 +89,8 @@ export const Register = () => {
   divContent.appendChild(inputDateOfBirth);
   divContent.appendChild(labelCellphone);
   divContent.appendChild(inputCellphone);
-  divContent.appendChild(labelFoto);
-  divContent.appendChild(inputFoto);
+  divContent.appendChild(labelPhoto);
+  divContent.appendChild(inputPhoto);
 
   divButtons.appendChild(buttonRegister);
   divButtons.appendChild(buttonReturn);

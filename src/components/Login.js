@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/no-cycle
+import { register, accesUser } from '../auth.js';
 import { onNavigate } from '../main.js';
 
 export const Login = () => {
@@ -60,7 +61,10 @@ export const Login = () => {
   buttonLogIn.className = 'buttonLogin';
   buttonLogIn.innerText = 'Log in';
   // evento del boton Login
-  buttonLogIn.addEventListener('click', () => onNavigate('/feed'));
+  buttonLogIn.addEventListener('click', () => (accesUser(inputUser.value, inputPassword.value)));
+  // condicionar el ingreso
+
+  // buttonLogIn.addEventListener('click', () => onNavigate('/feed'));
   const buttonSignUp = document.createElement('button');
   buttonSignUp.className = 'buttonLogin';
   buttonSignUp.innerText = 'Sign Up';
