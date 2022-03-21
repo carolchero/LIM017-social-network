@@ -20,6 +20,13 @@ export const Login = () => {
   title.className = 'text-center';
   title.innerText = 'Iniciar Sesión';
 
+  // creando div oculto
+  const divHide = document.createElement('div');
+  divHide.id = 'messageHide';
+  const messageError = document.createElement('p');
+  messageError.innerText = 'Usuario o contraseña no válido';
+  divHide.appendChild(messageError);
+
   const divCardContent = document.createElement('div');
   divCardContent.className = 'card-content';
 
@@ -96,6 +103,7 @@ export const Login = () => {
 
   divCard.appendChild(divCardHeader);
   divCard.appendChild(title);
+  divCard.appendChild(divHide);
   divCard.appendChild(divCardContent);
   divCard.appendChild(divCardFooter);
 
