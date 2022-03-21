@@ -11,6 +11,7 @@ export function register(email, password) {
     // Signed in
       const user = userCredential.user;
       console.log(user);
+      onNavigate('/');
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -29,12 +30,14 @@ export function accesUser(email, password) {
     // Signed in
       const user = userCredential.user;
       console.log(user);
+      onNavigate('/feed');
     })
     .catch((error) => {
       const errorCode = error.code;
-      console.log(errorCode);
+      console.log('errorCode' + errorCode);
       const errorMessage = error.message;
       console.log(errorMessage);
+      document.getElementById('messageHide').style.display = 'block';
     });
   console.log('el acces user devuelve' + auth);
 }

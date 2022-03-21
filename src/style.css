@@ -404,6 +404,10 @@ body {
         }
     }
     
-
+#messageHide{
+    display: none;
+    color: red;
+    margin-left: 30%;
+}
    
     
