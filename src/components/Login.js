@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { register, accesUser } from '../auth.js';
+import { register, accesUser, accesGoogle, accesFacebook } from '../auth.js';
 import { onNavigate } from '../main.js';
 
 export const Login = () => {
@@ -62,6 +62,19 @@ export const Login = () => {
   inputPassword.name = 'txtPassword';
   inputPassword.id = 'txtPassword';
 
+  // iconos de google
+  const divIcon = document.createElement('div');
+  divIcon.className = 'divIconsGoogleFb';
+  const icoGoogle = document.createElement('i');
+  icoGoogle.className = 'icon-google';
+  icoGoogle.addEventListener('click', () => (accesGoogle()));
+  // icono de fb
+  const icoFb = document.createElement('i');
+  icoFb.className = 'icon-Fb';
+  divIcon.appendChild(icoGoogle);
+  divIcon.appendChild(icoFb);
+  icoFb.addEventListener('click', () => (accesFacebook()));
+
   const divCardFooter = document.createElement('div');
   divCardFooter.className = 'text-center';
   const buttonLogIn = document.createElement('button');
@@ -96,6 +109,7 @@ export const Login = () => {
 
   divCardContent.appendChild(inputGroupUser);
   divCardContent.appendChild(inputGroupPassword);
+  divCardContent.appendChild(divIcon);
 
   divCardFooter.appendChild(buttonLogIn);
   divCardFooter.appendChild(buttonSignUp);
