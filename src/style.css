@@ -409,5 +409,23 @@ body {
     color: red;
     margin-left: 30%;
 }
+
+.divIconsGoogleFb{
+    margin-top: 7%;
+    display: flex;
+    flex-direction: row;
+    margin-left: 34.5%;
+}
+.icon-google {
+    content: url(img/icono-google.png);
+    width: 50px;
+    height: 35px;
+    margin-right: 10px;
+}
+.icon-Fb{
+    content: url(img/icono-fb2.png);
+    width: 56px;
+    height: 37px;
+}
    
     
