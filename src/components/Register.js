@@ -68,7 +68,6 @@ export const Register = () => {
   buttonRegister.className = 'button-form';
   buttonRegister.innerText = 'Register';
   buttonRegister.addEventListener('click', () => register(inputEmail.value, inputPassword.value));
-  console.log(register(inputEmail, inputPassword));
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-form';
   buttonReturn.innerText = 'Return';
