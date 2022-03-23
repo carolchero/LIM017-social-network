@@ -407,7 +407,7 @@ body {
 #messageHide{
     display: none;
     color: red;
-    margin-left: 30%;
+    margin-left: 23%;
 }
 
 .divIconsGoogleFb{
@@ -426,6 +426,11 @@ body {
     content: url(img/icono-fb2.png);
     width: 56px;
     height: 37px;
+}
+#messageEmailHide{
+    display: none;
+    color: red;
+    margin-left: 23%;
 }
    
     
