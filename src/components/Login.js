@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-cycle
 import { register, accesUser, accesGoogle, accesFacebook } from '../auth.js';
+// eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 
 export const Login = () => {
@@ -78,7 +79,7 @@ export const Login = () => {
   const divCardFooter = document.createElement('div');
   divCardFooter.className = 'text-center';
   const buttonLogIn = document.createElement('button');
-  buttonLogIn.className = 'buttonLogin';
+  buttonLogIn.className = 'button-form';
   buttonLogIn.innerText = 'Log in';
   // evento del boton Login
   buttonLogIn.addEventListener('click', () => (accesUser(inputUser.value, inputPassword.value)));
@@ -86,7 +87,7 @@ export const Login = () => {
 
   // buttonLogIn.addEventListener('click', () => onNavigate('/feed'));
   const buttonSignUp = document.createElement('button');
-  buttonSignUp.className = 'buttonLogin';
+  buttonSignUp.className = 'button-form';
   buttonSignUp.innerText = 'Sign Up';
   // evento del boton sing up(registrarse)
   buttonSignUp.addEventListener('click', () => onNavigate('/register'));
