@@ -15,8 +15,8 @@ export const Register = () => {
 
   const divContent = document.createElement('div');
   divContent.id = 'pageCreateContent';
-  const title = document.createElement('h1');
-  title.innerText = 'REGISTER USER';
+  const title = document.createElement('h3');
+  title.innerText = 'REGISTRO DE USUARIO';
 
   const labelName = document.createElement('label');
   labelName.className = 'label-form';
@@ -29,10 +29,12 @@ export const Register = () => {
   labelEmail.innerText = 'Correo';
   const inputEmail = document.createElement('input');
   inputEmail.className = 'input-form';
+  inputEmail.type = 'email';
+  inputEmail.pattern = '/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
 
   const labelPassword = document.createElement('label');
   labelPassword.className = 'label-form';
-  labelPassword.innerText = 'Password';
+  labelPassword.innerText = 'Contraseña';
   const divPassword = document.createElement('div');
   divPassword.className = 'input-form div-form';
   const inputPassword = document.createElement('input');
@@ -48,7 +50,7 @@ export const Register = () => {
 
   const labelConfirmPassword = document.createElement('label');
   labelConfirmPassword.className = 'label-form';
-  labelConfirmPassword.innerText = 'Confirmar password';
+  labelConfirmPassword.innerText = 'Confirmar contraseña';
   const divConfirmPassword = document.createElement('div');
   divConfirmPassword.className = 'input-form div-form';
   const inputConfirmPassword = document.createElement('input');
@@ -66,7 +68,7 @@ export const Register = () => {
   labelDateOfBirth.className = 'label-form';
   labelDateOfBirth.innerText = 'Fecha de nacimiento';
   const inputDateOfBirth = document.createElement('input');
-  inputDateOfBirth.type = '';
+  inputDateOfBirth.type = 'date';
   inputDateOfBirth.className = 'input-form';
 
   const labelCellphone = document.createElement('label');
@@ -75,21 +77,15 @@ export const Register = () => {
   const inputCellphone = document.createElement('input');
   inputCellphone.className = 'input-form';
 
-  const labelPhoto = document.createElement('label');
-  labelPhoto.className = 'label-form';
-  labelPhoto.innerText = 'Foto';
-  const inputPhoto = document.createElement('input');
-  inputPhoto.className = 'input-form';
-
   const divButtons = document.createElement('div');
   divButtons.className = 'text-center';
   const buttonRegister = document.createElement('button');
   buttonRegister.className = 'button-form';
-  buttonRegister.innerText = 'Register';
+  buttonRegister.innerText = 'Registrar';
   buttonRegister.addEventListener('click', () => register(inputEmail.value, inputPassword.value));
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-form';
-  buttonReturn.innerText = 'Return';
+  buttonReturn.innerText = 'Iniciar sesión';
   buttonReturn.addEventListener('click', () => onNavigate('/'));
 
   // creando div oculto
@@ -131,8 +127,6 @@ export const Register = () => {
   divContent.appendChild(inputDateOfBirth);
   divContent.appendChild(labelCellphone);
   divContent.appendChild(inputCellphone);
-  divContent.appendChild(labelPhoto);
-  divContent.appendChild(inputPhoto);
 
   divButtons.appendChild(buttonRegister);
   divButtons.appendChild(buttonReturn);
