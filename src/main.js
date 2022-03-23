@@ -1,9 +1,4 @@
 import './lib/firebase.js';
-// Este es el punto de entrada de tu aplicacion
-// import { getUser } from './lib/firebase.js';
-/* import { myFunction } from './lib/index.js';
-myFunction();
- */
 // eslint-disable-next-line import/no-cycle
 import { Register } from './components/Register.js';
 // eslint-disable-next-line import/no-cycle
@@ -41,5 +36,3 @@ window.onpopstate = () => {
 };
 
 rootDiv.appendChild(component());
-
-// firebase

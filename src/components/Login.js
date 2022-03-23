@@ -17,7 +17,7 @@ export const Login = () => {
   imgLogo.className = 'img-login';
   imgLogo.src = 'img/logo5.png';
 
-  const title = document.createElement('p');
+  const title = document.createElement('h2');
   title.className = 'text-center';
   title.innerText = 'Iniciar Sesión';
 
@@ -38,8 +38,8 @@ export const Login = () => {
   const icoUser = document.createElement('i');
   icoUser.className = 'ico-user';
   const labelUser = document.createElement('label');
-  labelUser.className = 'control-label';
-  labelUser.innerText = 'Ingrese Usuario';
+  labelUser.className = 'control-label text-center';
+  labelUser.innerText = 'Ingrese su correo';
   const inputUser = document.createElement('input');
   inputUser.type = 'text';
   inputUser.autocomplete = 'off';
@@ -55,7 +55,7 @@ export const Login = () => {
   icoPassword.className = 'ico-lock';
   const labelPassword = document.createElement('label');
   labelPassword.className = 'control-label';
-  labelPassword.innerText = 'Ingrese Contraseña';
+  labelPassword.innerText = 'Ingrese su contraseña';
   const inputPassword = document.createElement('input');
   inputPassword.type = 'password';
   inputPassword.autocomplete = 'off';
@@ -65,13 +65,13 @@ export const Login = () => {
 
   // iconos de google
   const divIcon = document.createElement('div');
-  divIcon.className = 'divIconsGoogleFb';
+  divIcon.className = 'div-icons-google-fb';
   const icoGoogle = document.createElement('i');
   icoGoogle.className = 'icon-google';
   icoGoogle.addEventListener('click', () => (accesGoogle()));
   // icono de fb
   const icoFb = document.createElement('i');
-  icoFb.className = 'icon-Fb';
+  icoFb.className = 'icon-fb';
   divIcon.appendChild(icoGoogle);
   divIcon.appendChild(icoFb);
   icoFb.addEventListener('click', () => (accesFacebook()));
@@ -80,7 +80,7 @@ export const Login = () => {
   divCardFooter.className = 'text-center';
   const buttonLogIn = document.createElement('button');
   buttonLogIn.className = 'button-form';
-  buttonLogIn.innerText = 'Log in';
+  buttonLogIn.innerText = 'Iniciar sesión';
   // evento del boton Login
   buttonLogIn.addEventListener('click', () => (accesUser(inputUser.value, inputPassword.value)));
   // condicionar el ingreso
@@ -88,7 +88,7 @@ export const Login = () => {
   // buttonLogIn.addEventListener('click', () => onNavigate('/feed'));
   const buttonSignUp = document.createElement('button');
   buttonSignUp.className = 'button-form';
-  buttonSignUp.innerText = 'Sign Up';
+  buttonSignUp.innerText = 'Registrarse';
   // evento del boton sing up(registrarse)
   buttonSignUp.addEventListener('click', () => onNavigate('/register'));
   const linkLogin = document.createElement('a');
