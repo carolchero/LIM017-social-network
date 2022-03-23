@@ -92,6 +92,23 @@ export const Register = () => {
   buttonReturn.innerText = 'Return';
   buttonReturn.addEventListener('click', () => onNavigate('/'));
 
+  // creando div oculto
+  const divEmailHide = document.createElement('div');
+  divEmailHide.id = 'messageEmailHide';
+  const messageError = document.createElement('p');
+  messageError.innerText = 'Correo invalido';
+  divEmailHide.appendChild(messageError);
+  // validando correo
+  /* const regexEmail = new RegExp('/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/');
+  function validy() {
+    console.log(inputEmail.value);
+    console.log('regex sin avlue es: ' + regexEmail.test(inputEmail));
+    console.log('regex completo es: ' + regexEmail.test(inputEmail.value));
+    // eslint-disable-next-line no-unused-expressions
+    !regexEmail.test(inputEmail.value) ? divEmailHide.style.display = 'block' : divEmailHide.style.display = 'none';
+  }
+  inputEmail.addEventListener('keyup', validy);
+ */
   divHeader.appendChild(imgLogo);
   divContent.appendChild(title);
 
@@ -120,6 +137,7 @@ export const Register = () => {
   divButtons.appendChild(buttonRegister);
   divButtons.appendChild(buttonReturn);
   divContent.appendChild(divButtons);
+  divContent.appendChild(divEmailHide);
 
   sectionRegister.appendChild(divHeader);
   sectionRegister.appendChild(divContent);

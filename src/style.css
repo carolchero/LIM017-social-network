@@ -476,7 +476,7 @@ body {
 #messageHide{
     display: none;
     color: red;
-    margin-left: 30%;
+    margin-left: 23%;
 }
 
 .divIconsGoogleFb{
@@ -499,6 +499,11 @@ body {
 .divPassword{
     display: flex;
     width: 80%;
+}
+#messageEmailHide{
+    display: none;
+    color: red;
+    margin-left: 23%;
 }
    
     
