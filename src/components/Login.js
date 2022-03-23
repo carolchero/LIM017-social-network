@@ -1,4 +1,6 @@
 // eslint-disable-next-line import/no-cycle
+import { register, accesUser, accesGoogle, accesFacebook } from '../auth.js';
+// eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 
 export const Login = () => {
@@ -18,6 +20,13 @@ export const Login = () => {
   const title = document.createElement('p');
   title.className = 'text-center';
   title.innerText = 'Iniciar Sesión';
+
+  // creando div oculto
+  const divHide = document.createElement('div');
+  divHide.id = 'messageHide';
+  const messageError = document.createElement('p');
+  messageError.innerText = 'Usuario o contraseña no válido';
+  divHide.appendChild(messageError);
 
   const divCardContent = document.createElement('div');
   divCardContent.className = 'card-content';
@@ -54,15 +63,33 @@ export const Login = () => {
   inputPassword.name = 'txtPassword';
   inputPassword.id = 'txtPassword';
 
+  // iconos de google
+  const divIcon = document.createElement('div');
+  divIcon.className = 'divIconsGoogleFb';
+  const icoGoogle = document.createElement('i');
+  icoGoogle.className = 'icon-google';
+  icoGoogle.addEventListener('click', () => (accesGoogle()));
+  // icono de fb
+  const icoFb = document.createElement('i');
+  icoFb.className = 'icon-Fb';
+  divIcon.appendChild(icoGoogle);
+  divIcon.appendChild(icoFb);
+  icoFb.addEventListener('click', () => (accesFacebook()));
+
   const divCardFooter = document.createElement('div');
   divCardFooter.className = 'text-center';
   const buttonLogIn = document.createElement('button');
-  buttonLogIn.className = 'buttonLogin';
+  buttonLogIn.className = 'button-form';
   buttonLogIn.innerText = 'Log in';
-  buttonLogIn.addEventListener('click', () => onNavigate('/muro'));
+  // evento del boton Login
+  buttonLogIn.addEventListener('click', () => (accesUser(inputUser.value, inputPassword.value)));
+  // condicionar el ingreso
+
+  // buttonLogIn.addEventListener('click', () => onNavigate('/feed'));
   const buttonSignUp = document.createElement('button');
-  buttonSignUp.className = 'buttonLogin';
+  buttonSignUp.className = 'button-form';
   buttonSignUp.innerText = 'Sign Up';
+  // evento del boton sing up(registrarse)
   buttonSignUp.addEventListener('click', () => onNavigate('/register'));
   const linkLogin = document.createElement('a');
   linkLogin.className = 'link-login';
@@ -83,6 +110,7 @@ export const Login = () => {
 
   divCardContent.appendChild(inputGroupUser);
   divCardContent.appendChild(inputGroupPassword);
+  divCardContent.appendChild(divIcon);
 
   divCardFooter.appendChild(buttonLogIn);
   divCardFooter.appendChild(buttonSignUp);
@@ -90,6 +118,7 @@ export const Login = () => {
 
   divCard.appendChild(divCardHeader);
   divCard.appendChild(title);
+  divCard.appendChild(divHide);
   divCard.appendChild(divCardContent);
   divCard.appendChild(divCardFooter);
 

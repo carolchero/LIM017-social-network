@@ -1,5 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
+// eslint-disable-next-line import/no-cycle
+import { register } from '../auth.js';
 
 export const Register = () => {
   const sectionRegister = document.createElement('section');
@@ -16,54 +18,75 @@ export const Register = () => {
   const title = document.createElement('h1');
   title.innerText = 'REGISTER USER';
 
-  const labelNombre = document.createElement('label');
-  labelNombre.className = 'label-form';
-  labelNombre.innerText = 'Nombre';
-  const inputNombre = document.createElement('input');
-  inputNombre.className = 'input-form';
+  const labelName = document.createElement('label');
+  labelName.className = 'label-form';
+  labelName.innerText = 'Nombre';
+  const inputName = document.createElement('input');
+  inputName.className = 'input-form';
 
-  const labelCorreo = document.createElement('label');
-  labelCorreo.className = 'label-form';
-  labelCorreo.innerText = 'Correo';
-  const inputCorreo = document.createElement('input');
-  inputCorreo.className = 'input-form';
+  const labelEmail = document.createElement('label');
+  labelEmail.className = 'label-form';
+  labelEmail.innerText = 'Correo';
+  const inputEmail = document.createElement('input');
+  inputEmail.className = 'input-form';
 
   const labelPassword = document.createElement('label');
   labelPassword.className = 'label-form';
   labelPassword.innerText = 'Password';
+  const divPassword = document.createElement('div');
+  divPassword.className = 'input-form div-form';
   const inputPassword = document.createElement('input');
-  inputPassword.className = 'input-form';
+  inputPassword.className = 'input-password';
+  inputPassword.id = 'inputPassword';
+  inputPassword.type = 'password';
+  inputPassword.addEventListener('keyup', () => {
+    console.log(inputPassword.value);
+  });
+  const icoEye = document.createElement('i');
+  icoEye.className = 'ico-eye-hide';
+  icoEye.addEventListener('click', () => { if (icoEye.className === 'ico-eye-hide') { icoEye.className = 'ico-eye'; inputPassword.type = 'text'; } else { icoEye.className = 'ico-eye-hide'; inputPassword.type = 'password'; } });
 
-  const labelConfirmarPassword = document.createElement('label');
-  labelConfirmarPassword.className = 'label-form';
-  labelConfirmarPassword.innerText = 'ConfirmarPassword';
-  const inputConfirmarPassword = document.createElement('input');
-  inputConfirmarPassword.className = 'input-form';
+  const labelConfirmPassword = document.createElement('label');
+  labelConfirmPassword.className = 'label-form';
+  labelConfirmPassword.innerText = 'Confirmar password';
+  const divConfirmPassword = document.createElement('div');
+  divConfirmPassword.className = 'input-form div-form';
+  const inputConfirmPassword = document.createElement('input');
+  inputConfirmPassword.className = 'input-password';
+  inputConfirmPassword.id = 'inputConfirmPassword';
+  inputConfirmPassword.type = 'password';
+  inputConfirmPassword.addEventListener('keyup', () => {
+    console.log(inputConfirmPassword.value);
+  });
+  const icoEyeConfirm = document.createElement('i');
+  icoEyeConfirm.className = 'ico-eye-hide';
+  icoEyeConfirm.addEventListener('click', () => { if (icoEyeConfirm.className === 'ico-eye-hide') { icoEyeConfirm.className = 'ico-eye'; inputConfirmPassword.type = 'text'; } else { icoEyeConfirm.className = 'ico-eye-hide'; inputConfirmPassword.type = 'password'; } });
 
-  const labelFechaNacimiento = document.createElement('label');
-  labelFechaNacimiento.className = 'label-form';
-  labelFechaNacimiento.innerText = 'FechaNacimiento';
-  const inputFechaNacimiento = document.createElement('input');
-  inputFechaNacimiento.className = 'input-form';
+  const labelDateOfBirth = document.createElement('label');
+  labelDateOfBirth.className = 'label-form';
+  labelDateOfBirth.innerText = 'Fecha de nacimiento';
+  const inputDateOfBirth = document.createElement('input');
+  inputDateOfBirth.type = '';
+  inputDateOfBirth.className = 'input-form';
 
-  const labelCelular = document.createElement('label');
-  labelCelular.className = 'label-form';
-  labelCelular.innerText = 'Celular';
-  const inputCelular = document.createElement('input');
-  inputCelular.className = 'input-form';
+  const labelCellphone = document.createElement('label');
+  labelCellphone.className = 'label-form';
+  labelCellphone.innerText = 'Celular';
+  const inputCellphone = document.createElement('input');
+  inputCellphone.className = 'input-form';
 
-  const labelFoto = document.createElement('label');
-  labelFoto.className = 'label-form';
-  labelFoto.innerText = 'Foto';
-  const inputFoto = document.createElement('input');
-  inputFoto.className = 'input-form';
+  const labelPhoto = document.createElement('label');
+  labelPhoto.className = 'label-form';
+  labelPhoto.innerText = 'Foto';
+  const inputPhoto = document.createElement('input');
+  inputPhoto.className = 'input-form';
 
   const divButtons = document.createElement('div');
   divButtons.className = 'text-center';
   const buttonRegister = document.createElement('button');
   buttonRegister.className = 'button-form';
   buttonRegister.innerText = 'Register';
-  buttonRegister.addEventListener('click', () => onNavigate('/'));
+  buttonRegister.addEventListener('click', () => register(inputEmail.value, inputPassword.value));
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-form';
   buttonReturn.innerText = 'Return';
@@ -72,20 +95,27 @@ export const Register = () => {
   divHeader.appendChild(imgLogo);
   divContent.appendChild(title);
 
-  divContent.appendChild(labelNombre);
-  divContent.appendChild(inputNombre);
-  divContent.appendChild(labelCorreo);
-  divContent.appendChild(inputCorreo);
+  divContent.appendChild(labelName);
+  divContent.appendChild(inputName);
+  divContent.appendChild(labelEmail);
+  divContent.appendChild(inputEmail);
+
   divContent.appendChild(labelPassword);
-  divContent.appendChild(inputPassword);
-  divContent.appendChild(labelConfirmarPassword);
-  divContent.appendChild(inputConfirmarPassword);
-  divContent.appendChild(labelFechaNacimiento);
-  divContent.appendChild(inputFechaNacimiento);
-  divContent.appendChild(labelCelular);
-  divContent.appendChild(inputCelular);
-  divContent.appendChild(labelFoto);
-  divContent.appendChild(inputFoto);
+  divPassword.appendChild(inputPassword);
+  divPassword.appendChild(icoEye);
+  divContent.appendChild(divPassword);
+
+  divContent.appendChild(labelConfirmPassword);
+  divConfirmPassword.appendChild(inputConfirmPassword);
+  divConfirmPassword.appendChild(icoEyeConfirm);
+  divContent.appendChild(divConfirmPassword);
+
+  divContent.appendChild(labelDateOfBirth);
+  divContent.appendChild(inputDateOfBirth);
+  divContent.appendChild(labelCellphone);
+  divContent.appendChild(inputCellphone);
+  divContent.appendChild(labelPhoto);
+  divContent.appendChild(inputPhoto);
 
   divButtons.appendChild(buttonRegister);
   divButtons.appendChild(buttonReturn);
