@@ -9,7 +9,7 @@ body {
     width: 100vw;
 }
 #pageLogin{
-    background: url(img/diseno-fondo.webp) no-repeat center center; 
+    background: url(img/diseno-fondo.webp) no-repeat center center fixed; 
     height: 100%;
     width: 100%; 
     background-size: cover;
@@ -17,7 +17,6 @@ body {
     flex-direction: column;
     justify-content: space-around;
     align-items:center ;
-    color: white;
    font-size:medium;
    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -143,8 +142,8 @@ body {
         display: block;
         content: "";
         position: absolute;
-        width: 100%;
-        height: 100%;
+        min-width: 100%;
+        min-height: 100%;
         top: 0;
         left: 0;
         z-index: 2;
@@ -193,7 +192,7 @@ body {
     }
 
     .card-content {
-        padding: 15px 20px 40px 20px;
+        padding: 15px 20px 15px 20px;
         position: relative;
     }
      
@@ -217,6 +216,12 @@ body {
 
     .ico-user {
         content: url(img/usuario.png);
+    }
+    .ico-eye {
+        content: url(img/ver.png);
+    }
+    .ico-eye-hide {
+        content: url(img/invisible.png);
     }
     .ico-lock {
         content: url(img/password.png);
@@ -259,24 +264,33 @@ body {
         display:block;
         margin-top: 10px;;
     }
+    @media (min-width:430px){
+        .container{width:80%}
+    }
+    @media (min-width:570px){
+        .container{width:70%}
+    }
+    @media (min-width:613px){
+        .container{width:60%}
+    }
 
     @media (min-width:768px){
-        .container{width:60%}
-        .img-login {height: 120px; width: 150px;}
-    }
-    @media (min-width:992px){
         .container{width:50%}
     }
-    @media (min-width:1200px){
+    @media (min-width:992px){
         .container{width:40%}
+    }
+    @media (min-width:1200px){
+        .container{width:30%}
     }
 
     /* style create user */
 
     #pageCreate{
         background: url(img/diseno-fondo.webp) no-repeat center center; 
-        height: 100%;
-        width: 100%; 
+        min-height: 100%;
+        min-width: 100%; 
+        padding:15px 10px;
         background-size: cover;
         display: flex;
         position: absolute;
@@ -296,7 +310,7 @@ body {
         flex-direction: column;
         justify-content: space-around;
         align-items:center ;
-        padding: 5%;
+        padding: 1% 5%;
     }
     #pageCreateHeader{
         height: 15%;
@@ -326,9 +340,10 @@ body {
         width: 120px;
         height:35px ;
         border-radius: 1rem;
+        border:0;
         font-size: 20px; 
         box-shadow: 2px 2px 5px #999;
-        margin-top:10px;
+        margin:10px;
     }
 
     .input-form {
@@ -346,45 +361,80 @@ body {
         box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
         transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     }
+    .div-form {
+        padding: 0 !important;
+    }
+    .input-password {
+        width: 94%;
+        height: 28px;
+        font-size: 14px;
+        padding: 6px 12px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: transparent;
+        border: 0;
+        position:relative;
+    }
 
     .img-create {
         display: inline-block; 
-        height: 100px; 
-        width: 120px; 
+        height: 90px; 
+        width: 110px; 
     }
-
+    @media (max-width:366px){
+        .input-password {
+            width: 90%;
+        }
+    }
     @media (min-width:660px){
         .input-form {
             width: 90%;
         }
+        .input-password {
+            width: 96%;
+        }
     }
-    @media (min-width:810px){
+    @media (min-width:780px){
         #pageCreateHeader{
-            width: 80%; 
+            width: 70%; 
         }
         #pageCreateContent{
-            width: 80%; 
+            width: 70%; 
+        }
+    }
+    @media (min-width:980px){
+        #pageCreateHeader{
+            width: 60%; 
+        }
+        #pageCreateContent{
+            width: 60%; 
         }
         .label-form {
             font-size: 16px;
             margin-top: 4px;
         }
         .input-form {
+            width: 85%;
             padding: 6px 12px;
         }
-        .input-form {
-            width: 85%;
+        .input-password {
+            width: 95%;
+            padding: 6px 12px;
         }
     }
-    @media (min-width:1068px){
+    @media (min-width:1200px){
         #pageCreateHeader{
-            width: 70%; 
+            width: 50%; 
         }
         #pageCreateContent{
-            width: 70%; 
+            width: 50%; 
         }
         .input-form {
             width: 80%;
+            padding: 6px 12px;
+        }
+        .input-password {
+            width: 95%;
             padding: 6px 12px;
         }
     }
@@ -396,11 +446,30 @@ body {
             width: 75%;
             padding: 10px 12px;
         }
+        .input-password {
+            width: 95%;
+            padding: 10px 12px;
+        }
+        #pageCreateHeader{
+            width: 50%; 
+        }
+        #pageCreateContent{
+            width: 50%; 
+        }
     }
     @media (min-width:1600px){
         .input-form {
             width: 70%;
             padding: 10px 12px;
+        }
+        .input-password {
+            width: 95%;
+        }
+        #pageCreateHeader{
+            width: 50%; 
+        }
+        #pageCreateContent{
+            width: 50%; 
         }
     }
     
@@ -411,21 +480,25 @@ body {
 }
 
 .divIconsGoogleFb{
-    margin-top: 7%;
+    margin-top: 7px;
     display: flex;
     flex-direction: row;
-    margin-left: 34.5%;
+    justify-content: center;
 }
 .icon-google {
     content: url(img/icono-google.png);
-    width: 50px;
     height: 35px;
-    margin-right: 10px;
+    margin: 10px;
 }
 .icon-Fb{
     content: url(img/icono-fb2.png);
-    width: 56px;
-    height: 37px;
+    height: 35px;
+    margin: 10px;
+}
+
+.divPassword{
+    display: flex;
+    width: 80%;
 }
 #messageEmailHide{
     display: none;

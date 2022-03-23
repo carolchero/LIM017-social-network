@@ -33,25 +33,41 @@ export const Register = () => {
   const labelPassword = document.createElement('label');
   labelPassword.className = 'label-form';
   labelPassword.innerText = 'Password';
-
-
+  const divPassword = document.createElement('div');
+  divPassword.className = 'input-form div-form';
   const inputPassword = document.createElement('input');
-  inputPassword.className = 'input-form';
+  inputPassword.className = 'input-password';
+  inputPassword.id = 'inputPassword';
   inputPassword.type = 'password';
+  inputPassword.addEventListener('keyup', () => {
+    console.log(inputPassword.value);
+  });
+  const icoEye = document.createElement('i');
+  icoEye.className = 'ico-eye-hide';
+  icoEye.addEventListener('click', () => { if (icoEye.className === 'ico-eye-hide') { icoEye.className = 'ico-eye'; inputPassword.type = 'text'; } else { icoEye.className = 'ico-eye-hide'; inputPassword.type = 'password'; } });
 
   const labelConfirmPassword = document.createElement('label');
   labelConfirmPassword.className = 'label-form';
   labelConfirmPassword.innerText = 'Confirmar password';
+  const divConfirmPassword = document.createElement('div');
+  divConfirmPassword.className = 'input-form div-form';
   const inputConfirmPassword = document.createElement('input');
-  inputConfirmPassword.className = 'input-form';
+  inputConfirmPassword.className = 'input-password';
+  inputConfirmPassword.id = 'inputConfirmPassword';
   inputConfirmPassword.type = 'password';
+  inputConfirmPassword.addEventListener('keyup', () => {
+    console.log(inputConfirmPassword.value);
+  });
+  const icoEyeConfirm = document.createElement('i');
+  icoEyeConfirm.className = 'ico-eye-hide';
+  icoEyeConfirm.addEventListener('click', () => { if (icoEyeConfirm.className === 'ico-eye-hide') { icoEyeConfirm.className = 'ico-eye'; inputConfirmPassword.type = 'text'; } else { icoEyeConfirm.className = 'ico-eye-hide'; inputConfirmPassword.type = 'password'; } });
 
   const labelDateOfBirth = document.createElement('label');
   labelDateOfBirth.className = 'label-form';
   labelDateOfBirth.innerText = 'Fecha de nacimiento';
   const inputDateOfBirth = document.createElement('input');
+  inputDateOfBirth.type = '';
   inputDateOfBirth.className = 'input-form';
-  inputDateOfBirth.type = 'date';
 
   const labelCellphone = document.createElement('label');
   labelCellphone.className = 'label-form';
@@ -100,10 +116,17 @@ export const Register = () => {
   divContent.appendChild(inputName);
   divContent.appendChild(labelEmail);
   divContent.appendChild(inputEmail);
+
   divContent.appendChild(labelPassword);
-  divContent.appendChild(inputPassword);
+  divPassword.appendChild(inputPassword);
+  divPassword.appendChild(icoEye);
+  divContent.appendChild(divPassword);
+
   divContent.appendChild(labelConfirmPassword);
-  divContent.appendChild(inputConfirmPassword);
+  divConfirmPassword.appendChild(inputConfirmPassword);
+  divConfirmPassword.appendChild(icoEyeConfirm);
+  divContent.appendChild(divConfirmPassword);
+
   divContent.appendChild(labelDateOfBirth);
   divContent.appendChild(inputDateOfBirth);
   divContent.appendChild(labelCellphone);
