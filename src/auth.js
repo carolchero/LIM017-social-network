@@ -5,7 +5,7 @@ import { onNavigate } from './main.js';
 
 // función para crear nuevos usuarios
 export function register(email, password) {
- const auth = getAuth();
+  const auth = getAuth();
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
@@ -23,6 +23,7 @@ export function accesUser(email, password) {
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
+      console.log("entro");
       // Signed in
       const user = userCredential.user;
       onNavigate('/feed');
@@ -30,6 +31,7 @@ export function accesUser(email, password) {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log(error.message);
       document.getElementById('messageHide').style.display = 'block';
     });
 }
@@ -54,7 +56,6 @@ export function accesGoogle() {
       const email = error.email;
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
     });
 }
 
@@ -80,9 +81,6 @@ export function accesFacebook() {
       const email = error.email;
       // The AuthCredential type that was used.
       const credential = FacebookAuthProvider.credentialFromError(error);
-      console.log('esto es error' + errorCode);
-      console.log('esto es error' + errorMessage);
-      console.log('esto es error' + email);
     });
 }
 
@@ -100,8 +98,3 @@ sendPasswordResetEmail(auth, email)
     const errorMessage = error.message;
     // ..
   }); */
-// function click, change keypress keyup keydown
-
-/*inputPassword.addEventListener('keypress', () => {
-  console.log('entro');
-});*/
