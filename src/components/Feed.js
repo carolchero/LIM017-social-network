@@ -1,17 +1,35 @@
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
+import { feedTemplate } from './Header.js';
 
 export const Feed = () => {
-  const feedContainer = document.createElement('div');
-  const textFeed = document.createElement('p');
-  textFeed.innerText = 'Bienvenido a tu muro';
+  const divFeed = document.createElement('div');
+  divFeed.className = 'container-feed';
+  const feedTemplate2 = `<main class="container-publication">
+  <!--publicación del usuario-->
+ <section class="container-publication">
+     <figure>
+         <img id="" class="photo-user-publication" src='profile-user.png' alt="foto de perfil">
+         <figcaption id="" class="">Username</figcaption>
+     </figure>
+     <input placeholder="Titulo de publicación"/>
+     <input placeholder="Escriba su texto aqui"/>
+     <div>
+         <img id="" class="share-image-logo logo-publication" src='insertar-icono-de-imagen.png' alt="logo para agregar imagenes a la publicación">
+         <img id="" class="share-stickers-logo logo-publication" src='emoticon-sonrisa.png' alt="logo para agregar stickers a la publicación">
+         <img id="" class="share-trash-logo logo-publication" src='icons8-trash-30.png' alt="logo para eliminar publicación">
+         <button> Publicar </button>
+     </div>
+ </section>
 
-  const buttonProfile = document.createElement('button');
-  buttonProfile.innerText = 'Ir al perfil';
-  buttonProfile.addEventListener('click', () => onNavigate('/profile'));
 
-  feedContainer.appendChild(textFeed);
-  feedContainer.appendChild(buttonProfile);
+ <!--publicación de otros usuarios-->
 
-  return feedContainer;
+ <section>
+
+ </section>
+</main>
+`;
+  divFeed.innerHTML = feedTemplate + feedTemplate2;
+  return divFeed;
 };
