@@ -2,8 +2,6 @@
 // eslint-disable-next-line import/no-unresolved
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js';
 
-// import { getFirestore, collection, getDocs} from "https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js"; // conectar ,importar,mostrar
-
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,10 +17,3 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-
-/* const db = getFirestore();
-
-export function getUser() {
-  const docs = getDocs(collection(db, 'users'));
-  return docs;
-} */
