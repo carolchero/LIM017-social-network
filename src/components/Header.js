@@ -1,6 +1,6 @@
-export const feedTemplate = () => {
+export const headerTemplate = () => {
   const headerdiv = document.createElement('header');
-  headerdiv.className = 'container-publication';
+
   // CONTENEDOR DIV( FOTO,NAME,SEARCH)
   const divContainerSearchPhoto = document.createElement('div');
   divContainerSearchPhoto.className = 'container-search-photo-nav';
@@ -53,7 +53,7 @@ export const feedTemplate = () => {
   const containerNavHide = document.createElement('div');
   const lines = document.createElement('label');
   lines.className = 'nav-lines';
-  lines.innerText = '&#8801';
+  lines.innerHTML = '&#8801';
   const ulNavHide = document.createElement('ul');
   ulNavHide.className = 'container-options-nav';
 
@@ -94,7 +94,6 @@ export const feedTemplate = () => {
   // agregando al header
   headerdiv.appendChild(divContainerSearchPhoto);
   headerdiv.appendChild(containerNav);
-
   return headerdiv;
 };
 

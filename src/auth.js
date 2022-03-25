@@ -23,6 +23,7 @@ export function accesUser(email, password) {
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
+      console.log("entro");
       // Signed in
       const user = userCredential.user;
       onNavigate('/feed');
@@ -30,6 +31,7 @@ export function accesUser(email, password) {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log(error.message);
       document.getElementById('messageHide').style.display = 'block';
     });
 }
