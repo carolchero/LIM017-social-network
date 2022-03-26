@@ -2,7 +2,7 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from './main.js';
-import { dataUser } from './cloudFirebase.js';
+// import { dataUser } from './cloudFirebase.js';
 
 // función para crear nuevos usuarios
 export function register(email, password) {
@@ -11,9 +11,7 @@ export function register(email, password) {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      dataUser();
       console.log('esta e suna prueba ');
-      onNavigate('/');
     })
     .catch((error) => {
       const errorCode = error.code;
