@@ -5,15 +5,14 @@ import { onNavigate } from './main.js';
 import { dataUser } from './cloudFirebase.js';
 
 // función para crear nuevos usuarios
-export function register(email, password) {
+export function register(name, email, password, date, cellphone) {
   const auth = getAuth();
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
-      const user = userCredential.user;
-      dataUser();
-      console.log('esta e suna prueba ');
-      onNavigate('/');
+      const idUser = userCredential.user.uid;
+      console.log('id usuario: '+idUser);
+      dataUser(idUser, name, email, password, date, cellphone);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -26,9 +25,9 @@ export function accesUser(email, password) {
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      console.log("entro");
       // Signed in
-      const user = userCredential.user;
+      const user = userCredential.user.uid;
+      console.log('id usuario: '+user);
       onNavigate('/feed');
     })
     .catch((error) => {
