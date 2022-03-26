@@ -236,6 +236,18 @@
       border: 0;
       position:relative;
   }
+  .div-level-low{
+      height: 10px;
+      background:red;
+  }
+  .div-level-medium{
+    height: 10px;
+    background:linear-gradient(to right,red,yellow);
+ }
+ .div-level-higth{
+    height: 10px;
+    background:linear-gradient(to right,yellow,green);
+ }       
   .img-create {
       display: inline-block; 
       height: 90px; 

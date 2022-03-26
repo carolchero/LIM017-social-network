@@ -4,31 +4,27 @@ import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.c
 export const db = getFirestore();
 
 // para enviar datos del usuario
-export function dataUser(name, email, password, date, cellphone) {
+export async function dataUser(id, name, email, password, date, cellphone) {
   try {
       console.log("----------------> name:: " + name);
       console.log("----------------> name:: " + email);
       console.log("----------------> name:: " + password);
       console.log("----------------> name:: " + date);
       console.log("----------------> name:: " + cellphone);
-    const docRef = addDoc(collection(db, 'dataUsers'), {
-      nameUSer: name,
-      gmail: email,
-      passwordUser: password,
-      born: date,
-      numberCell: cellphone,
+    const docRef = await addDoc(collection(db, 'dataUsers'), {
+      id, name, email, password, date, cellphone,
     });
 
-    console.log('Document written with ID: ', docRef.id);
+    console.log('id data user: ', docRef.id);
   } catch (e) {
     console.error('Error adding document: ', e);
   }
 }
 
 // para verificar que se agregaron los datos
-export function reviewResult() {
-  const querySnapshot = getDocs(collection(db, 'dataUsers'));
+export async function reviewResult() {
+  const querySnapshot = await getDocs(collection(db, 'dataUsers'));
   querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data()}`);
+    console.log(doc.data());
   });
 }
