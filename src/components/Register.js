@@ -2,6 +2,7 @@
 import { onNavigate } from '../main.js';
 // eslint-disable-next-line import/no-cycle
 import { register } from '../auth.js';
+import { dataUser, reviewResult } from '../cloudFirebase.js';
 
 export const Register = () => {
   const sectionRegister = document.createElement('section');
@@ -30,7 +31,6 @@ export const Register = () => {
   const inputEmail = document.createElement('input');
   inputEmail.className = 'input-form';
   inputEmail.type = 'email';
-  inputEmail.pattern = '/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
 
   const labelPassword = document.createElement('label');
   labelPassword.className = 'label-form';
@@ -76,13 +76,13 @@ export const Register = () => {
   labelCellphone.innerText = 'Celular';
   const inputCellphone = document.createElement('input');
   inputCellphone.className = 'input-form';
-
+  // boton se registrar
   const divButtons = document.createElement('div');
   divButtons.className = 'text-center';
   const buttonRegister = document.createElement('button');
   buttonRegister.className = 'button-form';
   buttonRegister.innerText = 'Registrar';
-  buttonRegister.addEventListener('click', () => register(inputEmail.value, inputPassword.value));
+  // boton de iniciar sesión
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-form';
   buttonReturn.innerText = 'Iniciar sesión';
@@ -136,5 +136,12 @@ export const Register = () => {
   sectionRegister.appendChild(divHeader);
   sectionRegister.appendChild(divContent);
 
+  buttonRegister.addEventListener('click', () => {
+    // eslint-disable-next-line max-len
+    dataUser(inputName.value, inputEmail.value, inputPassword.value, inputDateOfBirth.value, inputCellphone.value); // enviando datos de usuario a dataUser y a register
+    register(inputEmail.value, inputPassword.value); // para agregar nuevo usuario
+    reviewResult(); // leer datos que se agregan del nuevo usuario en la consola de firebase
+    onNavigate('/');
+  });
   return sectionRegister;
 };

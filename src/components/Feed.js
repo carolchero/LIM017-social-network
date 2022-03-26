@@ -10,7 +10,7 @@ export const Feed = () => {
 
   /* PUBLICACIÓN DE USUARIO */
   const sectionPublication = document.createElement('section');
-  sectionPublication.className = 'container-publication';
+  sectionPublication.className = 'container-publication-section';
   const figureSection = document.createElement('figure');
   // foto de usuario
   const imgPhotoUser = document.createElement('img');
@@ -24,6 +24,7 @@ export const Feed = () => {
   inputTitle.placeholder = 'Titulo de publicación';
   const inputText = document.createElement('input');
   inputText.placeholder = 'Escriba su texto aqui';
+  inputText.className = 'input-text-publication';
   // logos de publicación
   const containerLogosButton = document.createElement('div');
   const imgShareImage = document.createElement('img');
