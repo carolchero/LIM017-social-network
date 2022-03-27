@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 import { headerTemplate } from './Header.js';
+import { dataPublication, reviewResultPublication } from '../cloudFirebase.js';
 
 export const Feed = () => {
   const divFeed = document.createElement('div');
@@ -22,7 +23,7 @@ export const Feed = () => {
   // inputs de publicación
   const inputTitle = document.createElement('input');
   inputTitle.placeholder = 'Titulo de publicación';
-  const inputText = document.createElement('input');
+  const inputText = document.createElement('textarea');
   inputText.placeholder = 'Escriba su texto aqui';
   inputText.className = 'input-text-publication';
   // logos de publicación
@@ -43,6 +44,7 @@ export const Feed = () => {
   imgTrash.alt = 'logo para eliminar publicación';
 
   const buttonPublication = document.createElement('button');
+  buttonPublication.className = 'button-publication';
   buttonPublication.innerText = 'Publicar';
 
   // agregando contenedores pequeños a medianos
@@ -65,6 +67,12 @@ export const Feed = () => {
   // divFeed.appendChild(feedTemplate);
   divFeed.appendChild(headerTemplate());
   divFeed.appendChild(feedTemplate2);
+
+  buttonPublication.addEventListener('click', () => {
+    dataPublication(inputTitle.value, inputText.value);
+    reviewResultPublication();
+  });
+
   return divFeed;
 };
 /*
