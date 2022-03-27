@@ -44,6 +44,7 @@ export const Feed = () => {
   imgTrash.alt = 'logo para eliminar publicación';
 
   const buttonPublication = document.createElement('button');
+  buttonPublication.className = 'button-publication';
   buttonPublication.innerText = 'Publicar';
 
   // agregando contenedores pequeños a medianos
