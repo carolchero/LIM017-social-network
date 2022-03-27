@@ -470,6 +470,8 @@
 }
 .input-text-publication {
     height: 100px;
+    width: 90%;
+    margin: 2% 5%;
 }
 
 .logo-publication {
