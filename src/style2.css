@@ -8,6 +8,7 @@
     margin:5% 12%;
     border-radius: 15px;
     padding:1%;
+    width:90%
     
 }
 .direction {
@@ -32,5 +33,16 @@
 .love-logo {
     height: 14px;
     padding: 0%;
+}
+
+@media (min-width:600px){
+    .container-publication-final {
+        width: 60%;
+    }
+}
+@media (min-width:980px){
+    .container-publication-final {
+        width: 70%;
+    }
 }
 
