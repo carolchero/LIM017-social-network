@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 // eslint-disable-next-line import/no-unresolved
 import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
 
@@ -9,10 +10,10 @@ export async function dataUser(id, name, email, password, date, cellphone) {
     const docRef = await addDoc(collection(db, 'dataUsers'), {
       id, name, email, password, date, cellphone,
     });
-
+    // eslint-disable-next-line no-console
     console.log('id data user: ', docRef.id);
   } catch (e) {
-    console.error('Error adding document: ', e);
+    // console.error('Error adding document: ', e);
   }
 }
 
@@ -26,13 +27,14 @@ export async function reviewResult() {
 
 // para alamacenar datos de publicación
 export async function dataPublication(title, text) {
+  const uid = sessionStorage.getItem('uid');
   try {
     const docRef = await addDoc(collection(db, 'dataPublication'), {
-      title, text,
+      uid, title, text,
     });
-    console.log('id data user: ', docRef.id);
+    console.log('', docRef.id);
   } catch (e) {
-    console.error('Error adding document: ', e);
+    // console.error('Error adding document: ', e);
   }
 }
 // para verificar que se agregaron los datos

@@ -2,6 +2,7 @@
 import { onNavigate } from '../main.js';
 import { headerTemplate } from './Header.js';
 import { dataPublication, reviewResultPublication } from '../cloudFirebase.js';
+import { publications } from './Publication.js';
 
 export const Feed = () => {
   const divFeed = document.createElement('div');
@@ -67,6 +68,8 @@ export const Feed = () => {
   // divFeed.appendChild(feedTemplate);
   divFeed.appendChild(headerTemplate());
   divFeed.appendChild(feedTemplate2);
+  divFeed.appendChild(publications());
+  divFeed.appendChild(publications());
 
   buttonPublication.addEventListener('click', () => {
     dataPublication(inputTitle.value, inputText.value);
