@@ -15,6 +15,7 @@ export const publicationBeforeTemplate = () => {
   const figcaptionUser = document.createElement('figcaption');
   figcaptionUser.innerText = 'Username';
   // inputs de publicación
+  const formInputs = document.createElement('form');
   const inputTitle = document.createElement('input');
   inputTitle.placeholder = 'Titulo de publicación';
   const inputText = document.createElement('textarea');
@@ -40,19 +41,21 @@ export const publicationBeforeTemplate = () => {
   // agregando contenedores pequeños a medianos
   figureSection.appendChild(imgPhotoUser);
   figureSection.appendChild(figcaptionUser);
+  formInputs.appendChild(inputTitle);
+  formInputs.appendChild(inputText);
   containerLogosButton.appendChild(imgShareImage);
   containerLogosButton.appendChild(imgShareStickers);
   containerLogosButton.appendChild(imgTrash);
   containerLogosButton.appendChild(buttonPublication);
   // agregando contenedores pequeños a medianos
   sectionPublication.appendChild(figureSection);
-  sectionPublication.appendChild(inputTitle);
-  sectionPublication.appendChild(inputText);
+  sectionPublication.appendChild(formInputs);
   sectionPublication.appendChild(containerLogosButton);
   // evento para almacenar titulo y texto de publicación
   buttonPublication.addEventListener('click', () => {
     dataPublication(inputTitle.value, inputText.value);
     reviewResultPublication();
+    formInputs.reset();
   });
 
   return sectionPublication;

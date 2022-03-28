@@ -2,6 +2,7 @@
 import { onNavigate } from '../main.js';
 // eslint-disable-next-line import/no-cycle
 import { register } from '../auth.js';
+import { reviewResult } from '../cloudFirebase.js';
 
 export const Register = () => {
   const sectionRegister = document.createElement('section');
@@ -224,8 +225,9 @@ export const Register = () => {
     // eslint-disable-next-line max-len
     register(inputName.value, inputEmail.value, inputPassword.value, inputDateOfBirth.value, inputCellphone.value); // para agregar nuevo usuario
     reviewResult(); // leer datos que se agregan del nuevo usuario en la consola de firebase
-    console.log(reviewResult())
+    console.log(reviewResult());
     onNavigate('/');
+    // eslint-disable-next-line max-len
     const resp = await register(inputName.value, inputEmail.value, inputPassword.value, inputDateOfBirth.value, inputCellphone.value);
     if (resp === true) {
       divMessageAlert.style.display = 'flex';
