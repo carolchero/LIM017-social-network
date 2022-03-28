@@ -26,8 +26,8 @@ export function accesUser(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
-      const user = userCredential.user.uid;
-      console.log('id usuario: '+user);
+      const user = userCredential.user;
+      console.log(user);
       onNavigate('/feed');
     })
     .catch((error) => {

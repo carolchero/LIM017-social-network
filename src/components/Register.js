@@ -148,6 +148,7 @@ export const Register = () => {
     // eslint-disable-next-line max-len
     register(inputName.value, inputEmail.value, inputPassword.value, inputDateOfBirth.value, inputCellphone.value); // para agregar nuevo usuario
     reviewResult(); // leer datos que se agregan del nuevo usuario en la consola de firebase
+    console.log(reviewResult())
     onNavigate('/');
   });
   return sectionRegister;
