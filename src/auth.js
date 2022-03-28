@@ -38,13 +38,12 @@ export async function register(name, email, password, date, cellphone) {
 
 // funcion para acceso a usuarios existentes
 export function accesUser(email, password) {
-  console.log(document.cookie);
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user.uid;
-      console.log('id usuario: '+user);
+      sessionStorage.setItem('uid', user);
       onNavigate('/feed');
     })
     .catch((error) => {
