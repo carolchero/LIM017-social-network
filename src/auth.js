@@ -1,27 +1,44 @@
 // eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line object-curly-newline
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from './main.js';
 import { dataUser } from './cloudFirebase.js';
 
 // función para crear nuevos usuarios
-export function register(name, email, password, date, cellphone) {
+export async function register(name, email, password, date, cellphone) {
   const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email, password)
+  let result = '';
+  await createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const idUser = userCredential.user.uid;
-      console.log('id usuario: '+idUser);
+      result = true;
       dataUser(idUser, name, email, password, date, cellphone);
     })
     .catch((error) => {
       const errorCode = error.code;
-      const errorMessage = error.message;
+      switch (errorCode) {
+        case 'auth/weak-password':
+          result = 'Contraseña debil';
+          break;
+        case 'auth/email-already-in-use':
+          result = 'Correo ya está registrado';
+          break;
+        case 'auth/invalid-email':
+          result = 'Correo invalido';
+          break;
+        default:
+          result = 'Correo y/o contraseña invalido';
+          break;
+      }
     });
+  return result;
 }
 
 // funcion para acceso a usuarios existentes
 export function accesUser(email, password) {
+  console.log(document.cookie);
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {

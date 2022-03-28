@@ -99,6 +99,18 @@
   .ico-lock {
       content: url(img/password.png);
   }
+  .ico-correct {
+    content: url(img/correct.png);
+    margin-top: -15%;
+  }
+  .ico-incorrect {
+    content: url(img/incorrect.png);
+    margin-top: -15%;
+  }
+  .ico-danger {
+    content: url(img/alert.png);
+    margin-top: -15%;
+  }
   .control-label {
       top: -7px;
       font-size: 16px;
@@ -237,15 +249,18 @@
       position:relative;
   }
   .div-level-low{
-      height: 10px;
+      height: 6px !important;
+      padding: 0 !important;
       background:red;
   }
   .div-level-medium{
-    height: 10px;
+    height: 6px !important;
+      padding: 0 !important;
     background:linear-gradient(to right,red,yellow);
  }
  .div-level-higth{
-    height: 10px;
+    height: 6px !important;
+    padding: 0 !important;
     background:linear-gradient(to right,yellow,green);
  }       
   .img-create {
@@ -255,7 +270,7 @@
   }
   @media (max-width:366px){
       .input-password {
-          width: 90%;
+          width: 88%;
       }
   }
   @media (min-width:660px){
@@ -263,7 +278,7 @@
           width: 90%;
       }
       .input-password {
-          width: 96%;
+          width: 94%;
       }
       #pageCreateHeader{
         width: 65%; 
@@ -370,11 +385,48 @@
     margin: 10px;
 }
 
-#messageEmailHide {
+.message-hide{
     display: none;
     color: red;
-    margin-left: 23%;
+    margin-left: 70%;
+    font-size: 10px;
 }
+
+.message-alert{
+    background: rgba(0,0,0,.4);
+    display: none;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.message-alert-content{
+    position: absolute;
+    background: #fff;
+    width: 22rem;
+    height: 15rem;
+    border: none;
+    border-radius: 5px;
+    padding-top: 5rem;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0% 10%;
+}
+
+.button-alert-content{
+    padding: 2%;
+    margin-top: 4%;
+    border: 0;
+    border-radius: 0.25em;
+    font-size: 1rem;
+    background-color: #7066e0;
+    color: #fff;
+}
+
 
 /*header feed*/
 .container-feed {
@@ -607,9 +659,6 @@
     }
     .logo-publication {
         height: 20px;
-    }
-    .button-publication {
-
     }
 }
 @media (min-width:1600px){
