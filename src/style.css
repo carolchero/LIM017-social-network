@@ -385,6 +385,7 @@
     position: absolute;
     font-family: Verdana;
     font-size: small;
+
 }
 .container-search-photo-nav {
     background-color: white;
@@ -425,31 +426,36 @@
 }
 .nav-lines {
     font-size: 35px;
-
 }
 .container-options-nav {
     position:absolute;
-    padding-left: 0;
-    display: none;
-}
-.container-options-nav li :hover {
-    background-color: white;
-}
-.container-options-nav  {
-    left: 35%;
-    padding-top:4%;
     line-height: 3em;
     background-color: white;
-    width:100vw;
+    width:50%;
+    height: 40%;
+    margin: 430px 0% auto 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.ul-nav {
+    font-size: smaller;
     list-style: none;
+}
+.ul-nav li  :hover {
+    border-radius: 10x;
+    background-color:#999999;
+    font-size: medium;
 }
 .container-options-nav li a {
     text-decoration: none;
-
+    color:#333;
+    padding: 0%;
+    margin: 0%;
+   
 }
-.container-options-nav li  {
-    padding-left: 25%;
-}   
+  
 /*style de publicación del usuario*/
 .container-publication {
     display: flex;
@@ -518,20 +524,21 @@
         font-size: large;
     }
     .logo-wall {
-        height: 50px;
+        height: 45px;
     }
     .logo-computer{
         height: 50px;
     }
     .nav-lines {
-        font-size: 50px;
+        font-size: 45px;
     }
     .container-feed{
         font-size: large;
     }
     .container-options-nav  {
-        padding:4% 4%;
-        width:43%;
+        width:40%;
+        margin: 450px 0% auto 56%;
+        
     }
     .container-publication-section {
         width:60%;
@@ -557,6 +564,10 @@
     .container-publication {
         width: 70%;
     }
+    .container-options-nav  {
+        width:40%;
+        margin: 460px 0% auto 56%;  
+    }
     .container-publication-section {
         width:60%;
     }
@@ -576,13 +587,19 @@
         padding-right: 3%;
         padding-left: 3%;
     }
+    .container-options-nav  {
+        width:23%;
+        margin:540px 0% auto 10%;
+        height: 50%;
+        font-size:larger;
+    }
     .container-publication {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
         margin:7% 25%;
-        position:absolute;
+        
         width:50%;
     }
     .container-publication-section { 
@@ -605,5 +622,9 @@
         margin-right: 2%;
         padding-right: 3%;
         padding-left: 3%;
+    }
+    .container-options-nav  {
+        width:20%;
+        margin:540px 0% auto 3%;
     }
 }

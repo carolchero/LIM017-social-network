@@ -40,6 +40,8 @@ export const headerTemplate = () => {
   // CONTENEDOR NAV
   const containerNav = document.createElement('nav');
   containerNav.className = 'container-search-photo-nav width-content';
+  const aWall = document.createElement('a');
+  aWall.href = '/feed';
   const imgWall = document.createElement('img');
   imgWall.className = 'logo-wall';
   imgWall.src = 'img/web-content.png';
@@ -50,30 +52,39 @@ export const headerTemplate = () => {
   imgComputer.src = 'img/logo5.png';
   imgComputer.alt = 'una computadora(logo de aplicación)';
   // navegador oculto
-  const containerNavHide = document.createElement('div');
   const lines = document.createElement('label');
   lines.className = 'nav-lines';
   lines.innerHTML = '&#8801';
+  const containerNavHide = document.createElement('div');
+  containerNavHide.className = 'container-options-nav';
+  containerNavHide.id = 'optionsNav';
+  containerNavHide.style.display = 'none';
+
   const ulNavHide = document.createElement('ul');
-  ulNavHide.className = 'container-options-nav';
+  ulNavHide.className = 'ul-nav';
 
   const liConfig = document.createElement('li');
   const aConfig = document.createElement('a');
   aConfig.href = '#';
+  aConfig.innerText = 'Configurar cuenta';
 
   const liDelete = document.createElement('li');
   const aDelete = document.createElement('a');
   aDelete.href = '#';
+  aDelete.innerText = 'Eliminar cuenta';
 
   const liPrivate = document.createElement('li');
   const aPrivate = document.createElement('a');
   aPrivate.href = '#';
+  aPrivate.innerText = 'Privacidad';
 
   const liClose = document.createElement('li');
   const aClose = document.createElement('a');
   aClose.href = '#';
+  aClose.innerText = 'Cerrar cuenta';
 
   // agregando elementos pequeños a contenedores
+  aWall.appendChild(imgWall);
   liConfig.appendChild(aConfig);
   liDelete.appendChild(aDelete);
   liPrivate.appendChild(aPrivate);
@@ -84,16 +95,32 @@ export const headerTemplate = () => {
   ulNavHide.appendChild(liPrivate);
   ulNavHide.appendChild(liClose);
 
-  containerNavHide.appendChild(lines);
   containerNavHide.appendChild(ulNavHide);
   // agregando contenido al nav
-  containerNav.appendChild(imgWall);
+  containerNav.appendChild(aWall);
   containerNav.appendChild(imgComputer);
+  containerNav.appendChild(lines);
   containerNav.appendChild(containerNavHide);
 
   // agregando al header
   headerdiv.appendChild(divContainerSearchPhoto);
   headerdiv.appendChild(containerNav);
+
+  // evento para aparecer el nav
+  const open = 'block';
+  const close = 'none';
+  lines.addEventListener('click', () => {
+    console.log(containerNavHide.style.display);
+    // eslint-disable-next-line no-cond-assign
+    if (containerNavHide.style.display = close) {
+      // eslint-disable-next-line no-unused-expressions
+      containerNavHide.style.display = open;
+    } else {
+      // eslint-disable-next-line no-unused-expressions
+      containerNavHide.style.display = close;
+    }
+  });
+
   return headerdiv;
 };
 
