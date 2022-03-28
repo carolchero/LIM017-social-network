@@ -27,13 +27,14 @@ export async function reviewResult() {
 
 // para alamacenar datos de publicación
 export async function dataPublication(title, text) {
+  const uid = sessionStorage.getItem('uid');
   try {
     const docRef = await addDoc(collection(db, 'dataPublication'), {
-      title, text,
+      uid, title, text,
     });
-    console.log('id data user: ', docRef.id);
+    console.log('', docRef.id);
   } catch (e) {
-    console.error('Error adding document: ', e);
+    // console.error('Error adding document: ', e);
   }
 }
 // para verificar que se agregaron los datos
