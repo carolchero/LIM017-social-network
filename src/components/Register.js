@@ -232,7 +232,6 @@ export const Register = () => {
   }
 
   buttonRegister.addEventListener('click', () => {
-    document.cookie = 'id=prueba3';
     // para agregar nuevo usuario
     if (inputName.value.length === 0) {
       textMessageIncorrect.innerText = 'Nombre invalido';
