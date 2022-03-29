@@ -48,5 +48,6 @@ export async function reviewResultPublication() {
 }
 export const dataPublication = (title, text) => addDoc(collection(db, 'dataPublication'), { title, text });
 export const getPublication = () => getDocs(collection(db, 'dataPublication'));
+export const onGetPublication = (callback) => onSnapshot(collection(db, 'dataPublication'), callback);
 
 // para que se agregue la nueva publicación a la data agregada sin recargar
