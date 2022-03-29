@@ -54,22 +54,23 @@ export const Profile = () => {
   /*profileContainer.appendChild( );*/ // aqui iria el contenedor que tenga la foto del usuario en grande y su portada
   profileContainer.appendChild(mainTemplate);
 
-  escuchandoObservador();
+  escuchandoEventoSesion();
   return profileContainer;
 };
 
-function escuchandoObservador() { //ver autentificacion
+function escuchandoEventoSesion() { //ver autentificacion si la cuenta esta activa o inactiva
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
-    if (user) {
+    if (user==null) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
+       onNavigate('/register');
       // ...
       obtenerUsuarioId(uid);
       console.log(uid);
     } else {
-      // onNavigate('/register');
+     onNavigate('/');
     }
   });
 }
