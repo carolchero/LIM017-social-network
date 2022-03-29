@@ -1,6 +1,6 @@
 /* eslint-disable object-curly-newline */
 // eslint-disable-next-line import/no-unresolved
-import { getFirestore, collection, addDoc, getDocs, onSnapshot } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
+import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
 
 export const db = getFirestore();
 
@@ -19,8 +19,8 @@ export async function dataUser(id, name, email, password, date, cellphone) {
 // para verificar que se agregaron los datos
 export async function reviewResult() {
   const querySnapshot = await getDocs(collection(db, 'dataUsers')); // querySnapshot son los datos que existen hasta ese momento
-  querySnapshot.forEach((doc) => { // recorre datos internos
-    console.log(doc.data()); // trae los objetos
+  querySnapshot.forEach((doc1) => { // recorre datos internos
+    console.log(doc1.data()); // trae los objetos
   });
 }
 
@@ -49,5 +49,5 @@ export async function reviewResultPublication() {
 export const dataPublication = (title, text) => addDoc(collection(db, 'dataPublication'), { title, text });
 export const getPublication = () => getDocs(collection(db, 'dataPublication'));
 export const onGetPublication = (callback) => onSnapshot(collection(db, 'dataPublication'), callback);
-
-// para que se agregue la nueva publicación a la data agregada sin recargar
+export const deletePublication = (id) => deleteDoc(doc(db, 'dataPublication', id));
+export const getOnlyPublication = (id) => getDoc(doc(db, 'dataPublication', id));
