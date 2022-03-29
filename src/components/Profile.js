@@ -6,6 +6,7 @@ import {
 import { headerTemplate } from './Header.js';
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import { publications } from './Publication.js';
+import { onNavigate } from '../main.js';
 
 export const db = getFirestore();
 export const Profile = () => {
@@ -18,15 +19,46 @@ export const Profile = () => {
   mainTemplate.appendChild(publicationBeforeTemplate());
   mainTemplate.appendChild(publications());
 
+  // foto de portada y foto del usuario en grande
+  const nameUsuario = document.createElement('div');
+  nameUsuario.className = 'name-usuario';
+  const labelNameUsuario = document.createElement('label');
+  labelNameUsuario.className = 'name-label';
+  labelNameUsuario.id = 'nameLabel';
+
+  const coverPageProfilePhotoContainer = document.createElement('div');
+  coverPageProfilePhotoContainer.className = 'container-coverPage-profilePhoto';
+  const divProfilePhoto = document.createElement('div');
+  divProfilePhoto.className = 'photo-profile';
+  const profilePhoto = document.createElement('img');
+  profilePhoto.className = 'search-logo';
+  profilePhoto.id = 'imagenUsuario'
+  profilePhoto.src = 'img/un-usuario.jpg';
+
+  const divProfileCoverPage = document.createElement('div');
+  divProfileCoverPage.className = 'cover-page-profile';
+  const coverPagePhoto = document.createElement('img');
+  coverPagePhoto.className = 'search-logo';
+  coverPagePhoto.src = 'img/search-logo.png';
+
+
+
   profileContainer.appendChild(headerTemplate());
+  profileContainer.appendChild(nameUsuario);
+  nameUsuario.appendChild(labelNameUsuario);
+  profileContainer.appendChild(coverPageProfilePhotoContainer);
+  coverPageProfilePhotoContainer.appendChild(divProfilePhoto);
+  divProfilePhoto.appendChild(profilePhoto);
+  coverPageProfilePhotoContainer.appendChild(divProfileCoverPage);
+  divProfileCoverPage.appendChild(coverPagePhoto);
   /*profileContainer.appendChild( );*/ // aqui iria el contenedor que tenga la foto del usuario en grande y su portada
   profileContainer.appendChild(mainTemplate);
 
-  escuchandoFondo();
+  escuchandoObservador();
   return profileContainer;
 };
 
-function escuchandoFondo() {
+function escuchandoObservador() { //ver autentificacion
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -37,8 +69,7 @@ function escuchandoFondo() {
       obtenerUsuarioId(uid);
       console.log(uid);
     } else {
-      // User is signed out
-      // ...
+      // onNavigate('/register');
     }
   });
 }
