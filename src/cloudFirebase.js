@@ -16,12 +16,11 @@ export async function dataUser(id, name, email, password, date, cellphone) {
     // console.error('Error adding document: ', e);
   }
 }
-
 // para verificar que se agregaron los datos
 export async function reviewResult() {
-  const querySnapshot = await getDocs(collection(db, 'dataUsers'));
-  querySnapshot.forEach((doc) => {
-    console.log(doc.data());
+  const querySnapshot = await getDocs(collection(db, 'dataUsers')); // querySnapshot son los datos que existen hasta ese momento
+  querySnapshot.forEach((doc) => { // recorre datos internos
+    console.log(doc.data()); // trae los objetos
   });
 }
 
@@ -32,7 +31,7 @@ export async function dataPublication(title, text) {
     const docRef = await addDoc(collection(db, 'dataPublication'), {
       uid, title, text,
     });
-    console.log('', docRef.id);
+    console.log('id de la publicación', docRef.id);
   } catch (e) {
     // console.error('Error adding document: ', e);
   }
