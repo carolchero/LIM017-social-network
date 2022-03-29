@@ -76,19 +76,21 @@ export const Profile = () => {
   return profileContainer;
 };
 
-function escuchandoEventoSesion() { //ver autentificacion si la cuenta esta activa o inactiva
+function escuchandoEventoSesion() { //ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user==null) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-       onNavigate('/register');
+
+       onNavigate('/');
       // ...
+
+    } else {
+      const uid = user.uid;
       obtenerUsuarioId(uid);
       console.log(uid);
-    } else {
-     onNavigate('/');
+     onNavigate('/feed');
     }
   });
 }
