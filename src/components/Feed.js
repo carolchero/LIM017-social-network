@@ -49,6 +49,7 @@ export const Feed = () => {
         const pub = doc.data();
       });
     });
+    mainTemplate.innerHTML = html;
   });
 
   divFeed.appendChild(headerTemplate());
