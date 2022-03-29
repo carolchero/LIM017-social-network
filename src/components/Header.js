@@ -1,4 +1,5 @@
-import { getUser } from "../cloudFirebase.js";
+// eslint-disable-next-line import/no-cycle
+import { cerrarSesion } from '../auth.js';
 
 export const headerTemplate = () => {
   const headerdiv = document.createElement('header');
@@ -83,6 +84,9 @@ export const headerTemplate = () => {
   const aClose = document.createElement('a');
   aClose.href = '#';
   aClose.innerText = 'Cerrar cuenta';
+  aClose.addEventListener('click', () => {
+    cerrarSesion();
+  });
 
   // agregando elementos pequeños a contenedores
   aWall.appendChild(imgWall);
@@ -124,8 +128,6 @@ export const headerTemplate = () => {
 
   return headerdiv;
 };
-
-
 
 /* export const feedTemplate = `<!-- para el buscador-->
 <header>

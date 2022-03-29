@@ -8,6 +8,7 @@ import { headerTemplate } from './Header.js';
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import { publications } from './Publication.js';
 import { onGetPublicationUser } from '../cloudFirebase.js';
+import { onNavigate } from '../main.js';
 
 export const db = getFirestore();
 export const Profile = () => {
@@ -45,15 +46,37 @@ export const Profile = () => {
     mainTemplate.innerHTML = html;
   });
 
+  // foto de portada y foto del usuario en grande
+  const nameUsuario = document.createElement('div');
+  nameUsuario.className = 'name-usuario';
+  const labelNameUsuario = document.createElement('label');
+  labelNameUsuario.className = 'name-label';
+  labelNameUsuario.id = 'nameLabel';
+
+  const coverPageProfilePhotoContainer = document.createElement('div');
+  coverPageProfilePhotoContainer.className = 'container-coverPage-profilePhoto';
+  const divProfilePhoto = document.createElement('div');
+  divProfilePhoto.className = 'photo-profile';
+  const profilePhoto = document.createElement('img');
+  profilePhoto.className = 'search-logo';
+  profilePhoto.id = 'imagenUsuario'
+  profilePhoto.src = 'img/un-usuario.jpg';
+
+  const divProfileCoverPage = document.createElement('div');
+  divProfileCoverPage.className = 'cover-page-profile';
+  const coverPagePhoto = document.createElement('img');
+  coverPagePhoto.className = 'search-logo';
+  coverPagePhoto.src = 'img/search-logo.png';
+
   profileContainer.appendChild(headerTemplate());
   profileContainer.appendChild(publicationBeforeTemplate());
   profileContainer.appendChild(mainTemplate);
 
-  // escuchandoFondo();
+  escuchandoObservador();
   return profileContainer;
 };
 
-/*function escuchandoFondo() {
+function escuchandoObservador() { //ver autentificacion
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -64,8 +87,7 @@ export const Profile = () => {
       obtenerUsuarioId(uid);
       console.log(uid);
     } else {
-      // User is signed out
-      // ...
+      // onNavigate('/register');
     }
   });
 }
@@ -78,4 +100,4 @@ async function obtenerUsuarioId(id) {
     // doc.data() is never undefined for query doc snapshots
     console.log(doc.id, ' => ', doc.data());
   });
-}*/
+}

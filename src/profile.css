@@ -1,0 +1,91 @@
+/*style de la publicación presentada en el muro---en proceso de creación*/
+.container-coverPage-profilePhoto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: red;
+    margin:5% 12%;
+    border-radius: 15px;
+    padding:1%;
+}
+
+.photo-profile {
+    flex-direction: column;
+    font-size: 10px;
+    margin:5% 12%;
+    border-radius: 15px;
+    padding:1%;
+    width:90%;
+    background-color: white;
+}
+
+.cover-page-profile {
+    flex-direction: column;
+    font-size: 10px;
+    margin:5% 12%;
+    border-radius: 15px;
+    padding:1%;
+    width:90%;
+    background-color: white;
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    line-height: 1.42857143;
+    color: #333;
+}
+
+
+/*style responsivo del perfil*/
+@media (min-width:600px){
+
+    .photo-profile {
+        width:60%;
+    }
+
+    .cover-page-profile{
+        width: 60%;
+    }
+}
+@media (min-width:980px){
+
+    .container-coverPage-profilePhoto {
+        width: 70%;
+    }
+
+    .photo-profile {
+        width:60%;
+    }
+    .cover-page-profile {
+        width:60%;
+    }
+}
+@media (min-width:1200px) {
+
+    .container-coverPage-profilePhoto {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        margin: 7% 25%;
+        width: 50%;
+    }
+
+    .photo-profile {
+        width:70%;
+    }
+    .cover-page-profile{
+        width: 70%;
+    }
+
+}
+@media (min-width:1600px) {
+
+
+}
