@@ -1,6 +1,7 @@
+import { getUser } from "../cloudFirebase.js";
+
 export const headerTemplate = () => {
   const headerdiv = document.createElement('header');
-
   // CONTENEDOR DIV( FOTO,NAME,SEARCH)
   const divContainerSearchPhoto = document.createElement('div');
   divContainerSearchPhoto.className = 'container-search-photo-nav';
@@ -13,7 +14,7 @@ export const headerTemplate = () => {
   imgUser.src = 'img/profile-user.png';
   imgUser.alt = 'foto de perfil';
   const figcaptionName = document.createElement('figcaption');
-  figcaptionName.innerText = 'Username';
+  figcaptionName.innerText = 'user.name';
   // contenedor del buscador
   const containerSearch = document.createElement('div');
   containerSearch.className = 'container-search';
@@ -123,6 +124,8 @@ export const headerTemplate = () => {
 
   return headerdiv;
 };
+
+
 
 /* export const feedTemplate = `<!-- para el buscador-->
 <header>

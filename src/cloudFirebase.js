@@ -1,20 +1,24 @@
 /* eslint-disable object-curly-newline */
 // eslint-disable-next-line import/no-unresolved
-import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
+import { getFirestore, collection, addDoc, getDocs, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
 
 export const db = getFirestore();
 
 // para almacenar datos del usuario
 export async function dataUser(id, name, email, password, date, cellphone) {
   try {
-    const docRef = await addDoc(collection(db, 'dataUsers'), {
-      id, name, email, password, date, cellphone,
+    const docRef = await setDoc(doc(db, 'dataUser', id), {
+      name, email, password, date, cellphone,
     });
     // eslint-disable-next-line no-console
     console.log('id data user: ', docRef.id);
   } catch (e) {
     // console.error('Error adding document: ', e);
   }
+}
+// obtener informacion del usuario despues del login
+export function getUser(id) {
+  return getDoc(doc(db, 'dataUser', id));
 }
 // para verificar que se agregaron los datos
 export async function reviewResult() {
