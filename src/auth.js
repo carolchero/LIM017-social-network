@@ -6,7 +6,7 @@ import { onNavigate } from './main.js';
 import { dataUser } from './cloudFirebase.js';
 
 // función para crear nuevos usuarios
-export async function register(name, email, password, date, cellphone) {
+export async function register(name, email, password, date, cellphone,photo) {
   const auth = getAuth();
   let result = '';
   await createUserWithEmailAndPassword(auth, email, password)
@@ -14,7 +14,7 @@ export async function register(name, email, password, date, cellphone) {
       // Signed in
       const idUser = userCredential.user.uid;
       result = true;
-      dataUser(idUser, name, email, password, date, cellphone);
+      dataUser(idUser, name, email, password, date, cellphone,photo);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -42,9 +42,24 @@ export function accesUser(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
-      const user = userCredential.user.uid;
-      sessionStorage.setItem('uid', user);
+      const usario = userCredential.user.uid;
+      console.log(userCredential);
+      console.log(usario);
+
+
+
       onNavigate('/feed');
+
+      // //img
+      if (userCredential.user.photoURL=!null){
+        document.getElementById('imagenUsuario').src = userCredential.user.photoURL
+      }
+      else{
+        document.getElementById('imagenUsuario').src = "img/un-usuario.jpg"
+      }
+      console.log(userCredential.user.photoURL);
+      sessionStorage.setItem('uid', usario);
+
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -116,3 +131,28 @@ sendPasswordResetEmail(auth, email)
     const errorMessage = error.message;
     // ..
   }); */
+
+//cerrar sesion
+
+
+// export function cerrarSesion() {
+//   const auth = getAuth();
+//   signInWithPopup(auth, provider2)
+//     .then((result) => {
+//       // The signed-in user info.
+//       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+//       const credential = FacebookAuthProvider.credentialFromResult(result);
+//       const accessToken = credential.accessToken;
+//       const user = result.user;
+//       onNavigate('/feed');
+//     })
+//     .catch((error) => {
+//       // Handle Errors here.
+//       const errorCode = error.code;
+//       const errorMessage = error.message;
+//       // The email of the user's account used.
+//       const email = error.email;
+//       // The AuthCredential type that was used.
+//       const credential = FacebookAuthProvider.credentialFromError(error);
+//     });
+// }
