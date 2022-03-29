@@ -6,6 +6,7 @@ import {
 import { headerTemplate } from './Header.js';
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import { publications } from './Publication.js';
+import { onNavigate } from '../main.js';
 
 export const db = getFirestore();
 export const Profile = () => {
@@ -57,7 +58,7 @@ export const Profile = () => {
   return profileContainer;
 };
 
-function escuchandoObservador() {
+function escuchandoObservador() { //ver autentificacion
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -68,8 +69,7 @@ function escuchandoObservador() {
       obtenerUsuarioId(uid);
       console.log(uid);
     } else {
-      // User is signed out
-      // ...
+      // onNavigate('/register');
     }
   });
 }

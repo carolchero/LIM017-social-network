@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
 // eslint-disable-next-line object-curly-newline
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut} from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from './main.js';
 import { dataUser } from './cloudFirebase.js';
@@ -133,26 +133,23 @@ sendPasswordResetEmail(auth, email)
   }); */
 
 //cerrar sesion
+// import { getAuth, signout } from "firebase/auth";
 
 
-// export function cerrarSesion() {
-//   const auth = getAuth();
-//   signInWithPopup(auth, provider2)
-//     .then((result) => {
-//       // The signed-in user info.
-//       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-//       const credential = FacebookAuthProvider.credentialFromResult(result);
-//       const accessToken = credential.accessToken;
-//       const user = result.user;
-//       onNavigate('/feed');
-//     })
-//     .catch((error) => {
-//       // Handle Errors here.
-//       const errorCode = error.code;
-//       const errorMessage = error.message;
-//       // The email of the user's account used.
-//       const email = error.email;
-//       // The AuthCredential type that was used.
-//       const credential = FacebookAuthProvider.credentialFromError(error);
-//     });
-// }
+export function cerrarSesion (){
+  const auth = getAuth();
+  signOut(auth)
+    .then((userCredencial) => {
+      // Password reset email sent!
+      onNavigate('/')
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      console.log(error.message);
+      document.getElementById('messageHide').style.display = 'block';
+    });
+}
+
+
