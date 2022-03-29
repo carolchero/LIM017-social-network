@@ -18,7 +18,29 @@ export const Profile = () => {
   mainTemplate.appendChild(publicationBeforeTemplate());
   mainTemplate.appendChild(publications());
 
+  // foto de portada y foto del usuario en grande
+  const coverPageProfilePhotoContainer = document.createElement('div');
+  coverPageProfilePhotoContainer.className = 'container-coverPage-profilePhoto';
+  const divProfilePhoto = document.createElement('div');
+  divProfilePhoto.className = 'photo-profile';
+  const profilePhoto = document.createElement('img');
+  profilePhoto.className = 'search-logo';
+  profilePhoto.src = 'img/search-logo.png';
+
+  const divProfileCoverPage = document.createElement('div');
+  divProfileCoverPage.className = 'cover-page-profile';
+  const coverPagePhoto = document.createElement('img');
+  coverPagePhoto.className = 'search-logo';
+  coverPagePhoto.src = 'img/search-logo.png';
+
+
+
   profileContainer.appendChild(headerTemplate());
+  profileContainer.appendChild(coverPageProfilePhotoContainer);
+  coverPageProfilePhotoContainer.appendChild(divProfilePhoto);
+  divProfilePhoto.appendChild(profilePhoto);
+  coverPageProfilePhotoContainer.appendChild(divProfileCoverPage);
+  divProfileCoverPage.appendChild(coverPagePhoto);
   /*profileContainer.appendChild( );*/ // aqui iria el contenedor que tenga la foto del usuario en grande y su portada
   profileContainer.appendChild(mainTemplate);
 
