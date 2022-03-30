@@ -10,8 +10,8 @@ export const Register = () => {
   const divHeader = document.createElement('div');
   divHeader.id = 'pageCreateHeader';
   const imgLogo = document.createElement('img');
-  imgLogo.className = 'img-create';
-  imgLogo.src = 'img/logo5.png';
+  imgLogo.className = 'img-login';
+  imgLogo.src = 'img/logo4.png';
 
   const divContent = document.createElement('div');
   divContent.id = 'pageCreateContent';
