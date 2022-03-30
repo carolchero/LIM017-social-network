@@ -8,6 +8,7 @@ export const headerTemplate = () => {
   divContainerSearchPhoto.className = 'container-search-photo-nav';
   // contenedor de foto y nombre
   const figureNamePhoto = document.createElement('figure');
+  figureNamePhoto.className = 'photo-user-container';
   const aPhoto = document.createElement('a');
   aPhoto.href = '/profile';
   const imgUser = document.createElement('img');
@@ -35,9 +36,6 @@ export const headerTemplate = () => {
 
   containerSearch.appendChild(inputSearch);
   containerSearch.appendChild(imgSearch);
-  // agregando a contenedor mediano
-  divContainerSearchPhoto.appendChild(figureNamePhoto);
-  divContainerSearchPhoto.appendChild(containerSearch);
 
   // CONTENEDOR NAV
   const containerNav = document.createElement('nav');
@@ -88,6 +86,9 @@ export const headerTemplate = () => {
     cerrarSesion();
   });
 
+  // agregando a contenedor mediano
+  divContainerSearchPhoto.appendChild(imgComputer);
+  divContainerSearchPhoto.appendChild(containerSearch);
   // agregando elementos pequeños a contenedores
   aWall.appendChild(imgWall);
   liConfig.appendChild(aConfig);
@@ -103,11 +104,12 @@ export const headerTemplate = () => {
   containerNavHide.appendChild(ulNavHide);
   // agregando contenido al nav
   containerNav.appendChild(aWall);
-  containerNav.appendChild(imgComputer);
+  containerNav.appendChild(figureNamePhoto);
   containerNav.appendChild(lines);
   containerNav.appendChild(containerNavHide);
 
   // agregando al header
+  // headerdiv.appendChild(divContainerSearchPhoto);
   headerdiv.appendChild(divContainerSearchPhoto);
   headerdiv.appendChild(containerNav);
 
