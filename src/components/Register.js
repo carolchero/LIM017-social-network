@@ -69,18 +69,6 @@ export const Register = () => {
     } else { icoEyeConfirm.className = 'ico-eye-hide'; inputConfirmPassword.type = 'password'; }
   });
 
-  const labelDateOfBirth = document.createElement('label');
-  labelDateOfBirth.className = 'label-form';
-  labelDateOfBirth.innerText = 'Fecha de nacimiento';
-  const inputDateOfBirth = document.createElement('input');
-  inputDateOfBirth.type = 'date';
-  inputDateOfBirth.className = 'input-form';
-
-  const labelCellphone = document.createElement('label');
-  labelCellphone.className = 'label-form';
-  labelCellphone.innerText = 'Celular';
-  const inputCellphone = document.createElement('input');
-  inputCellphone.className = 'input-form';
   // boton se registrar
   const divButtons = document.createElement('div');
   divButtons.className = 'text-center';
@@ -107,13 +95,13 @@ export const Register = () => {
   divPasswordConfirmHide.className = 'message-hide';
   divPasswordConfirmHide.innerText = 'Confirmar contraseña es incorrecta';
 
-  const divDateHide = document.createElement('div');
+  /* const divDateHide = document.createElement('div');
   divDateHide.className = 'message-hide';
-  divDateHide.innerText = 'Fecha de nacimiento invalido';
+  divDateHide.innerText = 'Fecha de nacimiento invalido'; */
 
-  const divPhoneHide = document.createElement('div');
+  /* const divPhoneHide = document.createElement('div');
   divPhoneHide.className = 'message-hide';
-  divPhoneHide.innerText = 'Número de celular invalido';
+  divPhoneHide.innerText = 'Número de celular invalido'; ELIMINAR*/
 
   const divMessageAlert = document.createElement('div');
   divMessageAlert.className = 'message-alert';
@@ -193,11 +181,6 @@ export const Register = () => {
   divContent.appendChild(divConfirmPassword);
   divContent.appendChild(divPasswordConfirmHide);
 
-  divContent.appendChild(labelDateOfBirth);
-  divContent.appendChild(inputDateOfBirth);
-  divContent.appendChild(labelCellphone);
-  divContent.appendChild(inputCellphone);
-
   divButtons.appendChild(buttonRegister);
   divButtons.appendChild(buttonReturn);
   divContent.appendChild(divButtons);
@@ -224,7 +207,7 @@ export const Register = () => {
 
   async function resultRegister() {
     // eslint-disable-next-line max-len
-    const resp = await register(inputName.value, inputEmail.value, inputPassword.value, inputDateOfBirth.value, inputCellphone.value);
+    const resp = await register(inputName.value, inputEmail.value, inputPassword.value);
     if (resp === true) {
       divMessageAlert.style.display = 'flex';
     } else {

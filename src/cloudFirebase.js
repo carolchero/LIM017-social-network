@@ -8,7 +8,7 @@ const uid = sessionStorage.getItem('uid');
 // para almacenar datos del usuario
 export async function dataUser(id, name, email, password, date, cellphone) {
   try {
-    const docRef = await setDoc(doc(db, 'dataUser', id), {
+    const docRef = await setDoc(doc(db, 'dataUsers', id), {
       name, email, password, date, cellphone,
     });
     // eslint-disable-next-line no-console
@@ -20,7 +20,7 @@ export async function dataUser(id, name, email, password, date, cellphone) {
 
 // obtener informacion del usuario despues del login
 export function getUser(id) {
-  return getDoc(doc(db, 'dataUser', id));
+  return getDoc(doc(db, 'dataUsers', id));
 }
 
 // para verificar que se agregaron los datos
