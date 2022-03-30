@@ -91,6 +91,7 @@ export const Register = () => {
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-form';
   buttonReturn.innerText = 'Iniciar sesión';
+  buttonReturn.id = 'iniciarSesion';
   buttonReturn.addEventListener('click', () => onNavigate('/'));
 
   // creando div oculto

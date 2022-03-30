@@ -7,7 +7,7 @@ import {
 import { headerTemplate } from './Header.js';
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import { publications } from './Publication.js';
-import { onGetPublicationUser } from '../cloudFirebase.js';
+import { dataUser,onGetPublicationUser } from '../cloudFirebase.js';
 import { onNavigate } from '../main.js';
 
 export const db = getFirestore();
@@ -55,39 +55,51 @@ export const Profile = () => {
 
   const coverPageProfilePhotoContainer = document.createElement('div');
   coverPageProfilePhotoContainer.className = 'container-coverPage-profilePhoto';
+  coverPageProfilePhotoContainer.id = 'coverProfileContainer';
   const divProfilePhoto = document.createElement('div');
   divProfilePhoto.className = 'photo-profile';
-  const profilePhoto = document.createElement('img');
-  profilePhoto.className = 'search-logo';
-  profilePhoto.id = 'imagenUsuario'
-  profilePhoto.src = 'img/un-usuario.jpg';
 
-  const divProfileCoverPage = document.createElement('div');
-  divProfileCoverPage.className = 'cover-page-profile';
+
+
   const coverPagePhoto = document.createElement('img');
   coverPagePhoto.className = 'search-logo';
   coverPagePhoto.src = 'img/search-logo.png';
 
-  profileContainer.appendChild(headerTemplate());
-  profileContainer.appendChild(publicationBeforeTemplate());
-  profileContainer.appendChild(mainTemplate);
 
-  escuchandoObservador();
+  profileContainer.appendChild(headerTemplate());
+
+
+  profileContainer.appendChild(coverPageProfilePhotoContainer);
+
+  coverPageProfilePhotoContainer.appendChild(divProfilePhoto);
+  coverPageProfilePhotoContainer.appendChild(nameUsuario);
+  nameUsuario.appendChild(labelNameUsuario);
+
+  profileContainer.appendChild(publicationBeforeTemplate());
+
+  profileContainer.appendChild(mainTemplate);
+  // profileContainer.appendChild(nameUsuario);
+  // nameUsuario.appendChild(labelNameUsuario);
+
+  escuchandoEventoSesion();
   return profileContainer;
 };
 
-function escuchandoObservador() { //ver autentificacion
+function escuchandoEventoSesion() { //ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
-    if (user) {
+    if (user==null) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
+
+       onNavigate('/');
       // ...
+
+    } else {
+      const uid = user.uid;
       obtenerUsuarioId(uid);
       console.log(uid);
-    } else {
-      // onNavigate('/register');
+
     }
   });
 }
@@ -95,9 +107,33 @@ function escuchandoObservador() { //ver autentificacion
 async function obtenerUsuarioId(id) {
   const q = query(collection(db, 'dataUsers'), where('id', '==', id));
 
+
   const querySnapshot = await getDocs(q);
+
+  let user = null;
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, ' => ', doc.data());
+
+    user = doc.data();
+
   });
+
+  console.log(user);
+
+
+  let usuarioName = user.name;
+  if (usuarioName != null){
+    document.getElementById('nameLabel').innerHTML = "BIENVENIDO " + usuarioName;
+  }
+  else{
+    document.getElementsById('nameLabel').innerHTML = "BIENVENIDO " + user.email;
+  }
+
+  if(user.coverImage != null){
+    document.getElementById('coverProfileContainer').style.backgroundImage = `url(${user.coverImage})`
+  }
+
+
+  console.log(user.email);
+  console.log(usuarioName);
 }
