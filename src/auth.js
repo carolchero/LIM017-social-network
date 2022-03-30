@@ -42,9 +42,9 @@ export function accesUser(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
-      const usario = userCredential.user.uid;
-      console.log(userCredential);
-      console.log(usario);
+      const usuario = userCredential.user.uid;
+      sessionStorage.setItem('uid', usuario);
+      console.log('user:'+usuario);
 
 
 
@@ -58,7 +58,6 @@ export function accesUser(email, password) {
         document.getElementById('imagenUsuario').src = "img/un-usuario.jpg"
       }
       console.log(userCredential.user.photoURL);
-      sessionStorage.setItem('uid', usario);
 
     })
     .catch((error) => {
