@@ -1,12 +1,12 @@
 // eslint-disable-next-line import/no-unresolved
 // eslint-disable-next-line object-curly-newline
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut} from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from './main.js';
 import { dataUser } from './cloudFirebase.js';
 
 // función para crear nuevos usuarios
-export async function register(name, email, password, date, cellphone) {
+export async function register(name, email, password, date, cellphone,photo) {
   const auth = getAuth();
   let result = '';
   await createUserWithEmailAndPassword(auth, email, password)
@@ -14,7 +14,7 @@ export async function register(name, email, password, date, cellphone) {
       // Signed in
       const idUser = userCredential.user.uid;
       result = true;
-      dataUser(idUser, name, email, password, date, cellphone);
+      dataUser(idUser, name, email, password, date, cellphone,photo);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -42,9 +42,24 @@ export function accesUser(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
-      const user = userCredential.user.uid;
-      sessionStorage.setItem('uid', user);
+      const usario = userCredential.user.uid;
+      console.log(userCredential);
+      console.log(usario);
+
+
+
       onNavigate('/feed');
+
+      // //img
+      if (userCredential.user.photoURL=!null){
+        document.getElementById('imagenUsuario').src = userCredential.user.photoURL
+      }
+      else{
+        document.getElementById('imagenUsuario').src = "img/un-usuario.jpg"
+      }
+      console.log(userCredential.user.photoURL);
+      sessionStorage.setItem('uid', usario);
+
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -116,3 +131,25 @@ sendPasswordResetEmail(auth, email)
     const errorMessage = error.message;
     // ..
   }); */
+
+//cerrar sesion
+// import { getAuth, signout } from "firebase/auth";
+
+
+export function cerrarSesion (){
+  const auth = getAuth();
+  signOut(auth)
+    .then((userCredencial) => {
+      // Password reset email sent!
+      onNavigate('/')
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      console.log(error.message);
+      document.getElementById('messageHide').style.display = 'block';
+    });
+}
+
+

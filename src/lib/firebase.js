@@ -9,6 +9,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase
 const firebaseConfig = {
   apiKey: 'AIzaSyCndNrEQqKW9lxejcf3Ksr3Zt3Q28Gtu2M',
   authDomain: 'social-network-programmers.firebaseapp.com',
+  // databaseURL: "http://social-network-programmers.firebaseapp.com",
   projectId: 'social-network-programmers',
   storageBucket: 'social-network-programmers.appspot.com',
   messagingSenderId: '857295101335',

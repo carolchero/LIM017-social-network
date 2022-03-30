@@ -1,6 +1,8 @@
+// eslint-disable-next-line import/no-cycle
+import { cerrarSesion } from '../auth.js';
+
 export const headerTemplate = () => {
   const headerdiv = document.createElement('header');
-
   // CONTENEDOR DIV( FOTO,NAME,SEARCH)
   const divContainerSearchPhoto = document.createElement('div');
   divContainerSearchPhoto.className = 'container-search-photo-nav';
@@ -13,7 +15,7 @@ export const headerTemplate = () => {
   imgUser.src = 'img/profile-user.png';
   imgUser.alt = 'foto de perfil';
   const figcaptionName = document.createElement('figcaption');
-  figcaptionName.innerText = 'Username';
+  figcaptionName.innerText = 'user.name';
   // contenedor del buscador
   const containerSearch = document.createElement('div');
   containerSearch.className = 'container-search';
@@ -82,6 +84,9 @@ export const headerTemplate = () => {
   const aClose = document.createElement('a');
   aClose.href = '#';
   aClose.innerText = 'Cerrar cuenta';
+  aClose.addEventListener('click', () => {
+    cerrarSesion();
+  });
 
   // agregando elementos pequeños a contenedores
   aWall.appendChild(imgWall);

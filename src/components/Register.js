@@ -91,6 +91,7 @@ export const Register = () => {
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-form';
   buttonReturn.innerText = 'Iniciar sesión';
+  buttonReturn.id = 'iniciarSesion';
   buttonReturn.addEventListener('click', () => onNavigate('/'));
 
   // creando div oculto
@@ -222,10 +223,6 @@ export const Register = () => {
 
   async function resultRegister() {
     // eslint-disable-next-line max-len
-    register(inputName.value, inputEmail.value, inputPassword.value, inputDateOfBirth.value, inputCellphone.value); // para agregar nuevo usuario
-    reviewResult(); // leer datos que se agregan del nuevo usuario en la consola de firebase
-    console.log(reviewResult())
-    onNavigate('/');
     const resp = await register(inputName.value, inputEmail.value, inputPassword.value, inputDateOfBirth.value, inputCellphone.value);
     if (resp === true) {
       divMessageAlert.style.display = 'flex';
