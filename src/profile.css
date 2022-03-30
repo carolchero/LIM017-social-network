@@ -4,21 +4,43 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-color: red;
-    margin:5% 12%;
+    background-image: url("/img/cover-default.jpg");
+    margin: 50px auto;
     border-radius: 15px;
     padding:1%;
+    background-size: cover;
+    background-position: bottom;
+    position: relative;
+    height: 200px;
+    margin-bottom: 90px;
+    width: 85%;
+    max-width: 700px;
 }
 
+.name-usuario{
+    color: #FFF;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    bottom: -40px;
+    left: 130px;
+    text-transform: uppercase;
+}
 .photo-profile {
     flex-direction: column;
     font-size: 10px;
-    margin:5% 12%;
-    border-radius: 15px;
     padding:1%;
-    width:90%;
-    background-color: white;
     cursor: pointer;
+    margin: 0;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: 10px;
+    background-image: url("img/un-usuario.jpg");
+    bottom: -60px;
+    border-radius: 69px ;
+    background-position: center;
+    background-size: cover;
 }
 
 .cover-page-profile {
@@ -47,7 +69,6 @@ body{
 @media (min-width:600px){
 
     .photo-profile {
-        width:60%;
     }
 
     .cover-page-profile{
@@ -57,11 +78,10 @@ body{
 @media (min-width:980px){
 
     .container-coverPage-profilePhoto {
-        width: 70%;
+
     }
 
     .photo-profile {
-        width:60%;
     }
     .cover-page-profile {
         width:60%;
@@ -75,11 +95,10 @@ body{
         align-items: center;
         justify-content: space-around;
         margin: 7% 25%;
-        width: 50%;
+
     }
 
     .photo-profile {
-        width:70%;
     }
     .cover-page-profile{
         width: 70%;
