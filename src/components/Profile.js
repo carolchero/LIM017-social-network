@@ -7,7 +7,7 @@ import {
 import { headerTemplate } from './Header.js';
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import { publications } from './Publication.js';
-import { onGetPublicationUser } from '../cloudFirebase.js';
+import { dataUser,onGetPublicationUser } from '../cloudFirebase.js';
 import { onNavigate } from '../main.js';
 
 export const db = getFirestore();
@@ -68,9 +68,23 @@ export const Profile = () => {
   coverPagePhoto.className = 'search-logo';
   coverPagePhoto.src = 'img/search-logo.png';
 
+
   profileContainer.appendChild(headerTemplate());
+
+
+  profileContainer.appendChild(coverPageProfilePhotoContainer);
+  coverPageProfilePhotoContainer.appendChild(divProfileCoverPage);
+  divProfileCoverPage.appendChild(coverPagePhoto);
+  coverPageProfilePhotoContainer.appendChild(divProfilePhoto);
+  divProfilePhoto.appendChild(profilePhoto);
+  coverPageProfilePhotoContainer.appendChild(nameUsuario);
+  nameUsuario.appendChild(labelNameUsuario);
+
   profileContainer.appendChild(publicationBeforeTemplate());
+
   profileContainer.appendChild(mainTemplate);
+  // profileContainer.appendChild(nameUsuario);
+  // nameUsuario.appendChild(labelNameUsuario);
 
   escuchandoEventoSesion();
   return profileContainer;
@@ -90,7 +104,7 @@ function escuchandoEventoSesion() { //ver autentificacion si la sesion  esta act
       const uid = user.uid;
       obtenerUsuarioId(uid);
       console.log(uid);
-     onNavigate('/feed');
+
     }
   });
 }
@@ -98,9 +112,27 @@ function escuchandoEventoSesion() { //ver autentificacion si la sesion  esta act
 async function obtenerUsuarioId(id) {
   const q = query(collection(db, 'dataUsers'), where('id', '==', id));
 
+
   const querySnapshot = await getDocs(q);
+
+  let user = null;
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, ' => ', doc.data());
+
+    user = doc.data();
+
   });
+
+  console.log(user);
+
+
+  let usuarioName = user.name;
+  if (usuarioName != null){
+    document.getElementById('nameLabel').innerText = "BIENVENIDO " + usuarioName;
+  }
+  else{
+    document.getElementsById('nameLabel').innerText = "BIENVENIDO " + user.email;
+  }
+  console.log(user.email);
+  console.log(usuarioName);
 }
