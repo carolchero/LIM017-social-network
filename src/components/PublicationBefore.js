@@ -47,7 +47,7 @@ export const publicationBeforeTemplate = () => {
   figureSection.appendChild(figcaptionUser);
   formInputs.appendChild(inputTitle);
   formInputs.appendChild(inputText);
-  //formInputs.appendChild(divText);
+  // formInputs.appendChild(divText);
   containerLogosButton.appendChild(imgShareImage);
   containerLogosButton.appendChild(imgShareStickers);
   containerLogosButton.appendChild(imgTrash);
