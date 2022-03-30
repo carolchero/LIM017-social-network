@@ -49,7 +49,7 @@ export const headerTemplate = () => {
 
   const imgComputer = document.createElement('img');
   imgComputer.className = 'logo-computer';
-  imgComputer.src = 'img/logo5.png';
+  imgComputer.src = 'img/logo3.png';
   imgComputer.alt = 'una computadora(logo de aplicación)';
   // navegador oculto
   const lines = document.createElement('label');
@@ -147,7 +147,7 @@ export const headerTemplate = () => {
 <!-- para la navegación -->
 <nav class="container-search-photo-nav width-content">
     <img class="logo-wall"  src="img/web-content.png" alt="logo para el muro">
-    <img class="logo-computer" src="img/logo5.png" alt="una computadora(logo de aplicación)">
+    <img class="logo-computer" src="img/logo.png" alt="una computadora(logo de aplicación)">
 
       <div><label class="nav-lines" id="checkLabelShow"> &#8801 </label>
           <ul class="container-options-nav"   >
