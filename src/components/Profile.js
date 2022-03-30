@@ -55,15 +55,12 @@ export const Profile = () => {
 
   const coverPageProfilePhotoContainer = document.createElement('div');
   coverPageProfilePhotoContainer.className = 'container-coverPage-profilePhoto';
+  coverPageProfilePhotoContainer.id = 'coverProfileContainer';
   const divProfilePhoto = document.createElement('div');
   divProfilePhoto.className = 'photo-profile';
-  const profilePhoto = document.createElement('img');
-  profilePhoto.className = 'search-logo';
-  profilePhoto.id = 'imagenUsuario'
-  profilePhoto.src = 'img/un-usuario.jpg';
 
-  const divProfileCoverPage = document.createElement('div');
-  divProfileCoverPage.className = 'cover-page-profile';
+
+
   const coverPagePhoto = document.createElement('img');
   coverPagePhoto.className = 'search-logo';
   coverPagePhoto.src = 'img/search-logo.png';
@@ -73,10 +70,8 @@ export const Profile = () => {
 
 
   profileContainer.appendChild(coverPageProfilePhotoContainer);
-  coverPageProfilePhotoContainer.appendChild(divProfileCoverPage);
-  divProfileCoverPage.appendChild(coverPagePhoto);
+
   coverPageProfilePhotoContainer.appendChild(divProfilePhoto);
-  divProfilePhoto.appendChild(profilePhoto);
   coverPageProfilePhotoContainer.appendChild(nameUsuario);
   nameUsuario.appendChild(labelNameUsuario);
 
@@ -128,11 +123,17 @@ async function obtenerUsuarioId(id) {
 
   let usuarioName = user.name;
   if (usuarioName != null){
-    document.getElementById('nameLabel').innerText = "BIENVENIDO " + usuarioName;
+    document.getElementById('nameLabel').innerHTML = "BIENVENIDO " + usuarioName;
   }
   else{
-    document.getElementsById('nameLabel').innerText = "BIENVENIDO " + user.email;
+    document.getElementsById('nameLabel').innerHTML = "BIENVENIDO " + user.email;
   }
+
+  if(user.coverImage != null){
+    document.getElementById('coverProfileContainer').style.backgroundImage = `url(${user.coverImage})`
+  }
+
+
   console.log(user.email);
   console.log(usuarioName);
 }
