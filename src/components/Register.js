@@ -139,6 +139,7 @@ export const Register = () => {
   const divMessageAlertContentIncorrect = document.createElement('div');
   divMessageAlertContentIncorrect.className = 'message-alert-content';
   const textMessageAlertContentIncorrect = document.createElement('p');
+  textMessageAlertContentIncorrect.innerText = 'REGISTRO INCORRECTO';
   const textMessageIncorrect = document.createElement('p');
   textMessageIncorrect.style.fontSize = '14px';
 

@@ -25,6 +25,10 @@ export const publicationBeforeTemplate = () => {
   inputText.id = 'textPublication';
   inputText.placeholder = 'Escriba su texto aqui';
   inputText.className = 'input-text-publication';
+
+  const divText = document.createElement('div');
+  divText.contentEditable = true;
+  divText.className = 'input-text-publication';
   // logos de publicación
   const containerLogosButton = document.createElement('div');
   const imgShareImage = document.createElement('img');
@@ -47,6 +51,7 @@ export const publicationBeforeTemplate = () => {
   figureSection.appendChild(figcaptionUser);
   formInputs.appendChild(inputTitle);
   formInputs.appendChild(inputText);
+  // formInputs.appendChild(divText);
   containerLogosButton.appendChild(imgShareImage);
   containerLogosButton.appendChild(imgShareStickers);
   containerLogosButton.appendChild(imgTrash);
