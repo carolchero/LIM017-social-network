@@ -55,15 +55,15 @@
      position: relative;
      margin-top: -40px;
      margin-bottom: 20px;
-     background-image: linear-gradient(to top right, #89253e, #3a6186);
+     background-image: linear-gradient(to top right, #89253e, #3a6186); 
   }
   .text-center { 
       text-align: center !important;
   }
   .img-login {
       display: inline-block; 
-      height: 100px; 
-      width: 120px; 
+      /* height: auto;  */
+      width: 250px; 
   }
   .card-content { /*contenedor del login*/
       padding: 15px 16% 15px 16%;
