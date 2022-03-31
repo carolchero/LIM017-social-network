@@ -68,6 +68,7 @@ export function accesGoogle() {
       console.log(token);
       // The signed-in user info.
       const user = result.user;
+      sessionStorage.setItem('uid', user.uid);
       sessionStorage.setItem('name', user.displayName);
 
       /* let photoUrl;
@@ -79,7 +80,7 @@ export function accesGoogle() {
       } */
 
       if (user.photoURL != null) {
-        sessionStorage.setItem('photo', user.photoUrl);
+        sessionStorage.setItem('photo', user.photoURL);
       } else {
         sessionStorage.setItem('photo', 'img/un-usuario.jpg');
       }
