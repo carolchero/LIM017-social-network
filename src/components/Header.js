@@ -14,10 +14,10 @@ export const headerTemplate = () => {
   const imgUser = document.createElement('img');
   imgUser.className = 'photo-user';
   imgUser.id = 'imagenUsuario';
-  imgUser.src = 'img/profile-user.png';
+  imgUser.src = sessionStorage.getItem('photo');
   imgUser.alt = 'foto de perfil';
   const figcaptionName = document.createElement('figcaption');
-  figcaptionName.innerText = 'user.name';
+  figcaptionName.innerText = sessionStorage.getItem('name');
   // contenedor del buscador
   const containerSearch = document.createElement('div');
   containerSearch.className = 'container-search';
