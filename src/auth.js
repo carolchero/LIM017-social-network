@@ -68,16 +68,24 @@ export function accesGoogle() {
       console.log(token);
       // The signed-in user info.
       const user = result.user;
-      let photoUrl;
+      sessionStorage.setItem('name', user.displayName);
+
+      /* let photoUrl;
 
       if (user.photoURL != null) {
         photoUrl = user.photoURL;
       } else {
         photoUrl = 'img/un-usuario.jpg';
+      } */
+
+      if (user.photoURL != null) {
+        sessionStorage.setItem('photo', user.photoUrl);
+      } else {
+        sessionStorage.setItem('photo', 'img/un-usuario.jpg');
       }
 
       onNavigate('/feed');
-      document.getElementById('imagenUsuario').src = photoUrl;
+      // document.getElementById('imagenUsuario').src = photoUrl;
     }).catch((error) => {
       const credential = GoogleAuthProvider.credentialFromError(error);
       console.error(credential, error);
