@@ -8,10 +8,12 @@ export const headerTemplate = () => {
   divContainerSearchPhoto.className = 'container-search-photo-nav';
   // contenedor de foto y nombre
   const figureNamePhoto = document.createElement('figure');
+  figureNamePhoto.className = 'photo-user-container';
   const aPhoto = document.createElement('a');
   aPhoto.href = '/profile';
   const imgUser = document.createElement('img');
   imgUser.className = 'photo-user';
+  imgUser.id = 'imagenUsuario';
   imgUser.src = 'img/profile-user.png';
   imgUser.alt = 'foto de perfil';
   const figcaptionName = document.createElement('figcaption');
@@ -35,9 +37,6 @@ export const headerTemplate = () => {
 
   containerSearch.appendChild(inputSearch);
   containerSearch.appendChild(imgSearch);
-  // agregando a contenedor mediano
-  divContainerSearchPhoto.appendChild(figureNamePhoto);
-  divContainerSearchPhoto.appendChild(containerSearch);
 
   // CONTENEDOR NAV
   const containerNav = document.createElement('nav');
@@ -51,7 +50,7 @@ export const headerTemplate = () => {
 
   const imgComputer = document.createElement('img');
   imgComputer.className = 'logo-computer';
-  imgComputer.src = 'img/logo5.png';
+  imgComputer.src = 'img/logo3.png';
   imgComputer.alt = 'una computadora(logo de aplicación)';
   // navegador oculto
   const lines = document.createElement('label');
@@ -88,6 +87,9 @@ export const headerTemplate = () => {
     cerrarSesion();
   });
 
+  // agregando a contenedor mediano
+  divContainerSearchPhoto.appendChild(imgComputer);
+  divContainerSearchPhoto.appendChild(containerSearch);
   // agregando elementos pequeños a contenedores
   aWall.appendChild(imgWall);
   liConfig.appendChild(aConfig);
@@ -103,11 +105,12 @@ export const headerTemplate = () => {
   containerNavHide.appendChild(ulNavHide);
   // agregando contenido al nav
   containerNav.appendChild(aWall);
-  containerNav.appendChild(imgComputer);
+  containerNav.appendChild(figureNamePhoto);
   containerNav.appendChild(lines);
   containerNav.appendChild(containerNavHide);
 
   // agregando al header
+  // headerdiv.appendChild(divContainerSearchPhoto);
   headerdiv.appendChild(divContainerSearchPhoto);
   headerdiv.appendChild(containerNav);
 
@@ -145,7 +148,7 @@ export const headerTemplate = () => {
 <!-- para la navegación -->
 <nav class="container-search-photo-nav width-content">
     <img class="logo-wall"  src="img/web-content.png" alt="logo para el muro">
-    <img class="logo-computer" src="img/logo5.png" alt="una computadora(logo de aplicación)">
+    <img class="logo-computer" src="img/logo.png" alt="una computadora(logo de aplicación)">
 
       <div><label class="nav-lines" id="checkLabelShow"> &#8801 </label>
           <ul class="container-options-nav"   >

@@ -3,13 +3,15 @@ import { headerTemplate } from './Header.js';
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import { onGetPublication, deletePublication, getOnlyPublication } from '../cloudFirebase.js';
 
+/* export const conditionUpdate = false;
+let id; */
+
 export const Feed = () => {
   const divFeed = document.createElement('div');
   divFeed.className = 'container-feed'; // contenedor general
   const mainTemplate = document.createElement('main');
   mainTemplate.className = 'container-publication';
 
-  // mainTemplate.appendChild(publications());
   onGetPublication((querySnapshot) => {
     let html = '';
     querySnapshot.forEach((doc) => {
@@ -46,10 +48,16 @@ export const Feed = () => {
     buttonEdit.forEach((btn) => {
       btn.addEventListener('click', async (e) => {
         const doc = await getOnlyPublication(e.target.dataset.id);
+        console.log(doc.data());
         const pub = doc.data();
+        document.getElementById('titlePublication').value = pub.title;
+        document.getElementById('textPublication').value = pub.text;
+/*         const editUpdate = !conditionUpdate;
+        id = e.target.dataset.id;
+        console.log(editUpdate);
+        console.log('id =', id); */
       });
     });
-    mainTemplate.innerHTML = html;
   });
 
   divFeed.appendChild(headerTemplate());
@@ -58,3 +66,5 @@ export const Feed = () => {
 
   return divFeed;
 };
+/* export const idDoc = id;
+console.log('id =', idDoc); */

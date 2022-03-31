@@ -15,7 +15,7 @@ export const Login = () => {
   divCardHeader.className = 'card-header text-center';
   const imgLogo = document.createElement('img');
   imgLogo.className = 'img-login';
-  imgLogo.src = 'img/logo5.png';
+  imgLogo.src = 'img/logo4.png';
 
   const title = document.createElement('h2');
   title.className = 'text-center';
