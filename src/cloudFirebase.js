@@ -6,10 +6,10 @@ export const db = getFirestore();
 const uid = sessionStorage.getItem('uid');
 
 // para almacenar datos del usuario
-export async function dataUser(id, name, email, password, date, cellphone) {
+export async function dataUser(id, name, email, password) {
   try {
     const docRef = await setDoc(doc(db, 'dataUsers', id), {
-      name, email, password, date, cellphone,
+      name, email, password,
     });
     // eslint-disable-next-line no-console
     console.log('id data user: ', docRef.id);

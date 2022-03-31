@@ -1,12 +1,14 @@
+/* eslint-disable max-len */
+import {
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut,
 // eslint-disable-next-line import/no-unresolved
-// eslint-disable-next-line object-curly-newline
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut} from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+} from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from './main.js';
 import { dataUser } from './cloudFirebase.js';
 
 // función para crear nuevos usuarios
-export async function register(name, email, password, date, cellphone,photo) {
+export async function register(name, email, password) {
   const auth = getAuth();
   let result = '';
   await createUserWithEmailAndPassword(auth, email, password)
@@ -14,7 +16,7 @@ export async function register(name, email, password, date, cellphone,photo) {
       // Signed in
       const idUser = userCredential.user.uid;
       result = true;
-      dataUser(idUser, name, email, password, date, cellphone,photo);
+      dataUser(idUser, name, email, password);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -44,25 +46,11 @@ export function accesUser(email, password) {
       // Signed in
       const usuario = userCredential.user.uid;
       sessionStorage.setItem('uid', usuario);
-      console.log('user:'+usuario);
-
-
-
       onNavigate('/feed');
 
       // //img
-      if (userCredential.user.photoURL=!null){
-        document.getElementById('imagenUsuario').src = userCredential.user.photoURL
-      }
-      else{
-        document.getElementById('imagenUsuario').src = "img/un-usuario.jpg"
-      }
-      console.log(userCredential.user.photoURL);
-
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
       console.log(error.message);
       document.getElementById('messageHide').style.display = 'block';
     });
@@ -77,17 +65,22 @@ export function accesGoogle() {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
+      console.log(token);
       // The signed-in user info.
       const user = result.user;
+      let photoUrl;
+
+      if (user.photoURL != null) {
+        photoUrl = user.photoURL;
+      } else {
+        photoUrl = 'img/un-usuario.jpg';
+      }
+
       onNavigate('/feed');
+      document.getElementById('imagenUsuario').src = photoUrl;
     }).catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
+      console.error(credential, error);
     });
 }
 
@@ -103,16 +96,12 @@ export function accesFacebook() {
       const credential = FacebookAuthProvider.credentialFromResult(result);
       const accessToken = credential.accessToken;
       const user = result.user;
+      console.log(accessToken, user);
       onNavigate('/feed');
     })
     .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The AuthCredential type that was used.
       const credential = FacebookAuthProvider.credentialFromError(error);
+      console.log(credential, error);
     });
 }
 
@@ -131,24 +120,18 @@ sendPasswordResetEmail(auth, email)
     // ..
   }); */
 
-//cerrar sesion
-// import { getAuth, signout } from "firebase/auth";
+// cerrar sesion
 
-
-export function cerrarSesion (){
+export function cerrarSesion() {
   const auth = getAuth();
   signOut(auth)
+    // eslint-disable-next-line no-unused-vars
     .then((userCredencial) => {
       // Password reset email sent!
-      onNavigate('/')
+      onNavigate('/');
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
       console.log(error.message);
       document.getElementById('messageHide').style.display = 'block';
     });
 }
-
-

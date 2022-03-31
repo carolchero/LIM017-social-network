@@ -13,6 +13,7 @@ export const headerTemplate = () => {
   aPhoto.href = '/profile';
   const imgUser = document.createElement('img');
   imgUser.className = 'photo-user';
+  imgUser.id = 'imagenUsuario';
   imgUser.src = 'img/profile-user.png';
   imgUser.alt = 'foto de perfil';
   const figcaptionName = document.createElement('figcaption');
