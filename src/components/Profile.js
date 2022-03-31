@@ -2,12 +2,14 @@
 // eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 import {
-  collection, query, where, getDocs, getFirestore,
+  doc, getDoc, getFirestore,
+// eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
+// eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
 import { publicationBeforeTemplate } from './PublicationBefore.js';
-import { publications } from './Publication.js';
-import { dataUser, onGetPublicationUser, deletePublication, getOnlyPublication } from '../cloudFirebase.js';
+import { onGetPublicationUser, deletePublication, getOnlyPublication } from '../cloudFirebase.js';
+// eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 
 export const db = getFirestore();
@@ -21,8 +23,8 @@ export const Profile = () => {
 
   onGetPublicationUser((querySnapshot) => {
     let html = '';
-    querySnapshot.forEach((doc) => {
-      const publicationNew = doc.data();
+    querySnapshot.forEach((doc2) => {
+      const publicationNew = doc2.data();
       html += `
          <section class= 'container-publication-final' >
          <div class = 'container-user-edit direction' >
@@ -30,8 +32,8 @@ export const Profile = () => {
                 <img class= 'photo-user-pub' src='img/profile-user.png' alt='foto de perfil'>
                 <figcaption>Username</figcaption>
             </figure>
-            <img class= 'share-edit-logo logo-publication' data-id='${doc.id}' src='img/escribir.png' alt='logo para editar'>
-            <img class= 'share-trash-logo logo-publication' data-id='${doc.id}' src='img/icons8-trash-30.png' alt='logo para eliminar publicación'>
+            <img class= 'share-edit-logo logo-publication' data-id='${doc2.id}' src='img/escribir.png' alt='logo para editar'>
+            <img class= 'share-trash-logo logo-publication' data-id='${doc2.id}' src='img/icons8-trash-30.png' alt='logo para eliminar publicación'>
          </div>
          <p>${publicationNew.title}</p>
          <p  class= 'input-text-publication' >${publicationNew.text}</p>
@@ -54,8 +56,9 @@ export const Profile = () => {
     const buttonEdit = mainTemplate.querySelectorAll('.share-edit-logo');
     buttonEdit.forEach((btn) => {
       btn.addEventListener('click', async (e) => {
-        const doc = await getOnlyPublication(e.target.dataset.id);
-        const pub = doc.data();
+        const doc3 = await getOnlyPublication(e.target.dataset.id);
+        const pub = doc3.data();
+        console.log(pub);
       });
     });
   });
@@ -73,15 +76,11 @@ export const Profile = () => {
   const divProfilePhoto = document.createElement('div');
   divProfilePhoto.className = 'photo-profile';
 
-
-
   const coverPagePhoto = document.createElement('img');
   coverPagePhoto.className = 'search-logo';
   coverPagePhoto.src = 'img/search-logo.png';
 
-
   profileContainer.appendChild(headerTemplate());
-
 
   profileContainer.appendChild(coverPageProfilePhotoContainer);
 
@@ -95,59 +94,41 @@ export const Profile = () => {
   // profileContainer.appendChild(nameUsuario);
   // nameUsuario.appendChild(labelNameUsuario);
 
-  escuchandoEventoSesion();
+  async function obtenerUsuarioId(id) {
+    let user = null;
+    const docRef = doc(db, 'dataUsers', id);
+
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      user = docSnap.data();
+      if (user.name != null) {
+        labelNameUsuario.innerText = `BIENVENIDO  ${user.name}`;
+      } else {
+        labelNameUsuario.innerText = `BIENVENIDO ${user.email}`;
+      }
+    } else {
+      // doc.data() will be undefined in this case
+      console.log('No such document!');
+    }
+  }
+
+  // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
+  function listeningSessionEvent() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user === null) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        onNavigate('/');
+      } else {
+        const uid = user.uid;
+        obtenerUsuarioId(uid);
+        console.log(uid);
+      }
+    });
+  }
+
+  listeningSessionEvent();
   return profileContainer;
 };
-
-function escuchandoEventoSesion() { //ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user==null) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-
-       onNavigate('/');
-      // ...
-
-    } else {
-      const uid = user.uid;
-      obtenerUsuarioId(uid);
-      console.log(uid);
-
-    }
-  });
-}
-
-async function obtenerUsuarioId(id) {
-  const q = query(collection(db, 'dataUsers'), where('id', '==', id));
-
-
-  const querySnapshot = await getDocs(q);
-
-  let user = null;
-  querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-
-    user = doc.data();
-
-  });
-
-  console.log(user);
-
-
-  let usuarioName = user.name;
-  if (usuarioName != null){
-    document.getElementById('nameLabel').innerHTML = "BIENVENIDO " + usuarioName;
-  }
-  else{
-    document.getElementsById('nameLabel').innerHTML = "BIENVENIDO " + user.email;
-  }
-
-  if(user.coverImage != null){
-    document.getElementById('coverProfileContainer').style.backgroundImage = `url(${user.coverImage})`
-  }
-
-
-  console.log(user.email);
-  console.log(usuarioName);
-}

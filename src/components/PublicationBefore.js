@@ -1,4 +1,6 @@
-import { dataPublication, reviewResultPublication } from '../cloudFirebase.js';
+import { dataPublication, reviewResultPublication, updatePublication } from '../cloudFirebase.js';
+// eslint-disable-next-line import/no-cycle
+/* import { conditionUpdate, idDoc } from './Feed.js';*/
 
 export const publicationBeforeTemplate = () => {
   const feedTemplate2 = document.createElement('main');
@@ -17,8 +19,10 @@ export const publicationBeforeTemplate = () => {
   // inputs de publicación
   const formInputs = document.createElement('form');
   const inputTitle = document.createElement('input');
+  inputTitle.id = 'titlePublication';
   inputTitle.placeholder = 'Titulo de publicación';
   const inputText = document.createElement('textarea');
+  inputText.id = 'textPublication';
   inputText.placeholder = 'Escriba su texto aqui';
   inputText.className = 'input-text-publication';
 
@@ -56,10 +60,21 @@ export const publicationBeforeTemplate = () => {
   sectionPublication.appendChild(figureSection);
   sectionPublication.appendChild(formInputs);
   sectionPublication.appendChild(containerLogosButton);
-  // evento para almacenar titulo y texto de publicación
+  // evento para almacenar titulo y texto de publicación o para actualizar al editar publicación
   buttonPublication.addEventListener('click', () => {
     dataPublication(inputTitle.value, inputText.value);
+    /* if (conditionUpdate) {
+      dataPublication(inputTitle.value, inputText.value);
+    } else {
+      updatePublication(idDoc, {
+        title: inputTitle.value,
+        text: inputText.value,
+      });
+      const edit = conditionUpdate;
+      console.log(edit);
+    } */
     reviewResultPublication();
+
     formInputs.reset();
   });
 

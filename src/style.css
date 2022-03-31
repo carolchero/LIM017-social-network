@@ -37,7 +37,7 @@
      display: inline-block;
      position: relative;
      width: 100%;
-     margin: 25px 0;
+     margin: 20px 0px 10px 0px;
      box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
      border-radius: 6px;
      color: rgba(0,0,0, 0.87);
@@ -62,8 +62,8 @@
   }
   .img-login {
       display: inline-block; 
-      /* height: auto;  */
-      width: 250px; 
+      width: 180px;
+      margin-top:15px; 
   }
   .card-content { /*contenedor del login*/
       padding: 15px 16% 15px 16%;
@@ -92,9 +92,11 @@
   }
   .ico-eye {
       content: url(img/ver.png);
+      margin: 7px 5px 0px 0px;
   }
   .ico-eye-hide {
       content: url(img/invisible.png);
+      margin: 7px 5px 0px 0px;
   }
   .ico-lock {
       content: url(img/password.png);
@@ -178,14 +180,13 @@
   }
   #pageCreateContent{
       background-color: #fff;
-      height: 75%;
       width: 90%; 
       border-radius: 0rem 0rem 1rem 1rem;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       align-items:center ;
-      padding: 1% 5%;
+      padding: 20px 5% 15px 5%;
   }
   #pageCreateHeader{
       height: 15%;
@@ -208,7 +209,7 @@
       line-height: 1.42857;
       color: #AAAAAA;
       font-weight: 400;
-      margin: 0 0 0 0;
+      margin: 15px 0 0 0;
   }
   .button-form{
       width: 120px;
@@ -217,7 +218,7 @@
       border:0;
       font-size: 18px; 
       box-shadow: 2px 2px 5px #999;
-      margin:10px 5px;
+      margin: 20px 5px 10px 5px;
   }
   .input-form {
       display: block;
@@ -238,7 +239,7 @@
       padding: 0 !important;
   }
   .input-password {
-      width: 94%;
+      width: 90%;
       height: 28px;
       font-size: 14px;
       padding: 6px 12px;
@@ -263,22 +264,13 @@
     padding: 0 !important;
     background:linear-gradient(to right,yellow,green);
  }       
-  .img-create {
-      display: inline-block; 
-      height: 90px; 
-      width: 110px; 
-  }
-  @media (max-width:366px){
-      .input-password {
-          width: 88%;
-      }
-  }
   @media (min-width:660px){
       .input-form {
           width: 90%;
       }
-      .input-password {
-          width: 94%;
+      .label-form {
+        font-size: 17px;
+        margin: 18px 0 0 0;
       }
       #pageCreateHeader{
         width: 65%; 
@@ -294,22 +286,10 @@
       #pageCreateContent{
           width: 60%; 
       }
-      .label-form {
-          font-size: 16px;
-          margin-top: 4px;
-      }
       .input-form {
           width: 85%;
           padding: 6px 12px;
       }
-      .input-password {
-          width: 95%;
-          padding: 6px 12px;
-      }
-      .button-form{
-        margin:10px 10px;
-        padding: 1%;
-     }
   }
  @media (min-width:1200px){
      #pageCreateHeader{
@@ -322,10 +302,6 @@
          width: 80%;
          padding: 6px 12px;
      }
-     .input-password {
-         width: 95%;
-         padding: 6px 12px;
-     }
  }
  @media (min-width:1480px){
      .label-form {
@@ -336,8 +312,7 @@
          padding: 10px 12px;
      }
      .input-password {
-         width: 95%;
-         padding: 10px 12px;
+         padding: 12px 5px 8px 5px;
      }
      #pageCreateHeader{
         width: 40%; 
@@ -350,9 +325,6 @@
      .input-form {
          width: 70%;
          padding: 10px 12px;
-     }
-     .input-password {
-         width: 95%;
      }
      #pageCreateHeader{
         width: 35%; 
@@ -449,11 +421,18 @@
     display: flex;
     justify-content: space-between;
     padding:2%;
+    background-color:white;
 
+}
+.photo-user-container {
+    display: flex;
+    flex-direction: row;
+    padding:1%;
 }
 .photo-user {
     width:auto;
     height: 20px;
+    margin-right: 5px;
 }
 .search-logo {
     height: 20px;
@@ -524,10 +503,10 @@
 .container-publication-section {
     flex-direction: column;
     font-size: 10px;
-    margin:5% 10%;
+    margin:5% 5%;
     border-radius: 15px;
     padding:1%;
-    width:80%;
+    width:90%;
     background-color: white;
     
 }
@@ -600,8 +579,8 @@
     }
     .container-publication-section {
         font-size: 11px;
-        margin:5% 15%;
-        width:70%;
+        margin:5% 10%;
+        width:80%;
     }
 }
 @media (min-width:980px){
@@ -630,8 +609,8 @@
     }
     .container-publication-section {
         font-size: 11px;
-        margin:5% 20%;
-        width:60%;
+        margin:5% 15%;
+        width:70%;
     }
 }
 @media (min-width:1200px){
@@ -640,7 +619,8 @@
         width:60%;
         margin-right: 0;
         padding-right: 5%;
-        border-radius: 0;
+        border-radius: 7px;
+        background-image: ;
     }
     .width-content{
         width:36%;
@@ -665,8 +645,8 @@
     }
     .container-publication-section {
         font-size: 11px;
-        margin:7% 25% 0% 25%;
-        width:50%;
+        margin:7% 25% 0% 20%;
+        width:60%;
     }
     .logo-publication {
         height: 20px;
