@@ -16,7 +16,8 @@ export const Feed = () => {
     let html = '';
     querySnapshot.forEach((doc) => {
       const publicationNew = doc.data();
-      html += `
+      if (publicationNew.uid === sessionStorage.getItem('uid')) {
+        html += `
         <section class= 'container-publication-final' >
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
@@ -34,6 +35,24 @@ export const Feed = () => {
           </div>
         </section>
       `;
+      } else {
+        html += `
+        <section class= 'container-publication-final' >
+          <div class = 'container-user-edit direction' >
+             <figure class = figure-name-photo direction' >
+                 <img class= 'photo-user-pub' src='img/profile-user.png' alt='foto de perfil'>
+                 <figcaption>Username</figcaption>
+             </figure>
+          </div>
+          <p>${publicationNew.title}</p>
+          <p  class= 'input-text-publication' >${publicationNew.text}</p>
+          <div class = 'logos-like-love direction' >
+             <img class= 'like-logo logo-publication' src='img/icons8-like-64.png' alt='logo para dar me encanta'>
+             <img class= 'love-logo logo-publication' src='img/corazones.png' alt='logo para dar love'>
+          </div>
+        </section>
+      `;
+      }
     });
     mainTemplate.innerHTML = html;
     // eliminando publicaciones
