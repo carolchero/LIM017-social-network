@@ -52,7 +52,7 @@ export const Feed = () => {
         const pub = doc.data();
         document.getElementById('titlePublication').value = pub.title;
         document.getElementById('textPublication').value = pub.text;
-/*         const editUpdate = !conditionUpdate;
+      /*         const editUpdate = !conditionUpdate;
         id = e.target.dataset.id;
         console.log(editUpdate);
         console.log('id =', id); */
