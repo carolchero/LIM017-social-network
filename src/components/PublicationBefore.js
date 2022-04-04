@@ -1,6 +1,4 @@
-import { dataPublication, reviewResultPublication, updatePublication } from '../cloudFirebase.js';
-// eslint-disable-next-line import/no-cycle
-/* import { conditionUpdate, idDoc } from './Feed.js';*/
+import { dataPublication, reviewResultPublication } from '../cloudFirebase.js';
 
 export const publicationBeforeTemplate = () => {
   const feedTemplate2 = document.createElement('main');
@@ -21,14 +19,16 @@ export const publicationBeforeTemplate = () => {
   const inputTitle = document.createElement('input');
   inputTitle.id = 'titlePublication';
   inputTitle.placeholder = 'Titulo de publicación';
-  const inputText = document.createElement('textarea');
+  /*const inputText = document.createElement('textarea');
   inputText.id = 'textPublication';
   inputText.placeholder = 'Escriba su texto aqui';
-  inputText.className = 'input-text-publication';
-
+  inputText.className = 'input-text-publication';*/
+  // div editable
   const divText = document.createElement('div');
   divText.contentEditable = true;
-  divText.className = 'input-text-publication';
+  divText.id = 'textPublication1';
+  divText.className = 'div-text';
+  divText.setAttribute('placeholder', 'Escriba su texto aqui');
   // logos de publicación
   const containerLogosButton = document.createElement('div');
   const imgShareImage = document.createElement('img');
@@ -46,36 +46,55 @@ export const publicationBeforeTemplate = () => {
   const buttonPublication = document.createElement('button');
   buttonPublication.className = 'button-publication';
   buttonPublication.innerText = 'Publicar';
+  // div para emoticos
+  const divEmoticons = document.createElement('div');
+  divEmoticons.className = 'div-emoticons';
+  divEmoticons.style.display = 'none';
+  // eslint-disable-next-line no-plusplus
+  for (let index = 1; index < 82; index++) {
+    const emoji = `img/emoji/emoji${index}.png`;
+    const emojiIco = document.createElement('img');
+    emojiIco.className = 'emoticons';
+    emojiIco.src = emoji;
+    emojiIco.addEventListener('click', () => {
+      const text = divText.innerHTML;
+      divText.innerHTML = `${text}<img class="emoticon" src="${emoji}">`;
+    });
+    divEmoticons.appendChild(emojiIco);
+  }
   // agregando contenedores pequeños a medianos
   figureSection.appendChild(imgPhotoUser);
   figureSection.appendChild(figcaptionUser);
   formInputs.appendChild(inputTitle);
-  formInputs.appendChild(inputText);
-  // formInputs.appendChild(divText);
+  // formInputs.appendChild(inputText);
+  formInputs.appendChild(divText);
   containerLogosButton.appendChild(imgShareImage);
   containerLogosButton.appendChild(imgShareStickers);
   containerLogosButton.appendChild(imgTrash);
   containerLogosButton.appendChild(buttonPublication);
+  containerLogosButton.appendChild(divEmoticons);
   // agregando contenedores pequeños a medianos
   sectionPublication.appendChild(figureSection);
   sectionPublication.appendChild(formInputs);
   sectionPublication.appendChild(containerLogosButton);
   // evento para almacenar titulo y texto de publicación o para actualizar al editar publicación
   buttonPublication.addEventListener('click', () => {
-    dataPublication(inputTitle.value, inputText.value);
-    /* if (conditionUpdate) {
-      dataPublication(inputTitle.value, inputText.value);
-    } else {
-      updatePublication(idDoc, {
-        title: inputTitle.value,
-        text: inputText.value,
-      });
-      const edit = conditionUpdate;
-      console.log(edit);
-    } */
+    dataPublication(inputTitle.value, divText.innerHTML);
     reviewResultPublication();
 
     formInputs.reset();
+    divText.innerHTML = '';
+    divEmoticons.style.display = 'none';
+  });
+
+  // evento para mostrar div de emoticons
+
+  imgShareStickers.addEventListener('click', () => {
+    if (divEmoticons.style.display === 'none') {
+      divEmoticons.style.display = 'grid';
+    } else {
+      divEmoticons.style.display = 'none';
+    }
   });
 
   return sectionPublication;
