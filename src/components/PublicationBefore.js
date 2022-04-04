@@ -1,6 +1,4 @@
-import { dataPublication, reviewResultPublication, updatePublication } from '../cloudFirebase.js';
-// eslint-disable-next-line import/no-cycle
-/* import { conditionUpdate, idDoc } from './Feed.js';*/
+import { dataPublication, reviewResultPublication } from '../cloudFirebase.js';
 
 export const publicationBeforeTemplate = () => {
   const feedTemplate2 = document.createElement('main');
@@ -82,16 +80,6 @@ export const publicationBeforeTemplate = () => {
   // evento para almacenar titulo y texto de publicación o para actualizar al editar publicación
   buttonPublication.addEventListener('click', () => {
     dataPublication(inputTitle.value, divText.innerHTML);
-    /* if (conditionUpdate) {
-      dataPublication(inputTitle.value, inputText.value);
-    } else {
-      updatePublication(idDoc, {
-        title: inputTitle.value,
-        text: inputText.value,
-      });
-      const edit = conditionUpdate;
-      console.log(edit);
-    } */
     reviewResultPublication();
 
     formInputs.reset();
