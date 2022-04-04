@@ -53,3 +53,46 @@
     padding:12px;
     box-sizing:border-box;
 }
+
+/* style for emoticos */
+.div-text{
+    border-style: solid;
+    width: 90%;
+    word-break: break-all;
+    margin: 1% 5%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.2;
+    border-radius: 5px;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%)
+
+}
+[contenteditable=true]:empty:before {
+    content:attr(placeholder);
+    color:gray
+  }
+.div-emoticons{
+
+    position: absolute;
+    border: 1px;
+    border-style: solid;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    background-color: white;
+    border-radius: 15px;
+    padding: 1%;
+}
+.emoticons{
+    height: 36px;
+    width: 36px;
+}
+.emoticon{
+    height:20px;
+    width:20px;
+    vertical-align:bottom;
+}
