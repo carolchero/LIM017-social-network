@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
 import { publicationBeforeTemplate } from './PublicationBefore.js';
+// eslint-disable-next-line object-curly-newline
 import { onGetPublication, deletePublication, getOnlyPublication, updatePublication } from '../cloudFirebase.js';
 
 /* export const conditionUpdate = false;
