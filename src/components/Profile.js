@@ -94,6 +94,14 @@ export const Profile = () => {
   // profileContainer.appendChild(nameUsuario);
   // nameUsuario.appendChild(labelNameUsuario);
 
+  // funcion para colocar nombre cuando ingreses con google
+  function loginGoogle() {
+    const userNameGoogle = sessionStorage.getItem('name');
+    if (userNameGoogle != null) {
+      labelNameUsuario.innerText = `BIENVENIDO  ${userNameGoogle}`;
+    }
+  }
+
   async function obtenerUsuarioId(id) {
     let user = null;
     const docRef = doc(db, 'dataUsers', id);
@@ -102,15 +110,20 @@ export const Profile = () => {
 
     if (docSnap.exists()) {
       user = docSnap.data();
+      console.log(user);
       if (user.name != null) {
+        console.log(user.name);
         labelNameUsuario.innerText = `BIENVENIDO  ${user.name}`;
       } else {
         labelNameUsuario.innerText = `BIENVENIDO ${user.email}`;
       }
     } else {
       // doc.data() will be undefined in this case
+      loginGoogle();
       console.log('No such document!');
     }
+    // eslint-disable-next-line no-use-before-define
+    //
   }
 
   // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
