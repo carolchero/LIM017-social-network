@@ -115,17 +115,11 @@ export const headerTemplate = () => {
   headerdiv.appendChild(containerNav);
 
   // evento para aparecer el nav
-  const open = 'block';
-  const close = 'none';
   lines.addEventListener('click', () => {
-    console.log(containerNavHide.style.display);
-    // eslint-disable-next-line no-cond-assign
-    if (containerNavHide.style.display = close) {
-      // eslint-disable-next-line no-unused-expressions
-      containerNavHide.style.display = open;
+    if (containerNavHide.style.display === 'none') {
+      containerNavHide.style.display = 'block';
     } else {
-      // eslint-disable-next-line no-unused-expressions
-      containerNavHide.style.display = close;
+      containerNavHide.style.display = 'none';
     }
   });
 
