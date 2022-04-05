@@ -73,10 +73,10 @@ export const publicationBeforeTemplate = () => {
   sectionPublication.appendChild(containerLogosButton);
   // evento para almacenar titulo y texto de publicación o para actualizar al editar publicación
   buttonPublication.addEventListener('click', () => {
-    dataPublication(inputTitle.value, divText.innerHTML);
+    dataPublication(inputTitle.innerHTML, divText.innerHTML);
     reviewResultPublication();
 
-    formInputs.reset();
+    inputTitle.innerHTML = '';
     divText.innerHTML = '';
     divEmoticons.style.display = 'none';
   });
