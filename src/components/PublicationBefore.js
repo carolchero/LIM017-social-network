@@ -16,13 +16,12 @@ export const publicationBeforeTemplate = () => {
   figcaptionUser.innerText = 'Username';
   // inputs de publicación
   const formInputs = document.createElement('form');
-  const inputTitle = document.createElement('input');
-  inputTitle.id = 'titlePublication';
-  inputTitle.placeholder = 'Titulo de publicación';
-  /*const inputText = document.createElement('textarea');
-  inputText.id = 'textPublication';
-  inputText.placeholder = 'Escriba su texto aqui';
-  inputText.className = 'input-text-publication';*/
+  const inputTitle = document.createElement('div');
+  inputTitle.contentEditable = true;
+  inputTitle.id = 'textPublication1';
+  inputTitle.className = 'div-title';
+  inputTitle.setAttribute('placeholder', 'título de publicación');
+
   // div editable
   const divText = document.createElement('div');
   divText.contentEditable = true;
@@ -39,10 +38,6 @@ export const publicationBeforeTemplate = () => {
   imgShareStickers.className = 'share-stickers-logo logo-publication';
   imgShareStickers.src = 'img/emoticon-sonrisa.png';
   imgShareStickers.alt = 'logo para agregar stickers a la publicación';
-  const imgTrash = document.createElement('img');
-  imgTrash.className = 'share-trash-logo logo-publication';
-  imgTrash.src = 'img/icons8-trash-30.png';
-  imgTrash.alt = 'logo para eliminar publicación';
   const buttonPublication = document.createElement('button');
   buttonPublication.className = 'button-publication';
   buttonPublication.innerText = 'Publicar';
@@ -70,7 +65,6 @@ export const publicationBeforeTemplate = () => {
   formInputs.appendChild(divText);
   containerLogosButton.appendChild(imgShareImage);
   containerLogosButton.appendChild(imgShareStickers);
-  containerLogosButton.appendChild(imgTrash);
   containerLogosButton.appendChild(buttonPublication);
   containerLogosButton.appendChild(divEmoticons);
   // agregando contenedores pequeños a medianos
@@ -79,10 +73,10 @@ export const publicationBeforeTemplate = () => {
   sectionPublication.appendChild(containerLogosButton);
   // evento para almacenar titulo y texto de publicación o para actualizar al editar publicación
   buttonPublication.addEventListener('click', () => {
-    dataPublication(inputTitle.value, divText.innerHTML);
+    dataPublication(inputTitle.innerHTML, divText.innerHTML);
     reviewResultPublication();
 
-    formInputs.reset();
+    inputTitle.innerHTML = '';
     divText.innerHTML = '';
     divEmoticons.style.display = 'none';
   });

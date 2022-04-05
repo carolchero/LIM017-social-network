@@ -28,13 +28,16 @@ export const Feed = () => {
              <img class= 'share-edit-logo logo-publication' data-id='${doc.id}' src='img/escribir.png' alt='logo para editar'>
              <img class= 'share-trash-logo logo-publication' data-id='${doc.id}' src='img/icons8-trash-30.png' alt='logo para eliminar publicación'>
           </div>
-          <textarea  class= 'title-area-text' disabled = 'true' id= 'newTitle' >${publicationNew.title}</textarea>
-          <textarea  class= 'title-area-text input-text-publication' disabled = 'true' id= 'newText'>${publicationNew.text}</textarea>
+          <div  contentEditable ="false" class= 'title-area '  id= 'newTitle' >${publicationNew.title}</div>
+          <div  contentEditable ="false"   class= 'text-area div-text' id= 'newText'>${publicationNew.text}</div>
           <div class = 'logos-like-love direction' >
+             <img  style='display:none;' class='share-stickers-logo logo-publication' src='img/emoticon-sonrisa.png' alt='logo para agregar stickers a la publicación'>
              <img class= 'like-logo logo-publication' src='img/icons8-like-64.png' alt='logo para dar me encanta'>
              <img class= 'love-logo logo-publication' src='img/corazones.png' alt='logo para dar love'>
              <button style='display:none;'  class = 'btn-save'>Guardar cambios</button>
+             <div class='div-emoticons' id='divEmoticon'; style='display: none;'></div>
           </div>
+          
         </section>
        `;
       } else {
@@ -71,31 +74,54 @@ export const Feed = () => {
       btn2.addEventListener('click', async (e) => {
         const doc = await getOnlyPublication(e.target.dataset.id); // trae publicaciones por id
         const id = e.target.dataset.id;
-        // activamos los textarea para editar
-        const areaTitleText = mainTemplate.querySelectorAll('.title-area-text');
-        // eslint-disable-next-line no-param-reassign
-        areaTitleText.forEach((btn3) => { btn3.disabled = false; });
+        const sectionPublication = btn2.parentNode.parentNode;
+        // activamos el text area y el div para editar
+        const areaTitle = sectionPublication.querySelector('.title-area');
+        const areaText = sectionPublication.querySelector('.text-area');
+        // activando contenedores
+        areaTitle.contentEditable = true;
+        areaText.contentEditable = true;
         // mostramos boton para guardar cambios
-        const buttonSave = document.querySelectorAll('.btn-save');
-        buttonSave.forEach((btn4) => {
-          // eslint-disable-next-line no-param-reassign
-          btn4.style.display = 'block';
-          btn4.addEventListener('click', () => {
-            let titleNew = doc.data().title;
-            titleNew = document.getElementById('newTitle').value;
-            let textNew = doc.data().text;
-            textNew = document.getElementById('newText').value;
-            updatePublication(id, { // actualizando publicaciones
-              title: titleNew,
-              text: textNew,
-            });
-            // eslint-disable-next-line no-param-reassign
-            btn4.style.display = 'none';
-            areaTitleText.forEach((btn6) => {
-              // eslint-disable-next-line no-param-reassign
-              btn6.disabled = true;
-            });
+        const emoticon = sectionPublication.querySelector('.share-stickers-logo');
+        const buttonSave = sectionPublication.querySelector('.btn-save');
+        // eslint-disable-next-line no-param-reassign
+        emoticon.style.display = 'block';
+
+        // AÑADIENDO STICKERS
+        const divEmoticon = sectionPublication.querySelector('.div-emoticons');
+        // eslint-disable-next-line no-plusplus
+        for (let index = 1; index < 82; index++) {
+          const emoji = `../img/emoji/emoji${index}.png`;
+          const emojiIco = document.createElement('img');
+          emojiIco.className = 'emoticons';
+          emojiIco.src = emoji;
+          divEmoticon.appendChild(emojiIco);
+          emojiIco.addEventListener('click', () => {
+            const text = areaText.innerHTML;
+            areaText.innerHTML = `${text}<img class="emoticon" src="${emoji}">`;
           });
+        }
+        emoticon.addEventListener('click', () => {
+          if (divEmoticon.style.display === 'none') {
+            divEmoticon.style.display = 'grid';
+          } else {
+            divEmoticon.style.display = 'none';
+          }
+        });
+        buttonSave.style.display = 'block';
+        buttonSave.addEventListener('click', () => {
+          let titleNew = doc.data().title;
+          titleNew = sectionPublication.querySelector('#newTitle').innerHTML;
+          let textNew = doc.data().text;
+          textNew = sectionPublication.querySelector('#newText').innerHTML;
+          updatePublication(id, { // actualizando publicaciones
+            title: titleNew,
+            text: textNew,
+          });
+          // eslint-disable-next-line no-param-reassign
+          buttonSave.style.display = 'none';
+          areaTitle.contentEditable = false;
+          areaText.contentEditable = false;
         });
       });
     });
