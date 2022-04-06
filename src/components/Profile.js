@@ -8,11 +8,10 @@ import {
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
 import { publicationBeforeTemplate } from './PublicationBefore.js';
-import { onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication } from '../cloudFirebase.js';
+import { onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db } from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 
-export const db = getFirestore();
 export const Profile = () => {
   const profileContainer = document.createElement('div');
   profileContainer.className = 'container-feed'; // contenedor general
@@ -30,16 +29,16 @@ export const Profile = () => {
         <section class= 'container-publication-final' >
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
-                 <img class= 'photo-user-pub' src='img/profile-user.png' alt='foto de perfil'>
-                 <figcaption>Username</figcaption>
+                 <img class= 'photo-user-pub' src='' alt='foto de perfil'>
+                 <figcaption class ='user-name-pub' ></figcaption>
+                 <img class= 'share-edit-logo' data-id='${doc2.id}' src='img/icomon/pencil.jpg' alt='logo para editar'>
+                 <img class= 'share-trash-logo' data-id='${doc2.id}' src='img/icomon/bin.jpg' alt='logo para eliminar publicación'>
              </figure>
-             <img class= 'share-edit-logo logo-publication' data-id='${doc2.id}' src='img/escribir.png' alt='logo para editar'>
-             <img class= 'share-trash-logo logo-publication' data-id='${doc2.id}' src='img/icons8-trash-30.png' alt='logo para eliminar publicación'>
           </div>
-          <div  contentEditable ="false" class= 'title-area '  id= 'newTitle' >${publicationNew.title}</div>
-          <div  contentEditable ="false"   class= 'text-area div-text' id= 'newText'>${publicationNew.text}</div>
+          <div  contentEditable ='false' class= 'title-area'  id= 'newTitle' >${publicationNew.title}</div>
+          <div  contentEditable ='false'   class= 'text-area div-text' id= 'newText'>${publicationNew.text}</div>
           <div class = 'logos-like-love direction' >
-             <img  style='display:none;' class='share-stickers-logo logo-publication' src='img/emoticon-sonrisa.png' alt='logo para agregar stickers a la publicación'>
+             <img  style='display:none;' class='share-stickers-logo logo-publication' src='img/icomon/smile.jpg' alt='logo para agregar stickers a la publicación'>
              <img class= 'like-logo logo-publication' src='img/icons8-like-64.png' alt='logo para dar me encanta'>
              <img class= 'love-logo logo-publication' src='img/corazones.png' alt='logo para dar love'>
              <button style='display:none;'  class = 'btn-save'>Guardar cambios</button>
@@ -53,8 +52,8 @@ export const Profile = () => {
         <section class= 'container-publication-final' >
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
-                 <img class= 'photo-user-pub' src='img/profile-user.png' alt='foto de perfil'>
-                 <figcaption>Username</figcaption>
+                 <img class= 'photo-user-pub' src='img/icomon/user.jpg' alt='foto de perfil'>
+                 <figcaption class ='user-name-pub' >Username</figcaption>
              </figure>
           </div>
           <p>${publicationNew.title}</p>
@@ -81,7 +80,7 @@ export const Profile = () => {
       btn2.addEventListener('click', async (e) => {
         const doc3 = await getOnlyPublication(e.target.dataset.id); // trae publicaciones por id
         const id = e.target.dataset.id;
-        const sectionPublication = btn2.parentNode.parentNode;
+        const sectionPublication = btn2.parentNode.parentNode.parentNode;
         // activamos el text area y el div para editar
         const areaTitle = sectionPublication.querySelector('.title-area');
         const areaText = sectionPublication.querySelector('.text-area');
@@ -126,11 +125,78 @@ export const Profile = () => {
             text: textNew,
           });
           // eslint-disable-next-line no-param-reassign
+          emoticon.style.display = 'none';
           buttonSave.style.display = 'none';
           areaTitle.contentEditable = false;
           areaText.contentEditable = false;
         });
       });
+    });
+    buttonEdit.forEach((btn) => {
+      const sectionPublication = btn.parentNode.parentNode;
+      // obtener nombre y foto de firebase o de google de cada usuario
+      function loginGoogleName() {
+        const userNameGoogle = sessionStorage.getItem('name');
+        if (userNameGoogle != null) {
+          sectionPublication.querySelector('.user-name-pub').innerText = sessionStorage.getItem('name');
+        } else {
+          sectionPublication.querySelector('.user-name-pub').innerText = 'username';
+        }
+      }
+      function loginGooglePhoto() {
+        const photoNameGoogle = sessionStorage.getItem('photo');
+        if (photoNameGoogle != null) {
+          sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photo');
+        } else {
+          sectionPublication.querySelector('.photo-user-pub').src = 'img/icomon/user.jpg';
+        }
+      }
+
+      async function obtenerUsuarioId2(id) {
+        let user = null;
+        const docRef = doc(db, 'dataUsers', id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          user = docSnap.data();
+          if (user.name != null) {
+            sectionPublication.querySelector('.user-name-pub').innerText = user.name;
+          } else {
+            sectionPublication.querySelector('.user-name-pub').innerText = 'username';
+          }
+        } else { // doc.data() will be undefined in this case
+          loginGoogleName();
+          console.log('No such document in firebase!');
+        }
+
+        if (docSnap.exists()) {
+          user = docSnap.data();
+          if (user.photo != null) {
+            console.log(user.photo);
+          } else {
+            sectionPublication.querySelector('.photo-user-pub').src = 'img/icomon/user.jpg';
+          }
+        } else { // doc.data() will be undefined in this case
+          loginGooglePhoto();
+          console.log('No such document in firebase!');
+        }
+      }
+
+      // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
+      function listeningSessionEvent2() {
+        const auth = getAuth();
+        // eslint-disable-next-line no-shadow
+        onAuthStateChanged(auth, (user) => {
+          if (user === null) { // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+            onNavigate('/');
+          } else {
+            const uid = user.uid;
+            obtenerUsuarioId2(uid);
+          }
+        });
+      }
+      listeningSessionEvent2();
     });
   });
 

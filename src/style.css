@@ -407,13 +407,17 @@
     min-width: 100%; 
     background-size: cover;
     position: absolute;
-    font-family: Verdana;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-size: small;
 
 }
+.figcaption-name {
+    font-size: 15px;
+    font-family: cursive;
+    color: #555;
+
+}
 .container-search-photo-nav {
-    background-color: white;
-    display:flex;
     align-items: center;
     height: 55px;
     margin:1.5%;
@@ -422,6 +426,7 @@
     justify-content: space-between;
     padding:2%;
     background-color:white;
+    width: 96%;
 
 }
 .photo-user-container {
@@ -430,8 +435,8 @@
     padding:1%;
 }
 .photo-user {
-    width:auto;
-    height: 20px;
+    height: 35px;
+    border-radius: 20px;
     margin-right: 5px;
 }
 .search-logo {
@@ -456,12 +461,12 @@
     height: 40px;
 }
 .nav-lines {
-    font-size: 35px;
+    height: 30px;
 }
 .container-options-nav {
     position:absolute;
     line-height: 3em;
-    background-color: white;
+    background-color: rgba(51, 65, 126, 0.916);
     width:50%;
     margin: 240px 0% auto 45%;
     display: flex;
@@ -480,7 +485,7 @@
 }
 .container-options-nav li a {
     text-decoration: none;
-    color:#333;
+    color:white;
     padding: 0%;
     margin: 0%;
    
@@ -502,7 +507,7 @@
 .container-publication-section {
     flex-direction: column;
     font-size: 10px;
-    margin:5% 5%;
+    margin:5% 4.5%;
     border-radius: 15px;
     padding:1%;
     width:90%;
@@ -521,14 +526,14 @@
     height: 50px;
     width: 90%;
     margin: 1% 5%;
-    font-size: 10px;
+    font-size: 12px;
     border-radius: 5px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .logo-publication {
-    height: 12px;
-    margin: 0.5% 1%;
+    height: 18px;
+    margin: 2% 2% 0% 2%;
 }
 .button-publication {
     padding: 5px 10px;
@@ -550,7 +555,12 @@
         margin:1%;
     }
     .photo-user{
-        height: 20px;
+        height: 40px;
+        border-radius: 20px;
+    }
+    .figcaption-name {
+        font-size: 16px;
+
     }
     .search-logo{
         height: 35px;
@@ -562,13 +572,13 @@
         font-size: large;
     }
     .logo-wall {
-        height: 45px;
+        height: 35px;
     }
     .logo-computer{
         height: 50px;
     }
     .nav-lines {
-        font-size: 45px;
+        height: 35px;
     }
     .container-feed{
         font-size: large;
@@ -598,13 +608,13 @@
         padding-right: 90px;
     }
     .logo-wall {
-        height: 57px;
+        height: 50px;
     }
     .logo-computer{
         height: 55px;
     }
     .nav-lines {
-        font-size: 70px;
+        height: 50px;
     }
     .container-publication {
         width: 70%;
@@ -630,15 +640,16 @@
         width:60%;
         margin-right: 0;
         padding-right: 5%;
-        border-radius: 7px;
+        border-radius: 7px 0px 0px 7px ;
         background-image: ;
     }
     .width-content{
-        width:36%;
+        width:37%;
         margin-left: 0;
         margin-right: 2%;
         padding-right: 3%;
         padding-left: 3%;
+        border-radius: 0px 7px 7px 0px ;
     }
     .container-options-nav  {
         width:23%;
@@ -672,7 +683,7 @@
         width:70%;
     }
     .width-content{
-        width:26%;
+        width:27%;
         margin-left: 0;
         margin-right: 2%;
         padding-right: 3%;
