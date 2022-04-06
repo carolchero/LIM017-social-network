@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+// eslint-disable-next-line import/no-unresolved
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
@@ -72,17 +74,6 @@ export const Feed = () => {
 
     // EDITANDO PUBLICACIONES
     const buttonEdit = mainTemplate.querySelectorAll('.share-edit-logo');
-    buttonEdit.forEach((btn) => {
-      btn.addEventListener('click', async (e) => {
-        const doc = await getOnlyPublication(e.target.dataset.id);
-        console.log(doc.data());
-        const pub = doc.data();
-        document.getElementById('titlePublication').value = pub.title;
-        document.getElementById('textPublication').value = pub.text;
-      /*         const editUpdate = !conditionUpdate;
-        id = e.target.dataset.id;
-        console.log(editUpdate);
-        console.log('id =', id); */
     buttonEdit.forEach((btn2) => {
       btn2.addEventListener('click', async (e) => {
         const doc3 = await getOnlyPublication(e.target.dataset.id); // trae publicaciones por id
