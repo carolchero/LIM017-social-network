@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-import { doc, getDoc, getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 import { dataPublication, reviewResultPublication, db } from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
@@ -18,30 +18,29 @@ export const publicationBeforeTemplate = () => {
   imgPhotoUser.alt = 'foto de perfil';
   imgPhotoUser.id = 'imagenUsuario';
   const figcaptionUser = document.createElement('figcaption');
-  figcaptionUser.className = 'figcaption-name';
+  figcaptionUser.className = 'figcaption-name name-before';
   // inputs de publicación
   const formInputs = document.createElement('form');
   const inputTitle = document.createElement('div');
   inputTitle.contentEditable = true;
-  inputTitle.id = 'textPublication1';
   inputTitle.className = 'div-title';
   inputTitle.setAttribute('placeholder', 'título de publicación');
 
   // div editable
   const divText = document.createElement('div');
   divText.contentEditable = true;
-  divText.id = 'textPublication1';
   divText.className = 'div-text';
   divText.setAttribute('placeholder', 'Escriba su texto aqui');
   // logos de publicación
   const containerLogosButton = document.createElement('div');
+  containerLogosButton.className = 'container-logos-button';
   const imgShareImage = document.createElement('img');
-  imgShareImage.className = 'share-image-logo logo-publication';
+  imgShareImage.className = 'share-image-logo logo-smile-image';
   imgShareImage.src = 'img/icomon/images.jpg';
   imgShareImage.alt = 'logo para agregar imagenes a la publicación';
 
   const imgShareStickers = document.createElement('img');
-  imgShareStickers.className = 'share-stickers-logo logo-publication';
+  imgShareStickers.className = 'share-stickers-logo logo-smile-image';
   imgShareStickers.src = 'img/icomon/smile.jpg';
   imgShareStickers.alt = 'logo para agregar stickers a la publicación';
   const buttonPublication = document.createElement('button');
