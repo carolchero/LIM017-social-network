@@ -31,6 +31,11 @@ export const publicationBeforeTemplate = () => {
   divText.contentEditable = true;
   divText.className = 'div-text';
   divText.setAttribute('placeholder', 'Escriba su texto aqui');
+  // agregando mensaje para evitar publicaciones vacias
+  const messageTitleText = document.createElement('p');
+  messageTitleText.className = 'message-alert-title-text';
+  messageTitleText.innerText = 'No se puede publicar título o texto vacío.';
+  messageTitleText.style.display = 'none';
   // logos de publicación
   const containerLogosButton = document.createElement('div');
   containerLogosButton.className = 'container-logos-button';
@@ -90,17 +95,24 @@ export const publicationBeforeTemplate = () => {
   // agregando contenedores pequeños a medianos
   sectionPublication.appendChild(figureSection);
   sectionPublication.appendChild(formInputs);
+  sectionPublication.appendChild(messageTitleText);
   sectionPublication.appendChild(containerLogosButton);
   sectionPublication.appendChild(divUploader);
 
   // evento para almacenar titulo y texto de publicación o para actualizar al editar publicación
   buttonPublication.addEventListener('click', () => {
-    dataPublication(inputTitle.innerHTML, divText.innerHTML);
-    reviewResultPublication();
-
-    inputTitle.innerHTML = '';
-    divText.innerHTML = '';
-    divEmoticons.style.display = 'none';
+    const title = inputTitle.innerHTML;
+    const text = divText.innerHTML;
+    if ((title === '') || (text === '')) {
+      messageTitleText.style.display = 'block';
+    } else {
+      dataPublication(title, text);
+      messageTitleText.style.display = 'none';
+      reviewResultPublication();
+      inputTitle.innerHTML = '';
+      divText.innerHTML = '';
+      divEmoticons.style.display = 'none';
+    }
   });
 
   // evento para mostrar div de emoticons
