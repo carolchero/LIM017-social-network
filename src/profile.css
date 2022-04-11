@@ -13,10 +13,9 @@
     position: relative;
     height: 200px;
     margin-bottom: 90px;
-    width: 85%;
+    width: 80%;
     max-width: 700px;
 }
-
 .name-usuario{
     color: #FFF;
     font-size: 25px;
@@ -42,7 +41,6 @@
     background-position: center;
     background-size: cover;
 }
-
 .cover-page-profile {
     flex-direction: column;
     font-size: 10px;
@@ -53,7 +51,6 @@
     background-color: white;
 
 }
-
 *{
     margin: 0;
     padding: 0;
@@ -64,41 +61,64 @@ body{
     color: #333;
 }
 
-
 /*style responsivo del perfil*/
 @media (min-width:600px){
-
-    .photo-profile {
-    }
-
     .cover-page-profile{
         width: 60%;
     }
 }
-@media (min-width:980px){
-
+@media (min-width:800px){
     .container-coverPage-profilePhoto {
-
+        height: 260px;
     }
-
     .photo-profile {
+        height: 120px;
+        width: 120px;
+        border-radius: 69px ;
     }
+    .name-usuario{
+        left: 140px;
+    }
+}
+@media (min-width:980px){
     .cover-page-profile {
         width:60%;
     }
 }
-@media (min-width:1200px) {
-
+@media (min-width:1000px){ 
     .container-coverPage-profilePhoto {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        margin: 7% 25%;
-
+        width: 80%;
+        height: 350px;
+        margin: 120px auto 70px auto;
+        max-width: 1000px;
     }
-
     .photo-profile {
+        height: 160px;
+        width: 160px;
+        border-radius: 89px ;
+        left: 30px;
+    }
+    .name-usuario{
+        left: 220px;
+    }
+   
+}
+@media (min-width:1200px) {
+    .container-coverPage-profilePhoto {
+        margin: 130px auto 70px auto;
+        width: 90%;
+        height: 430px;
+    }
+    .photo-profile {
+        height: 180px;
+        width: 180px;
+        border-radius: 95px ;
+        left: 35px;  
+    }
+    .name-usuario{
+        font-size:35px;
+        left: 220px;
+        bottom: -50px;
     }
     .cover-page-profile{
         width: 70%;
@@ -106,6 +126,14 @@ body{
 
 }
 @media (min-width:1600px) {
-
-
+    .photo-profile {
+        height: 200px;
+        width: 200px;
+        border-radius: 100px ;
+        left: 40px;
+    }
+    .name-usuario{
+        font-size:35px;
+        left: 240px;
+    }
 }
