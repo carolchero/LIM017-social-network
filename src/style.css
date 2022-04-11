@@ -252,18 +252,31 @@
   .div-level-low{
       height: 6px !important;
       padding: 0 !important;
+      margin-top: 15px;
+      margin-bottom: 2px;
       background:red;
   }
   .div-level-medium{
     height: 6px !important;
-      padding: 0 !important;
+    padding: 0 !important;
+    margin-top: 15px;
+    margin-bottom: 2px;
     background:linear-gradient(to right,red,yellow);
  }
  .div-level-higth{
     height: 6px !important;
     padding: 0 !important;
+    margin-top: 15px;
+    margin-bottom: 2px;
     background:linear-gradient(to right,yellow,green);
- }       
+ }  
+ .div-level-higth-top{
+    height: 6px !important;
+    padding: 0 !important;
+    margin-top: 15px;
+    margin-bottom: 2px;
+    background:green;
+}     
   @media (min-width:660px){
       .input-form {
           width: 90%;
@@ -700,4 +713,38 @@
     position: absolute;
     font-family: Verdana;
     font-size: small;
+}
+
+#divSecurityPassword {
+    display:grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    justify-items: center;
+    width: 100%;
+    font-size: 10px;
+}
+
+@media (min-width:660px){
+    #divSecurityPassword {
+        width: 90%;
+    }
+}
+@media (min-width:980px){
+    #divSecurityPassword {
+        width: 85%;
+    }
+}
+@media (min-width:1200px){
+   #divSecurityPassword {
+       width: 80%;
+   }
+}
+@media (min-width:1480px){
+   #divSecurityPassword {
+       width: 75%;
+   }
+}
+@media (min-width:1600px){
+   #divSecurityPassword {
+       width: 70%;
+   }
 }
