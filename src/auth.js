@@ -70,7 +70,8 @@ export function accesGoogle() {
       const user = result.user;
       sessionStorage.setItem('uid', user.uid);
       sessionStorage.setItem('name', user.displayName);
-
+      console.log(user.displayName);
+      console.log(user.photoURL);
       /* let photoUrl;
 
       if (user.photoURL != null) {
