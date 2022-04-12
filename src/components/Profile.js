@@ -11,6 +11,7 @@ import { publicationBeforeTemplate } from './PublicationBefore.js';
 import { onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db } from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
+import { photoUser, coverPageUser } from '../storage.js';
 
 export const Profile = () => {
   const profileContainer = document.createElement('div');
@@ -56,8 +57,8 @@ export const Profile = () => {
                  <figcaption class ='user-name-pub' >Username</figcaption>
              </figure>
           </div>
-          <p>${publicationNew.title}</p>
-          <p  class= 'p-text-publication' >${publicationNew.text}</p>
+          <div  contentEditable ='false' id= 'newTitle'>${publicationNew.title}</div>
+          <div  contentEditable ='false'  class= 'p-text-publication' id= 'newText' >${publicationNew.text}</div>
           <div class = 'direction' >
              <img class= 'like-love-smile' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
              <img class= 'like-love-smile' src='img/icomon/heart.jpg' alt='logo para dar love'>
@@ -170,6 +171,7 @@ export const Profile = () => {
         }
 
         if (docSnap.exists()) {
+          console.log(docSnap);
           user = docSnap.data();
           if (user.photo != null) {
             console.log(user.photo);
@@ -200,7 +202,7 @@ export const Profile = () => {
     });
   });
 
-  // foto de portada y foto del usuario en grande
+  // FOTO DE PORTADA Y FOTO DEL USUARIO EN GRANDE
   const nameUsuario = document.createElement('div');
   nameUsuario.className = 'name-usuario';
   const labelNameUsuario = document.createElement('label');
@@ -212,21 +214,31 @@ export const Profile = () => {
   coverPageProfilePhotoContainer.id = 'coverProfileContainer';
   const divProfilePhoto = document.createElement('div');
   divProfilePhoto.className = 'photo-profile';
+  // divProfilePhoto.style.backgroundImage = `url('${sessionStorage.getItem('photoUser')}')`;
+  // div e input para subir foto de usuario
+  const coverPagePhoto = document.createElement('div');
+  coverPagePhoto.className = 'div-uploader-photo';
+  const imageUploaderPhoto = document.createElement('input');
+  imageUploaderPhoto.type = 'file';
+  imageUploaderPhoto.id = 'imgUploaderphoto';
+  // div e input para subir foto de portada
+  const coverPage = document.createElement('div');
+  coverPage.className = 'div-uploader-cover-page';
+  const imageUploaderCover = document.createElement('input');
+  imageUploaderCover.type = 'file';
+  imageUploaderCover.id = 'imgUploaderPortada';
 
-  const coverPagePhoto = document.createElement('img');
-  coverPagePhoto.className = 'search-logo';
-  coverPagePhoto.src = 'img/search-logo.png';
-
-  profileContainer.appendChild(headerTemplate());
-
-  profileContainer.appendChild(coverPageProfilePhotoContainer);
-
+  coverPage.appendChild(imageUploaderCover);
+  coverPagePhoto.appendChild(imageUploaderPhoto);
+  divProfilePhoto.appendChild(coverPagePhoto);
   coverPageProfilePhotoContainer.appendChild(divProfilePhoto);
   coverPageProfilePhotoContainer.appendChild(nameUsuario);
+  coverPageProfilePhotoContainer.appendChild(coverPage);
   nameUsuario.appendChild(labelNameUsuario);
 
+  profileContainer.appendChild(headerTemplate());
+  profileContainer.appendChild(coverPageProfilePhotoContainer);
   profileContainer.appendChild(publicationBeforeTemplate());
-
   profileContainer.appendChild(mainTemplate);
   // profileContainer.appendChild(nameUsuario);
   // nameUsuario.appendChild(labelNameUsuario);
@@ -238,16 +250,14 @@ export const Profile = () => {
       labelNameUsuario.innerText = `BIENVENIDO  ${userNameGoogle}`;
     }
   }
-
   async function obtenerUsuarioId(id) {
     let user = null;
     const docRef = doc(db, 'dataUsers', id);
-
     const docSnap = await getDoc(docRef);
-
     if (docSnap.exists()) {
       user = docSnap.data();
       console.log(user);
+
       if (user.name != null) {
         console.log(user.name);
         labelNameUsuario.innerText = `BIENVENIDO  ${user.name}`;
@@ -259,8 +269,13 @@ export const Profile = () => {
       loginGoogle();
       console.log('No such document!');
     }
-    // eslint-disable-next-line no-use-before-define
-    //
+
+    if (sessionStorage.getItem('photoUser') != null) {
+      console.log(sessionStorage.getItem('photoUser'));
+      divProfilePhoto.style.backgroundImage = `url('${sessionStorage.getItem('photoUser')}'`;
+    } else {
+      divProfilePhoto.style.backgroundImage = 'url(../img/un-usuario.jpg)';
+    }
   }
 
   // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
@@ -280,5 +295,19 @@ export const Profile = () => {
   }
 
   listeningSessionEvent();
+
+  // AÑADIENDO FUNCIONALIDAD PARA PONER LA FOTO DEL USUARIO EN EL PROFILE
+  imageUploaderPhoto.addEventListener('change', (e) => {
+    const file = e.target.files[0]; // url de la foto
+    console.log(file);
+    photoUser(file, divProfilePhoto);
+    console.log(file.name);
+  });
+  imageUploaderCover.addEventListener('change', (e) => {
+    const file = e.target.files[0]; // url de la foto
+    console.log(file);
+    coverPageUser(file, coverPageProfilePhotoContainer);
+  });
+
   return profileContainer;
 };
