@@ -30,7 +30,7 @@ export const Feed = () => {
                  <img class= 'share-trash-logo' data-id='${doc2.id}' src='img/icomon/bin.jpg' alt='logo para eliminar publicación'>
              </figure>
           </div>
-          <div  contentEditable ='false' class= 'title-area'  id= 'newTitle' >${publicationNew.title}</div>
+          <div  contentEditable ='false' class= 'title-area '  id= 'newTitle' >${publicationNew.title}</div>
           <div  contentEditable ='false'   class= 'text-area div-text' id= 'newText'>${publicationNew.text}</div>
           <div class = 'direction' >
              <img  style='display:none;' class='share-stickers-logo like-love-smile ' src='img/icomon/smile.jpg' alt='logo para agregar stickers a la publicación'>
@@ -51,8 +51,8 @@ export const Feed = () => {
                  <figcaption class ='user-name-pub' >Username</figcaption>
              </figure>
           </div>
-          <p>${publicationNew.title}</p>
-          <p  class= 'p-text-publication' >${publicationNew.text}</p>
+          <div  contentEditable ='false' id= 'newTitle'>${publicationNew.title}</div>
+          <div  contentEditable ='false'  class= 'p-text-publication' id= 'newText' >${publicationNew.text}</div>
           <div class = 'direction' >
              <img class= 'like-love-smile' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
              <img class= 'like-love-smile' src='img/icomon/heart.jpg' alt='logo para dar love'>

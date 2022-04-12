@@ -3,6 +3,7 @@ import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-f
 import { dataPublication, reviewResultPublication, db } from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
+import { publicationUser } from '../storage.js';
 
 export const publicationBeforeTemplate = () => {
   const feedTemplate2 = document.createElement('main');
@@ -56,12 +57,16 @@ export const publicationBeforeTemplate = () => {
   const divUploader = document.createElement('div');
   divUploader.style.display = 'none';
   divUploader.className = 'div-uploader';
-  /*const imagePreview = document.createElement('img');
-  imagePreview.id = 'imgPreview';*/
+
+  const divPreview = document.createElement('div');
+  divPreview.className = 'div-preview';
+  const imagePreview = document.createElement('img');
+  imagePreview.id = 'imgPreview';
   const imageUploader = document.createElement('input');
   imageUploader.type = 'file';
   imageUploader.id = 'imgUploader';
   imageUploader.className = 'img-uploader';
+  divPreview.appendChild(imagePreview);
 
   // div para emoticos
   const divEmoticons = document.createElement('div');
@@ -84,7 +89,6 @@ export const publicationBeforeTemplate = () => {
   figureSection.appendChild(figcaptionUser);
   formInputs.appendChild(inputTitle);
   // formInputs.appendChild(inputText);
-  // divText.appendChild(imagePreview);
   formInputs.appendChild(divText);
   containerLogosButton.appendChild(imgShareImage);
   containerLogosButton.appendChild(imgShareStickers);
@@ -196,11 +200,12 @@ export const publicationBeforeTemplate = () => {
   }
   listeningSessionEvent();
 
-
   // evento para capturar evento para subir imagen
- /* imageUploader.addEventListener('change', (e) => {
-    const file = e.target.files[0];
+  imageUploader.addEventListener('change', (e) => {
+    divText.appendChild(divPreview);
+    const file = e.target.files[0]; // url de la foto
     console.log(file);
-  });*/
+    publicationUser(file, imagePreview);
+  });
   return sectionPublication;
 };
