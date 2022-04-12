@@ -11,7 +11,7 @@ const firebaseConfig = {
   authDomain: 'social-network-programmers.firebaseapp.com',
   // databaseURL: "http://social-network-programmers.firebaseapp.com",
   projectId: 'social-network-programmers',
-  storageBucket: 'social-network-programmers.appspot.com',
+  storageBucket: 'gs://social-network-programmers.appspot.com/',
   messagingSenderId: '857295101335',
   appId: '1:857295101335:web:ebceaaef0a3194aa7ef8d2',
 };
