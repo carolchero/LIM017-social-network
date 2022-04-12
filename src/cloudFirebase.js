@@ -1,6 +1,6 @@
 /* eslint-disable object-curly-newline */
 // eslint-disable-next-line import/no-unresolved
-import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc, setDoc, getDoc, query, where, updateDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
+import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc, setDoc, getDoc, query, where, updateDoc, orderBy, limit } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
 
 export const db = getFirestore();
 const uid = sessionStorage.getItem('uid');
@@ -42,11 +42,11 @@ export async function reviewResultPublication() {
 }
 
 // para alamacenar datos de publicación
-export const dataPublication = (title, text) => addDoc(collection(db, 'dataPublication'), { uid, title, text });
+export const dataPublication = (title, text, date) => addDoc(collection(db, 'dataPublication'), { uid, title, text, date });
 export const getPublication = () => getDocs(collection(db, 'dataPublication'));
 
 // se agrega la publicación nueva sin recargar
-export const onGetPublication = (callback) => onSnapshot(collection(db, 'dataPublication'), callback);
+export const onGetPublication = (callback) => onSnapshot(query(collection(db, 'dataPublication'), orderBy('date', 'desc')), callback);
 export const onGetPublicationUser = (callback) => onSnapshot(query(collection(db, 'dataPublication'), where('uid', '==', uid)), callback);
 
 // elimiminar  y editar publicación

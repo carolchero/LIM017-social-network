@@ -1,5 +1,6 @@
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
+import f from '../lib/function.js';
 import { dataPublication, reviewResultPublication, db } from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
@@ -74,8 +75,8 @@ export const publicationBeforeTemplate = () => {
     emojiIco.className = 'emoticons';
     emojiIco.src = emoji;
     emojiIco.addEventListener('click', () => {
-      const text = divText.innerHTML;
-      divText.innerHTML = `${text}<img class="emoticon" src="${emoji}">`;
+      divText.focus();
+      f.pasteHtmlAtCaret(`<img class="emoticon" src="${emoji}">`);
     });
     divEmoticons.appendChild(emojiIco);
   }
@@ -103,10 +104,11 @@ export const publicationBeforeTemplate = () => {
   buttonPublication.addEventListener('click', () => {
     const title = inputTitle.innerHTML;
     const text = divText.innerHTML;
+    const date = f.timeNow();
     if ((title === '') || (text === '')) {
       messageTitleText.style.display = 'block';
     } else {
-      dataPublication(title, text);
+      dataPublication(title, text, date);
       messageTitleText.style.display = 'none';
       reviewResultPublication();
       inputTitle.innerHTML = '';
@@ -195,7 +197,6 @@ export const publicationBeforeTemplate = () => {
     });
   }
   listeningSessionEvent();
-
 
   // evento para capturar evento para subir imagen
  /* imageUploader.addEventListener('change', (e) => {
