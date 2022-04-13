@@ -1,5 +1,6 @@
+// eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import/order,import/no-unresolved
 import { doc, getDoc, getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
@@ -20,6 +21,9 @@ export const headerTemplate = () => {
   imgUser.className = 'photo-user';
   imgUser.id = 'imagenUsuario';
   imgUser.alt = 'foto de perfil';
+  const attr = document.createAttribute('referrerpolicy');
+  attr.value = 'no-referrer';
+  imgUser.setAttributeNode(attr);
   const figcaptionName = document.createElement('figcaption');
   figcaptionName.className = 'figcaption-name';
 
@@ -70,8 +74,10 @@ export const headerTemplate = () => {
 
   const liConfig = document.createElement('li');
   const aConfig = document.createElement('a');
-  aConfig.href = '#';
   aConfig.innerText = 'Configurar cuenta';
+  aConfig.addEventListener('click', () => {
+    onNavigate('/configurar');
+  });
 
   const liDelete = document.createElement('li');
   const aDelete = document.createElement('a');
