@@ -44,8 +44,22 @@ export const Register = () => {
   const icoEye = document.createElement('i');
   icoEye.className = 'ico-eye-hide';
   icoEye.addEventListener('click', () => { if (icoEye.className === 'ico-eye-hide') { icoEye.className = 'ico-eye'; inputPassword.type = 'text'; } else { icoEye.className = 'ico-eye-hide'; inputPassword.type = 'password'; } });
+
+  // Nivel de seguridad de contraseña
   const divLevelSecurity = document.createElement('div');
   divLevelSecurity.className = 'input-form div-level-low';
+  const divDescSecurity = document.createElement('div');
+  divDescSecurity.id = 'divSecurityPassword';
+  const descSecurityCant = document.createElement('div');
+  descSecurityCant.innerHTML = 'Min(6): <img src=\'img/false.png\'></img>';
+  const descSecurityMin = document.createElement('div');
+  descSecurityMin.innerHTML = 'Minus: <img src=\'img/false.png\'></img>';
+  const descSecurityMay = document.createElement('div');
+  descSecurityMay.innerHTML = 'Mayus: <img src=\'img/false.png\'></img>';
+  const descSecurityNumber = document.createElement('div');
+  descSecurityNumber.innerHTML = 'Num: <img src=\'img/false.png\'></img>';
+  const descSecurityCharacter = document.createElement('div');
+  descSecurityCharacter.innerHTML = 'Carac: <img src=\'img/false.png\'></img>';
 
   const divPasswordHide = document.createElement('div');
   divPasswordHide.className = 'message-hide';
@@ -141,20 +155,66 @@ export const Register = () => {
   inputEmail.addEventListener('keyup', validy);
 
   // validado contraseña
-  const regexPassword = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-+_!@#$%^&*.,?]).+$/;
+  // const regexPassword = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-+_!@#$%^&*.,?]).+$/;
+  const regexMinus = /(?=.*[a-z]).+$/;
+  const regexMayus = /(?=.*[A-Z]).+$/;
+  const regexNumber = /(?=.*[0-9]).+$/;
+  const regexCharac = /(?=.*[-+_!@#$%^&*.,?]).+$/;
   inputPassword.addEventListener('keyup', () => {
+    let count = 0;
     if (inputPassword.value.length >= 6) {
-      if (regexPassword.test(inputPassword.value)) {
-        divLevelSecurity.className = 'input-form div-level-higth';
-        divPasswordHide.style.display = 'none';
-      } else {
-        divLevelSecurity.className = 'input-form div-level-medium';
-        divPasswordHide.style.display = 'none';
-      }
+      descSecurityCant.innerHTML = 'Min(6): <img src=\'img/check.png\'></img>';
+      divPasswordHide.style.display = 'none';
+      count += 1;
+      // if (regexPassword.test(inputPassword.value)) {
+      //   divPasswordHide.style.display = 'none';
+      // } else {
+      //   divPasswordHide.style.display = 'none';
+      // }
     } else {
-      divLevelSecurity.className = 'input-form div-level-low';
+      descSecurityCant.innerHTML = 'Min(6): <img src=\'img/false.png\'></img>';
       divPasswordHide.style.display = 'block';
     }
+    if (regexMinus.test(inputPassword.value)) {
+      descSecurityMin.innerHTML = 'Minus: <img src=\'img/check.png\'></img>';
+      count += 1;
+    } else {
+      descSecurityMin.innerHTML = 'Minus: <img src=\'img/false.png\'></img>';
+    }
+    if (regexMayus.test(inputPassword.value)) {
+      descSecurityMay.innerHTML = 'Mayus: <img src=\'img/check.png\'></img>';
+      count += 1;
+    } else {
+      descSecurityMay.innerHTML = 'Mayus: <img src=\'img/false.png\'></img>';
+    }
+    if (regexNumber.test(inputPassword.value)) {
+      descSecurityNumber.innerHTML = 'Num: <img src=\'img/check.png\'></img>';
+      count += 1;
+    } else {
+      descSecurityNumber.innerHTML = 'Num: <img src=\'img/false.png\'></img>';
+    }
+    if (regexCharac.test(inputPassword.value)) {
+      descSecurityCharacter.innerHTML = 'Carac: <img src=\'img/check.png\'></img>';
+      count += 1;
+    } else {
+      descSecurityCharacter.innerHTML = 'Carac: <img src=\'img/false.png\'></img>';
+    }
+
+    switch (count) {
+      case 3:
+        divLevelSecurity.className = 'input-form div-level-medium';
+        break;
+      case 4:
+        divLevelSecurity.className = 'input-form div-level-higth';
+        break;
+      case 5:
+        divLevelSecurity.className = 'input-form div-level-higth-top';
+        break;
+      default:
+        divLevelSecurity.className = 'input-form div-level-low';
+        break;
+    }
+
   });
 
   divHeader.appendChild(imgLogo);
@@ -172,7 +232,6 @@ export const Register = () => {
   divPassword.appendChild(inputPassword);
   divPassword.appendChild(icoEye);
   divContent.appendChild(divPassword);
-  divContent.appendChild(divLevelSecurity);
   divContent.appendChild(divPasswordHide);
 
   divContent.appendChild(labelConfirmPassword);
@@ -180,6 +239,14 @@ export const Register = () => {
   divConfirmPassword.appendChild(icoEyeConfirm);
   divContent.appendChild(divConfirmPassword);
   divContent.appendChild(divPasswordConfirmHide);
+
+  divContent.appendChild(divLevelSecurity);
+  divDescSecurity.appendChild(descSecurityCant);
+  divDescSecurity.appendChild(descSecurityMin);
+  divDescSecurity.appendChild(descSecurityMay);
+  divDescSecurity.appendChild(descSecurityNumber);
+  divDescSecurity.appendChild(descSecurityCharacter);
+  divContent.appendChild(divDescSecurity);
 
   divButtons.appendChild(buttonRegister);
   divButtons.appendChild(buttonReturn);

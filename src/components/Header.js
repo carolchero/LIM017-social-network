@@ -16,7 +16,6 @@ export const headerTemplate = () => {
   const figureNamePhoto = document.createElement('figure');
   figureNamePhoto.className = 'photo-user-container';
   const aPhoto = document.createElement('a');
-  aPhoto.href = '/profile';
   const imgUser = document.createElement('img');
   imgUser.className = 'photo-user';
   imgUser.id = 'imagenUsuario';
@@ -48,7 +47,6 @@ export const headerTemplate = () => {
   const containerNav = document.createElement('nav');
   containerNav.className = 'container-search-photo-nav width-content';
   const aWall = document.createElement('a');
-  aWall.href = '/feed';
   const imgWall = document.createElement('img');
   imgWall.className = 'logo-wall';
   imgWall.src = 'img/icomon/home.jpg';
@@ -191,5 +189,10 @@ export const headerTemplate = () => {
   }
   listeningSessionEvent();
 
+  // Eventos de navegador
+  aPhoto.addEventListener('click', () => { onNavigate('/profile'); });
+  aWall.addEventListener('click', () => { onNavigate('/feed'); });
+  imgComputer.addEventListener('click', () => { onNavigate('/feed'); });
+  figcaptionName.addEventListener('click', () => { onNavigate('/profile'); });
   return headerdiv;
 };

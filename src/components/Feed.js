@@ -26,20 +26,20 @@ export const Feed = () => {
         <section class= 'container-publication-final' >
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
-                 <img class= 'photo-user-pub' src='' alt='foto de perfil'>
+                 <img class= 'photo-user-pub' id = 'photoUser' src='' alt='foto de perfil'>
                  <figcaption class ='user-name-pub' ></figcaption>
                  <img class= 'share-edit-logo' data-id='${doc2.id}' src='img/icomon/pencil.jpg' alt='logo para editar'>
                  <img class= 'share-trash-logo' data-id='${doc2.id}' src='img/icomon/bin.jpg' alt='logo para eliminar publicación'>
              </figure>
           </div>
-          <div  contentEditable ='false' class= 'title-area'  id= 'newTitle' >${publicationNew.title}</div>
+          <div  contentEditable ='false' class= 'title-area '  id= 'newTitle' >${publicationNew.title}</div>
           <div  contentEditable ='false'   class= 'text-area div-text' id= 'newText'>${publicationNew.text}</div>
-          <div class = 'logos-like-love direction' >
-             <img  style='display:none;' class='share-stickers-logo logo-publication' src='img/icomon/smile.jpg' alt='logo para agregar stickers a la publicación'>
-             <img class= 'like-logo logo-publication' src='img/icons8-like-64.png' alt='logo para dar me encanta'>
-             <img class= 'love-logo logo-publication' src='img/corazones.png' alt='logo para dar love'>
+          <div class = 'direction' >
+             <img  style='display:none;' class='share-stickers-logo like-love-smile ' src='img/icomon/smile.jpg' alt='logo para agregar stickers a la publicación'>
+             <img class= 'like-love-smile ' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
+             <img class= 'like-love-smile ' src='img/icomon/heart.jpg' alt='logo para dar love'>
              <button style='display:none;'  class = 'btn-save'>Guardar cambios</button>
-             <div class='div-emoticons' id='divEmoticon'; style='display: none;'></div>
+             <div class='div-emoticons ' id='divEmoticon'; style='display: none;'></div>
           </div>
           
         </section>
@@ -49,15 +49,15 @@ export const Feed = () => {
         <section class= 'container-publication-final' >
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
-                 <img class= 'photo-user-pub' src='img/icomon/user.jpg' alt='foto de perfil'>
+                 <img class= 'photo-user-pub' id = 'photoUser' src='img/icomon/user.jpg' alt='foto de perfil'>
                  <figcaption class ='user-name-pub' >Username</figcaption>
              </figure>
           </div>
-          <p>${publicationNew.title}</p>
-          <p  class= 'input-text-publication' >${publicationNew.text}</p>
-          <div class = 'logos-like-love direction' >
-             <img class= 'like-logo logo-publication' src='img/icons8-like-64.png' alt='logo para dar me encanta'>
-             <img class= 'love-logo logo-publication' src='img/corazones.png' alt='logo para dar love'>
+          <div  contentEditable ='false' id= 'newTitle'>${publicationNew.title}</div>
+          <div  contentEditable ='false'  class= 'p-text-publication' id= 'newText' >${publicationNew.text}</div>
+          <div class = 'direction' >
+             <img class= 'like-love-smile' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
+             <img class= 'like-love-smile' src='img/icomon/heart.jpg' alt='logo para dar love'>
           </div>
         </section>
       `;
@@ -97,7 +97,7 @@ export const Feed = () => {
         for (let index = 1; index < 82; index++) {
           const emoji = `../img/emoji/emoji${index}.png`;
           const emojiIco = document.createElement('img');
-          emojiIco.className = 'emoticons';
+          emojiIco.className = 'emoticons emoticons-final';
           emojiIco.src = emoji;
           divEmoticon.appendChild(emojiIco);
           emojiIco.addEventListener('click', () => {
