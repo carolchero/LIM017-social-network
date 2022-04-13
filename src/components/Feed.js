@@ -22,6 +22,11 @@ export const Feed = () => {
       if (publicationNew.uid === sessionStorage.getItem('uid')) {
         html += `
         <section class= 'container-publication-final' >
+            <div style='display:none;' class = 'message-alert-content div-alert-message-color'>
+                <p>¿Estas seguro de eliminar esta publicación?</p>
+                <button  class ='button-yes button-alert' data-id='${doc2.id}' >SI</button>
+                <button class= 'button-no button-alert'>NO</button>
+            </div>
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
                  <img class= 'photo-user-pub' id = 'photoUser' src='' alt='foto de perfil'>
@@ -65,8 +70,20 @@ export const Feed = () => {
     // ELIMINANDO PUBLICACIONES
     const buttonDelete = mainTemplate.querySelectorAll('.share-trash-logo');
     buttonDelete.forEach((btn) => {
-      btn.addEventListener('click', ({ target: { dataset } }) => {
-        deletePublication(dataset.id);
+      const sectionPublication = btn.parentNode.parentNode.parentNode;
+      const buttonDeleteOnly = sectionPublication.querySelector('.share-trash-logo');
+      const messageAlert = sectionPublication.querySelector('.div-alert-message-color');
+      const messageAlertYes = sectionPublication.querySelector('.button-yes');
+      const messageAlertNo = sectionPublication.querySelector('.button-no');
+      buttonDeleteOnly.addEventListener('click', () => {
+        messageAlert.style.display = 'block';
+        messageAlertYes.addEventListener('click', ({ target: { dataset } }) => {
+          deletePublication(dataset.id);
+          messageAlert.style.display = 'none';
+        });
+        messageAlertNo.addEventListener('click', () => {
+          messageAlert.style.display = 'none';
+        });
       });
     });
 

@@ -274,6 +274,20 @@
     display: flex;
     justify-content: space-between;
 }
+.div-alert-message-color {
+    background-color: rgb(79 58 101 / 96%);
+    color:white;
+   
+}
+.button-alert {
+    padding: 2%;
+    margin-top: 4%;
+    border: 0;
+    border-radius: 0.25em;
+    font-size: 1rem;
+    background-color: white;
+    color: black;
+}
 .figure-name-photo {
     margin:1% 80% 1% 0%;
     display: flex;
