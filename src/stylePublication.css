@@ -276,8 +276,11 @@
 }
 .div-alert-message-color {
     background-color: rgb(79 58 101 / 96%);
-    color:white;
-   
+    color: white;
+    height: 11rem;
+    width: 18rem;
+    padding: 20px;
+    font-size: 20px;
 }
 .button-alert {
     padding: 2%;
