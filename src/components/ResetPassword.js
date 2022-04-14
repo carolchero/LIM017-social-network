@@ -1,12 +1,13 @@
 // restablecer contraseña
 // eslint-disable-next-line import/no-cycle
-//import { restorePassword } from '../auth.js';
 
-import { configurationPassword, restorePassword } from '../auth.js';
-import { onNavigate } from '../main.js';
+// eslint-disable-next-line import/no-cycle
+import { restorePassword } from '../auth.js';
+// eslint-disable-next-line import/no-cycle
 
 export const ResetPassword = () => {
   const sectionRestPassword = document.createElement('section');
+  sectionRestPassword.className = 'container-publication';
   const titleHeader = document.createElement('h2');
   titleHeader.className = 'text-center';
   titleHeader.innerText = 'Recupera tu cuenta';
@@ -21,7 +22,7 @@ export const ResetPassword = () => {
   inputCorreo.id = 'txtCorreo';
   inputCorreo.placeholder = 'Correo electrónico';
   const buttonRecuperarCuenta = document.createElement('button');
-  //buttonRecuperarCuenta.className = 'button-form';
+  buttonRecuperarCuenta.className = 'button-form';
   buttonRecuperarCuenta.innerText = 'Continuar ';
   buttonRecuperarCuenta.addEventListener('click', () => restorePassword());
 
@@ -36,8 +37,6 @@ export const ResetPassword = () => {
   titleHeader.appendChild(titleMain);
   titleMain.appendChild(inputCorreo);
   titleMain.appendChild(buttonRecuperarCuenta);
-
-
   return sectionRestPassword;
 };
 
