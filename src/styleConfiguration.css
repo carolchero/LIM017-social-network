@@ -1,0 +1,53 @@
+.container-configuration {/*contenedor de todas las publicaciones*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+    /*margin:25% 12%;*/
+    border-radius: 15px;
+    padding:1%;
+    background-color: rgb(207 159 159 / 36%);
+    width:80%;
+    max-width: 580px;
+}
+.section-configuration{
+    background: url(img/diseno-fondo.webp) no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;align-items: center;
+    position: absolute;  /*saca del flujo el elemento , mantiene el lugar especificado*/
+    min-width: 100%;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+}
+.control-label {
+    top: -7px;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #AAAAAA;
+    font-weight: 400;
+    margin: 16px 0 0 0;
+}
+
+.button-form{
+    width: 120px;
+    height:38px ;
+    border-radius: 1rem;
+    border:0;
+    font-size: 18px;
+    box-shadow: 2px 2px 5px #999;
+    margin: 20px 5px 10px 5px;
+}
+.card { /*contenedor de inicio de sesión y el logo*/
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin: 20px 0px 10px 0px;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+    border-radius: 6px;
+    color: rgba(0,0,0, 0.87);
+    background: #fff;
+    padding-bottom: 20px;
+}

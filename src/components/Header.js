@@ -1,6 +1,13 @@
+// eslint-disable-next-line import/no-unresolved
+import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+// eslint-disable-next-line import/order,import/no-unresolved
+import { doc, getDoc, getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
+// eslint-disable-next-line import/no-cycle
+import { onNavigate } from '../main.js';
 // eslint-disable-next-line import/no-cycle
 import { cerrarSesion } from '../auth.js';
 
+export const db = getFirestore();
 export const headerTemplate = () => {
   const headerdiv = document.createElement('header');
   // CONTENEDOR DIV( FOTO,NAME,SEARCH)
@@ -10,14 +17,16 @@ export const headerTemplate = () => {
   const figureNamePhoto = document.createElement('figure');
   figureNamePhoto.className = 'photo-user-container';
   const aPhoto = document.createElement('a');
-  aPhoto.href = '/profile';
   const imgUser = document.createElement('img');
   imgUser.className = 'photo-user';
   imgUser.id = 'imagenUsuario';
-  imgUser.src = 'img/profile-user.png';
   imgUser.alt = 'foto de perfil';
+  const attr = document.createAttribute('referrerpolicy');
+  attr.value = 'no-referrer';
+  imgUser.setAttributeNode(attr);
   const figcaptionName = document.createElement('figcaption');
-  figcaptionName.innerText = 'user.name';
+  figcaptionName.className = 'figcaption-name';
+
   // contenedor del buscador
   const containerSearch = document.createElement('div');
   containerSearch.className = 'container-search';
@@ -27,7 +36,7 @@ export const headerTemplate = () => {
 
   const imgSearch = document.createElement('img');
   imgSearch.className = 'search-logo';
-  imgSearch.src = 'img/search-logo.png';
+  imgSearch.src = 'img/icomon/search.jpg';
   imgSearch.alt = 'lupita';
 
   // agregando elementos pequeños a contenedores
@@ -42,10 +51,9 @@ export const headerTemplate = () => {
   const containerNav = document.createElement('nav');
   containerNav.className = 'container-search-photo-nav width-content';
   const aWall = document.createElement('a');
-  aWall.href = '/feed';
   const imgWall = document.createElement('img');
   imgWall.className = 'logo-wall';
-  imgWall.src = 'img/web-content.png';
+  imgWall.src = 'img/icomon/home.jpg';
   imgWall.alt = 'logo para el muro';
 
   const imgComputer = document.createElement('img');
@@ -53,9 +61,9 @@ export const headerTemplate = () => {
   imgComputer.src = 'img/logo3.png';
   imgComputer.alt = 'una computadora(logo de aplicación)';
   // navegador oculto
-  const lines = document.createElement('label');
+  const lines = document.createElement('img');
   lines.className = 'nav-lines';
-  lines.innerHTML = '&#8801';
+  lines.src = 'img/icomon/menu.jpg';
   const containerNavHide = document.createElement('div');
   containerNavHide.className = 'container-options-nav';
   containerNavHide.id = 'optionsNav';
@@ -66,8 +74,10 @@ export const headerTemplate = () => {
 
   const liConfig = document.createElement('li');
   const aConfig = document.createElement('a');
-  aConfig.href = '#';
   aConfig.innerText = 'Configurar cuenta';
+  aConfig.addEventListener('click', () => {
+    onNavigate('/configurar');
+  });
 
   const liDelete = document.createElement('li');
   const aDelete = document.createElement('a');
@@ -115,51 +125,80 @@ export const headerTemplate = () => {
   headerdiv.appendChild(containerNav);
 
   // evento para aparecer el nav
-  const open = 'block';
-  const close = 'none';
   lines.addEventListener('click', () => {
-    console.log(containerNavHide.style.display);
-    // eslint-disable-next-line no-cond-assign
-    if (containerNavHide.style.display = close) {
-      // eslint-disable-next-line no-unused-expressions
-      containerNavHide.style.display = open;
+    if (containerNavHide.style.display === 'none') {
+      containerNavHide.style.display = 'block';
     } else {
-      // eslint-disable-next-line no-unused-expressions
-      containerNavHide.style.display = close;
+      containerNavHide.style.display = 'none';
     }
   });
+  // obtener nombre y foto de firebase o de google
+  function loginGoogleName() {
+    const userNameGoogle = sessionStorage.getItem('name');
+    if (userNameGoogle != null) {
+      figcaptionName.innerText = sessionStorage.getItem('name');
+    } else {
+      figcaptionName.innerText = 'username';
+    }
+  }
+  function loginGooglePhoto() {
+    const photoNameGoogle = sessionStorage.getItem('photo');
+    if (photoNameGoogle != null) {
+      imgUser.src = sessionStorage.getItem('photo');
+    } else {
+      imgUser.src = 'img/icomon/user.jpg';
+    }
+  }
 
+  async function obtenerUsuarioId(id) {
+    let user = null;
+    const docRef = doc(db, 'dataUsers', id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      user = docSnap.data();
+      if (user.name != null) {
+        figcaptionName.innerText = user.name;
+      } else {
+        figcaptionName.innerText = 'username';
+      }
+    } else { // doc.data() will be undefined in this case
+      loginGoogleName();
+      console.log('No such document in Google!');
+    }
+
+    if (docSnap.exists()) {
+      user = docSnap.data();
+      if (user.photo != null) {
+        console.log(user.photo);
+      } else {
+        imgUser.src = 'img/icomon/user.jpg';
+      }
+    } else { // doc.data() will be undefined in this case
+      loginGooglePhoto();
+      console.log('No such document in Google!');
+    }
+  }
+  // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
+  function listeningSessionEvent() {
+    const auth = getAuth();
+    // eslint-disable-next-line no-shadow
+    onAuthStateChanged(auth, (user) => {
+      if (user === null) { // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+        onNavigate('/');
+      } else {
+        const uid = user.uid;
+        obtenerUsuarioId(uid);
+      }
+    });
+  }
+  listeningSessionEvent();
+
+  // Eventos de navegador
+  aPhoto.addEventListener('click', () => { onNavigate('/profile'); });
+  aWall.addEventListener('click', () => { onNavigate('/feed'); });
+  imgComputer.addEventListener('click', () => { onNavigate('/feed'); });
+  figcaptionName.addEventListener('click', () => { onNavigate('/profile'); });
   return headerdiv;
 };
-
-/* export const feedTemplate = `<!-- para el buscador-->
-<header>
-<div class="container-search-photo-nav">
-    <figure>
-<a href = "/profile"><img id="userPhoto" class='photo-user' src='img/profile-user.png' alt"></a>
-    <figcaption id="nameUser" class="">Username</figcaption>
-    </figure>
-    <div class="container-search">
-        <input class="input-search" placeholder=" Buscar"/>
-        <img class="search-logo" src="img/search-logo.png" alt="lupita">
-    </div>
-</div >
-
-<!-- para la navegación -->
-<nav class="container-search-photo-nav width-content">
-    <img class="logo-wall"  src="img/web-content.png" alt="logo para el muro">
-    <img class="logo-computer" src="img/logo.png" alt="una computadora(logo de aplicación)">
-
-      <div><label class="nav-lines" id="checkLabelShow"> &#8801 </label>
-          <ul class="container-options-nav"   >
-              <li><a href="#" id="">Configurar cuenta</a></li>
-              <li><a href="#" id="">Eliminar cuenta</a> </li>
-              <li><a href="#" id="">Privacidad</a> </li>
-              <li><a href="#" id="">Cerrar cuenta</a></li>
-
-          </ul>
-      </div>
-
-</nav>
-</header>
-`; */
