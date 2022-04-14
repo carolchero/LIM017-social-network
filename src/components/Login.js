@@ -93,8 +93,9 @@ export const Login = () => {
   buttonSignUp.addEventListener('click', () => onNavigate('/register'));
   const linkLogin = document.createElement('a');
   linkLogin.className = 'link-login';
-  linkLogin.href = '#';
+  // linkLogin.href = '#';
   linkLogin.innerText = '¿Olvidaste tu contraseña?';
+  linkLogin.addEventListener('click',() => onNavigate('/resetPassword'));
 
   divCardHeader.appendChild(imgLogo);
 
