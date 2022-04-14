@@ -3,9 +3,9 @@ import { configurationPassword } from '../auth.js';
 
 export const Configurar = () => {
   const sectionChangePassword = document.createElement('section');
-  sectionChangePassword.className = 'full-page login-page';
+  sectionChangePassword.className = 'section-configuration';
   const divChangePassword = document.createElement('div');
-  divChangePassword.className = 'container';
+  divChangePassword.className = 'container-configuration';
   const divCard = document.createElement('div');
   divCard.className = 'card';
 
