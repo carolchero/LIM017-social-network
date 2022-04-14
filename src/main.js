@@ -7,6 +7,10 @@ import { Login } from './components/Login.js';
 import { Feed } from './components/Feed.js';
 // eslint-disable-next-line import/no-cycle
 import { Profile } from './components/Profile.js';
+// eslint-disable-next-line import/no-cycle
+import { Configurar } from './components/Configurar.js';
+// eslint-disable-next-line import/no-cycle
+import { ResetPassword } from './components/ResetPassword.js';
 
 const rootDiv = document.getElementById('root');
 
@@ -15,6 +19,8 @@ const routes = {
   '/register': Register,
   '/feed': Feed,
   '/profile': Profile,
+  '/configurar': Configurar,
+  '/resetPassword': ResetPassword,
 };
 
 export const onNavigate = (pathname) => {

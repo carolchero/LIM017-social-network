@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+// eslint-disable-next-line import/no-unresolved
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';

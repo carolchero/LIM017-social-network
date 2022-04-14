@@ -2,13 +2,16 @@
 // eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 import {
-  doc, getDoc, getFirestore,
+  doc, getDoc,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
+// eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
-import { onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db } from '../cloudFirebase.js';
+import {
+  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db,
+} from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 import { photoUser, coverPageUser } from '../storage.js';

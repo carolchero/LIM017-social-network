@@ -1,11 +1,15 @@
 /* eslint-disable max-len */
 import {
   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut,
-// eslint-disable-next-line import/no-unresolved
+  // eslint-disable-next-line no-unused-vars
+  updatePassword, onAuthStateChanged, sendPasswordResetEmail,
+  // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line import/no-cycle,import/no-unresolved
 import { onNavigate } from './main.js';
 import { dataUser } from './cloudFirebase.js';
+// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line import/no-unresolved
 
 // función para crear nuevos usuarios
 export async function register(name, email, password) {
@@ -46,6 +50,15 @@ export function accesUser(email, password) {
       // Signed in
       const usuario = userCredential.user.uid;
       sessionStorage.setItem('uid', usuario);
+      // sessionStorage.setItem('name', nameUsuarie);
+      sessionStorage.setItem('email',email);
+      console.log(email);
+
+      if (userCredential.user.photoURL != null) {
+        sessionStorage.setItem('photo', userCredential.user.photoURL);
+      } else {
+        sessionStorage.setItem('photo', 'img/un-usuario.jpg');
+      }
       onNavigate('/feed');
 
       // //img
@@ -72,13 +85,6 @@ export function accesGoogle() {
       sessionStorage.setItem('name', user.displayName);
       console.log(user.displayName);
       console.log(user.photoURL);
-      /* let photoUrl;
-
-      if (user.photoURL != null) {
-        photoUrl = user.photoURL;
-      } else {
-        photoUrl = 'img/un-usuario.jpg';
-      } */
 
       if (user.photoURL != null) {
         sessionStorage.setItem('photo', user.photoURL);
@@ -116,19 +122,23 @@ export function accesFacebook() {
 }
 
 // reestablecer contraseña
-/* import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
-const auth = getAuth();
-sendPasswordResetEmail(auth, email)
-  .then(() => {
-    // Password reset email sent!
-    // ..
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  }); */
+export function restorePassword() {
+  const auth = getAuth();
+  const email = document.getElementById('txtCorreo').value;
+  console.log(email);
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Password reset email sent!
+      console.log('Puede cambiar contraseña');
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      // ..
+    });
+}
 
 // cerrar sesion
 
@@ -141,6 +151,54 @@ export function cerrarSesion() {
       onNavigate('/');
     })
     .catch((error) => {
+      console.log(error.message);
+      document.getElementById('messageHide').style.display = 'block';
+    });
+}
+
+export function validatePassword(password) {
+  return password != null && password !== '';
+}
+
+export function configurationPassword() {
+  const auth = getAuth();
+  console.log(auth);
+  const currentPassword = document.getElementById('txtPasswordCurrent').value;
+  const newPassword = document.getElementById('txtPasswordNew').value;
+  const newPasswordConfirm = document.getElementById('txtPasswordNewRepeat').value;
+  const email = sessionStorage.getItem('email');
+  if (newPassword !== newPasswordConfirm) {
+    //
+    console.log('las contraseñas no coinciden');
+    return;
+  }
+  if (!validatePassword(newPassword)) {
+    //
+    console.log('la contraseña no es válida');
+    return;
+  }
+  // Hacemos login para validar si currentpassword es la contraseña correcta
+  signInWithEmailAndPassword(auth, email, currentPassword)
+    .then(() => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log(user);
+
+          updatePassword(user, newPassword).then(() => {
+            console.log('Update successful');
+            onNavigate('/');
+          }).catch((error) => {
+            // An error ocurred
+            // ...
+            console.log(error.message);
+          });
+        } else {
+          console.log(user);
+        }
+      });
+    })
+    .catch((error) => {
+      console.log('la contraseña actual no es correcta');
       console.log(error.message);
       document.getElementById('messageHide').style.display = 'block';
     });

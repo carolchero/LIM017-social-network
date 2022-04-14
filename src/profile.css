@@ -15,6 +15,7 @@
     margin-bottom: 90px;
     width: 80%;
     max-width: 700px;
+    cursor: pointer;
 }
 .name-usuario{
     color: #FFF;
@@ -24,6 +25,7 @@
     bottom: -40px;
     left: 130px;
     text-transform: uppercase;
+    cursor: pointer;
 }
 .photo-profile {
     flex-direction: column;
