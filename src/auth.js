@@ -6,10 +6,10 @@ import {
   // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 // eslint-disable-next-line import/no-cycle,import/no-unresolved
-import { onNavigate } from './main.js';
-import { dataUser, onGetUser } from './cloudFirebase.js';
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
-// eslint-disable-next-line import/no-unresolved
+import { onNavigate } from './main.js';
+import { dataUser, db } from './cloudFirebase.js';
 
 // función para crear nuevos usuarios
 export async function register(name, email, password) {
@@ -82,13 +82,27 @@ export async function accesGoogle() {
       console.log(user.photoURL);
       const nameUser = user.displayName;
       const idUser = user.uid;
+      sessionStorage.setItem('uidGoogle', idUser);
       const emailUser = user.email;
-      console.log(getAuth().idTokenSubscription.auth.lastNotifiedUid);
-      // const idAccesGoogle = getAuth().idTokenSubscription.auth.lastNotifiedUid;
-      // imagenes predeterminadas ¿'opcion de poner foto de google?
-      const urlPhotoUser = 'https://firebasestorage.googleapis.com/v0/b/social-network-programmers.appspot.com/o/un-usuario.jpg?alt=media&token=a737c6e4-16b4-4515-b336-ca761ac7abae';
-      const urlCoverPage = 'https://firebasestorage.googleapis.com/v0/b/social-network-programmers.appspot.com/o/cover-default.jpg?alt=media&token=5a5ea188-4df6-41e6-8279-37f40e57711b';
-      dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
+
+      async function obtenerUsuarioId(id) {
+        let urlPhotoUser = null;
+        let urlCoverPage = null;
+        const docRef = doc(db, 'dataUsers', id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          urlPhotoUser = docSnap.data().urlPhotoUser;
+          urlCoverPage = docSnap.data().urlCoverPage;
+          dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
+        } else { // doc.data() will be undefined in this case
+          // imagenes predeterminadas ¿'opcion de poner foto de google?
+          urlPhotoUser = 'https://firebasestorage.googleapis.com/v0/b/social-network-programmers.appspot.com/o/un-usuario.jpg?alt=media&token=a737c6e4-16b4-4515-b336-ca761ac7abae';
+          urlCoverPage = 'https://firebasestorage.googleapis.com/v0/b/social-network-programmers.appspot.com/o/cover-default.jpg?alt=media&token=5a5ea188-4df6-41e6-8279-37f40e57711b';
+          dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
+        }
+      }
+      obtenerUsuarioId(idUser);
       onNavigate('/feed');
     }).catch((error) => {
       const credential = GoogleAuthProvider.credentialFromError(error);

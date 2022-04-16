@@ -4,14 +4,22 @@ import {updateDataUsers} from './cloudFirebase.js';
 
 const storage = getStorage();
 
-const id = sessionStorage.getItem('uid');
+let id = sessionStorage.getItem('uid');
+function chooseId() {
+  if (id === null) {
+    id = sessionStorage.getItem('uidGoogle');
+  } else {
+    id = sessionStorage.getItem('uid');
+  }
+  return id;
+}
 // funcion para descargar la foto del usuario
 export async function dowloadImagePhoto(image) {
   let urlImage = '';
   await getDownloadURL(ref(storage, `foto-user/${image}`))
     .then((url) => {
       urlImage = url;
-      updateDataUsers(id, {
+      updateDataUsers(chooseId(), {
         urlPhotoUser: url,
       });
     }).catch((error) => {
@@ -35,7 +43,7 @@ export async function dowloadCoverPage(image) {
   await getDownloadURL(ref(storage, `portada-user/${image}`))
     .then((url) => {
       urlImage = url;
-      updateDataUsers(id, {
+      updateDataUsers(chooseId(), {
         urlCoverPage: url,
       });
     }).catch((error) => {
