@@ -6,10 +6,10 @@ import {
   // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 // eslint-disable-next-line import/no-cycle,import/no-unresolved
-import { onNavigate } from './main.js';
-import { dataUser } from './cloudFirebase.js';
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
-// eslint-disable-next-line import/no-unresolved
+import { onNavigate } from './main.js';
+import { dataUser, db } from './cloudFirebase.js';
 
 // función para crear nuevos usuarios
 export async function register(name, email, password) {
@@ -20,7 +20,10 @@ export async function register(name, email, password) {
       // Signed in
       const idUser = userCredential.user.uid;
       result = true;
-      dataUser(idUser, name, email, password);
+      // imagenes predeterminadas
+      const urlPhotoUser = 'https://firebasestorage.googleapis.com/v0/b/social-network-programmers.appspot.com/o/un-usuario.jpg?alt=media&token=a737c6e4-16b4-4515-b336-ca761ac7abae';
+      const urlCoverPage = 'https://firebasestorage.googleapis.com/v0/b/social-network-programmers.appspot.com/o/cover-default.jpg?alt=media&token=5a5ea188-4df6-41e6-8279-37f40e57711b';
+      dataUser(idUser, name, email, password, urlPhotoUser, urlCoverPage);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -49,19 +52,13 @@ export function accesUser(email, password) {
     .then((userCredential) => {
       // Signed in
       const usuario = userCredential.user.uid;
+      const nameUser = userCredential.user.nameUser;
       sessionStorage.setItem('uid', usuario);
       // sessionStorage.setItem('name', nameUsuarie);
-      sessionStorage.setItem('email',email);
-      console.log(email);
+      sessionStorage.setItem('email', email);
+      sessionStorage.setItem('nameUser', nameUser);
 
-      if (userCredential.user.photoURL != null) {
-        sessionStorage.setItem('photo', userCredential.user.photoURL);
-      } else {
-        sessionStorage.setItem('photo', 'img/un-usuario.jpg');
-      }
       onNavigate('/feed');
-
-      // //img
     })
     .catch((error) => {
       console.log(error.message);
@@ -71,9 +68,9 @@ export function accesUser(email, password) {
 // autenticación con Google
 const provider = new GoogleAuthProvider();
 
-export function accesGoogle() {
-  const auth = getAuth();
-  signInWithPopup(auth, provider)
+export async function accesGoogle() {
+  const auth1 = getAuth();
+  signInWithPopup(auth1, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -83,17 +80,35 @@ export function accesGoogle() {
       const user = result.user;
       sessionStorage.setItem('uid', user.uid);
       sessionStorage.setItem('name', user.displayName);
+      console.log(user);
       console.log(user.displayName);
       console.log(user.photoURL);
+      const nameUser = user.displayName;
+      const idUser = user.uid;
+      sessionStorage.setItem('uidGoogle', idUser);
+      const emailUser = user.email;
 
-      if (user.photoURL != null) {
-        sessionStorage.setItem('photo', user.photoURL);
-      } else {
-        sessionStorage.setItem('photo', 'img/un-usuario.jpg');
+      async function obtenerUsuarioId(id) {
+        let urlPhotoUser = null;
+        let urlCoverPage = null;
+        const docRef = doc(db, 'dataUsers', id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          urlPhotoUser = docSnap.data().urlPhotoUser;
+          sessionStorage.setItem('photoUser', urlPhotoUser);
+          urlCoverPage = docSnap.data().urlCoverPage;
+          sessionStorage.setItem('nameUser', nameUser);
+          dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
+        } else { // doc.data() will be undefined in this case
+          // imagenes predeterminadas ¿'opcion de poner foto de google?
+          urlPhotoUser = user.photoURL;
+          urlCoverPage = 'https://firebasestorage.googleapis.com/v0/b/social-network-programmers.appspot.com/o/cover-default.jpg?alt=media&token=5a5ea188-4df6-41e6-8279-37f40e57711b';
+          dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
+        }
       }
-
+      obtenerUsuarioId(idUser);
       onNavigate('/feed');
-      // document.getElementById('imagenUsuario').src = photoUrl;
     }).catch((error) => {
       const credential = GoogleAuthProvider.credentialFromError(error);
       console.error(credential, error);
@@ -148,6 +163,7 @@ export function cerrarSesion() {
     // eslint-disable-next-line no-unused-vars
     .then((userCredencial) => {
       // Password reset email sent!
+      sessionStorage.clear();
       onNavigate('/');
     })
     .catch((error) => {

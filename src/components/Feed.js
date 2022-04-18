@@ -31,7 +31,7 @@ export const Feed = () => {
             </div>
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
-                 <img class= 'photo-user-pub' id = 'photoUser' src='' alt='foto de perfil'>
+                 <img class= 'photo-user-pub' id = 'photoUser' src='${sessionStorage.getItem('photoUser')}' alt='foto de perfil'>
                  <figcaption class ='user-name-pub' ></figcaption>
                  <img class= 'share-edit-logo' data-id='${doc2.id}' src='img/icomon/pencil.jpg' alt='logo para editar'>
                  <img class= 'share-trash-logo' data-id='${doc2.id}' src='img/icomon/bin.jpg' alt='logo para eliminar publicación'>
@@ -158,14 +158,14 @@ export const Feed = () => {
           sectionPublication.querySelector('.user-name-pub').innerText = 'username';
         }
       }
-      function loginGooglePhoto() {
+      /*function loginGooglePhoto() {
         const photoNameGoogle = sessionStorage.getItem('photo');
         if (photoNameGoogle != null) {
-          sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photo');
+          sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photoUser');
         } else {
           sectionPublication.querySelector('.photo-user-pub').src = 'img/icomon/user.jpg';
         }
-      }
+      }*/
 
       async function obtenerUsuarioId(id) {
         let user = null;
@@ -184,17 +184,17 @@ export const Feed = () => {
           console.log('No such document in Google!');
         }
 
-        if (docSnap.exists()) {
+        /*if (docSnap.exists()) {
           user = docSnap.data();
           if (user.photo != null) {
-            console.log(user.photo);
+            sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photoUser');
           } else {
             sectionPublication.querySelector('.photo-user-pub').src = 'img/icomon/user.jpg';
           }
         } else { // doc.data() will be undefined in this case
           loginGooglePhoto();
           console.log('No such document in Google!');
-        }
+        }*/
       }
 
       // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion

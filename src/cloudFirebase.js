@@ -6,10 +6,10 @@ export const db = getFirestore();
 const uid = sessionStorage.getItem('uid');
 
 // para almacenar datos del usuario
-export async function dataUser(id, name, email, password) {
+export async function dataUser(id, name, email, password, urlPhotoUser, urlCoverPage) {
   try {
     const docRef = await setDoc(doc(db, 'dataUsers', id), {
-      name, email, password,
+      id, name, email, password, urlPhotoUser, urlCoverPage,
     });
     // eslint-disable-next-line no-console
     console.log('id data user: ', docRef.id);
@@ -17,21 +17,21 @@ export async function dataUser(id, name, email, password) {
     // console.error('Error adding document: ', e);
   }
 }
+/* USUARIO  */
 
-// obtener informacion del usuario despues del login
-export function getUser(id) {
-  return getDoc(doc(db, 'dataUsers', id));
-}
-
-// para verificar que se agregaron los datos
-export async function reviewResult() {
-  const querySnapshot = await getDocs(collection(db, 'dataUsers')); // querySnapshot son los datos que existen hasta ese momento
-  querySnapshot.forEach((doc1) => { // recorre datos internos
-    console.log(doc1.data()); // trae los objetos
-  });
-}
-
-// para verificar que se agregaron los datos
+export const getUser = (id) => getDoc(doc(db, 'dataUsers', id));// obtener informacion del usuario despues del login
+export const getUsers = () => getDocs(collection(db, 'dataUsers')); // obtener informacion de los usuarios  despues del login
+export const onGetUser = (callback) => onSnapshot(query(collection(db, 'dataUsers')), callback);
+export const updateDataUsers = (id, newFields) => updateDoc(doc(db, 'dataUsers', id), newFields); // actualizar publicación
+/* PUBLICACIÓN */
+export const dataPublication = (title, text, date) => addDoc(collection(db, 'dataPublication'), { uid, title, text, date }); // para alamacenar datos de publicación
+export const getPublication = () => getDocs(collection(db, 'dataPublication')); // obtener informacion
+export const onGetPublication = (callback) => onSnapshot(query(collection(db, 'dataPublication'), orderBy('date', 'desc')), callback);// se agrega la publicación nueva sin recargar
+export const onGetPublicationUser = (callback) => onSnapshot(query(collection(db, 'dataPublication'), where('uid', '==', uid)), callback); // se agrega la publicación nueva sin recargar POR USUARIO
+export const deletePublication = (id) => deleteDoc(doc(db, 'dataPublication', id)); // eliminar publicación
+export const getOnlyPublication = (id) => getDoc(doc(db, 'dataPublication', id)); // editar publicación
+export const updatePublication = (id, newFields) => updateDoc(doc(db, 'dataPublication', id), newFields); // actualizar publicación
+// para que se muestren en consola las publicaciones
 export async function reviewResultPublication() {
   // const querySnapshot = await getDocs(collection(db, 'dataPublication'));
   onSnapshot(collection(db, 'dataPublication'), (querySnapshot) => {
@@ -40,17 +40,3 @@ export async function reviewResultPublication() {
     });
   });
 }
-
-// para alamacenar datos de publicación
-export const dataPublication = (title, text, date) => addDoc(collection(db, 'dataPublication'), { uid, title, text, date });
-export const getPublication = () => getDocs(collection(db, 'dataPublication'));
-
-// se agrega la publicación nueva sin recargar
-export const onGetPublication = (callback) => onSnapshot(query(collection(db, 'dataPublication'), orderBy('date', 'desc')), callback);
-export const onGetPublicationUser = (callback) => onSnapshot(query(collection(db, 'dataPublication'), where('uid', '==', uid)), callback);
-
-// elimiminar  y editar publicación
-export const deletePublication = (id) => deleteDoc(doc(db, 'dataPublication', id));
-export const getOnlyPublication = (id) => getDoc(doc(db, 'dataPublication', id));
-// actualizar publicación
-export const updatePublication = (id, newFields) => updateDoc(doc(db, 'dataPublication', id), newFields);
