@@ -10,7 +10,7 @@ import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import {
-  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db,
+  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db, onGetUser,
 } from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
@@ -19,11 +19,81 @@ import { photoUser, coverPageUser } from '../storage.js';
 export const Profile = () => {
   const profileContainer = document.createElement('div');
   profileContainer.className = 'container-feed'; // contenedor general
+  const divChangeImageDisplay = document.createElement('div');
+  divChangeImageDisplay.style.display = 'none';
+  const divChangeImage = document.createElement('div');
+  divChangeImage.className = 'div-logo-change-image';
+  const logoChange = document.createElement('img');
+  logoChange.src = '../img/cargando.gif';
+  logoChange.alt = 'gif de cargando';
   const mainTemplate = document.createElement('main');
   mainTemplate.className = 'container-publication';
+  const coverPagePhotoContainer = document.createElement('div');
+  coverPagePhotoContainer.className = 'container-coverpage-Photo';
+  divChangeImageDisplay.appendChild(divChangeImage);
+  divChangeImage.appendChild(logoChange);
 
   // mainTemplate.appendChild(publications());
+  // FOTO DE PORTADA Y FOTO DEL USUARIO EN GRANDE
+  onGetUser((querySnapshot) => {
+    let html = '';
+    querySnapshot.forEach((doc2) => {
+      const profileNew = doc2.data(); // dato de todos los usuarios
+      if (profileNew.id === sessionStorage.getItem('uid')) {
+        html += `
+        <div class="container-coverPage-profilePhoto" id="coverProfileContainer"  style="background-image: url('${profileNew.urlCoverPage}');">
+        <div class="photo-profile" style="background-image: url('${profileNew.urlPhotoUser}');">
+          <div class="div-uploader-photo">
+           <input type="file" id="imgUploaderphoto">
+          </div>
+        </div>
+        <div class="name-usuario">
+            <label class="name-label" id="nameLabel"> Bienvenid@ ${profileNew.name}</label>
+        </div>
+        <div class="div-uploader-cover-page">
+             <input type="file" id="imgUploaderPortada">
+        </div>
+        </div>
+      `;
+      }
+    });
+    coverPagePhotoContainer.innerHTML = html;
 
+    const imageUploaderPhoto = coverPagePhotoContainer.querySelector('#imgUploaderphoto');
+    const imageUploaderCover = coverPagePhotoContainer.querySelector('#imgUploaderPortada');
+
+    // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
+    function listeningSessionEvent() {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user === null) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          onNavigate('/');
+        } else {
+          const uid = user.uid;
+          console.log(uid);
+        }
+      });
+    }
+    listeningSessionEvent();
+    // const id = sessionStorage.getItem('uid');
+
+    // AÑADIENDO FUNCIONALIDAD PARA PONER LA FOTO DEL USUARIO EN EL PROFILE
+    imageUploaderPhoto.addEventListener('change', (e) => {
+      const file = e.target.files[0]; // url de la foto
+      console.log(file);
+      divChangeImageDisplay.style.display = 'block';
+      photoUser(file, divChangeImageDisplay.style);
+    });
+    imageUploaderCover.addEventListener('change', (e) => {
+      const file = e.target.files[0]; // url de la foto
+      console.log(file);
+      divChangeImageDisplay.style.display = 'block';
+      coverPageUser(file, divChangeImageDisplay.style);
+    });
+    // actualizando fotos
+  });
   onGetPublicationUser((querySnapshot) => {
     let html = '';
     querySnapshot.forEach((doc2) => {
@@ -174,7 +244,6 @@ export const Profile = () => {
         }
 
         if (docSnap.exists()) {
-          console.log(docSnap);
           user = docSnap.data();
           if (user.photo != null) {
             console.log(user.photo);
@@ -204,113 +273,11 @@ export const Profile = () => {
       listeningSessionEvent2();
     });
   });
-
-  // FOTO DE PORTADA Y FOTO DEL USUARIO EN GRANDE
-  const nameUsuario = document.createElement('div');
-  nameUsuario.className = 'name-usuario';
-  const labelNameUsuario = document.createElement('label');
-  labelNameUsuario.className = 'name-label';
-  labelNameUsuario.id = 'nameLabel';
-
-  const coverPageProfilePhotoContainer = document.createElement('div');
-  coverPageProfilePhotoContainer.className = 'container-coverPage-profilePhoto';
-  coverPageProfilePhotoContainer.id = 'coverProfileContainer';
-  const divProfilePhoto = document.createElement('div');
-  divProfilePhoto.className = 'photo-profile';
-  // divProfilePhoto.style.backgroundImage = `url('${sessionStorage.getItem('photoUser')}')`;
-  // div e input para subir foto de usuario
-  const coverPagePhoto = document.createElement('div');
-  coverPagePhoto.className = 'div-uploader-photo';
-  const imageUploaderPhoto = document.createElement('input');
-  imageUploaderPhoto.type = 'file';
-  imageUploaderPhoto.id = 'imgUploaderphoto';
-  // div e input para subir foto de portada
-  const coverPage = document.createElement('div');
-  coverPage.className = 'div-uploader-cover-page';
-  const imageUploaderCover = document.createElement('input');
-  imageUploaderCover.type = 'file';
-  imageUploaderCover.id = 'imgUploaderPortada';
-
-  coverPage.appendChild(imageUploaderCover);
-  coverPagePhoto.appendChild(imageUploaderPhoto);
-  divProfilePhoto.appendChild(coverPagePhoto);
-  coverPageProfilePhotoContainer.appendChild(divProfilePhoto);
-  coverPageProfilePhotoContainer.appendChild(nameUsuario);
-  coverPageProfilePhotoContainer.appendChild(coverPage);
-  nameUsuario.appendChild(labelNameUsuario);
-
+  profileContainer.appendChild(divChangeImageDisplay);
   profileContainer.appendChild(headerTemplate());
-  profileContainer.appendChild(coverPageProfilePhotoContainer);
+  profileContainer.appendChild(coverPagePhotoContainer);
   profileContainer.appendChild(publicationBeforeTemplate());
   profileContainer.appendChild(mainTemplate);
-  // profileContainer.appendChild(nameUsuario);
-  // nameUsuario.appendChild(labelNameUsuario);
-
-  // funcion para colocar nombre cuando ingreses con google
-  function loginGoogle() {
-    const userNameGoogle = sessionStorage.getItem('name');
-    if (userNameGoogle != null) {
-      labelNameUsuario.innerText = `BIENVENIDO  ${userNameGoogle}`;
-    }
-  }
-  async function obtenerUsuarioId(id) {
-    let user = null;
-    const docRef = doc(db, 'dataUsers', id);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      user = docSnap.data();
-      console.log(user);
-
-      if (user.name != null) {
-        console.log(user.name);
-        labelNameUsuario.innerText = `BIENVENIDO  ${user.name}`;
-      } else {
-        labelNameUsuario.innerText = `BIENVENIDO ${user.email}`;
-      }
-    } else {
-      // doc.data() will be undefined in this case
-      loginGoogle();
-      console.log('No such document!');
-    }
-
-    if (sessionStorage.getItem('photoUser') != null) {
-      console.log(sessionStorage.getItem('photoUser'));
-      divProfilePhoto.style.backgroundImage = `url('${sessionStorage.getItem('photoUser')}'`;
-    } else {
-      divProfilePhoto.style.backgroundImage = 'url(../img/un-usuario.jpg)';
-    }
-  }
-
-  // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
-  function listeningSessionEvent() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user === null) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        onNavigate('/');
-      } else {
-        const uid = user.uid;
-        obtenerUsuarioId(uid);
-        console.log(uid);
-      }
-    });
-  }
-
-  listeningSessionEvent();
-
-  // AÑADIENDO FUNCIONALIDAD PARA PONER LA FOTO DEL USUARIO EN EL PROFILE
-  imageUploaderPhoto.addEventListener('change', (e) => {
-    const file = e.target.files[0]; // url de la foto
-    console.log(file);
-    photoUser(file, divProfilePhoto);
-    console.log(file.name);
-  });
-  imageUploaderCover.addEventListener('change', (e) => {
-    const file = e.target.files[0]; // url de la foto
-    console.log(file);
-    coverPageUser(file, coverPageProfilePhotoContainer);
-  });
 
   return profileContainer;
 };
