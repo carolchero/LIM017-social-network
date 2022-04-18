@@ -19,8 +19,10 @@ export const publicationBeforeTemplate = () => {
   imgPhotoUser.className = 'photo-user';
   imgPhotoUser.alt = 'foto de perfil';
   imgPhotoUser.id = 'imagenUsuario';
+  imgPhotoUser.src = sessionStorage.getItem('photoUser');
   const figcaptionUser = document.createElement('figcaption');
   figcaptionUser.className = 'figcaption-name name-before';
+  figcaptionUser.innerText = sessionStorage.getItem('name');
   // inputs de publicación
   const formInputs = document.createElement('form');
   const inputTitle = document.createElement('div');
@@ -112,7 +114,7 @@ export const publicationBeforeTemplate = () => {
     if ((title === '') || (text === '')) {
       messageTitleText.style.display = 'block';
     } else {
-      dataPublication(title, text, date);
+      dataPublication(sessionStorage.getItem('uid'), title, text, date);
       messageTitleText.style.display = 'none';
       reviewResultPublication();
       inputTitle.innerHTML = '';
@@ -149,15 +151,15 @@ export const publicationBeforeTemplate = () => {
     }
   }
   function loginGooglePhoto() {
-    const photoNameGoogle = sessionStorage.getItem('photo');
+    const photoNameGoogle = sessionStorage.getItem('photoUser');
     if (photoNameGoogle != null) {
-      imgPhotoUser.src = sessionStorage.getItem('photo');
+      imgPhotoUser.src = sessionStorage.getItem('photoUser');
     } else {
       imgPhotoUser.src = 'img/icomon/user.jpg';
     }
   }
 
-  async function obtenerUsuarioId(id) {
+  /*async function obtenerUsuarioId(id) {
     let user = null;
     const docRef = doc(db, 'dataUsers', id);
     const docSnap = await getDoc(docRef);
@@ -185,7 +187,7 @@ export const publicationBeforeTemplate = () => {
       loginGooglePhoto();
       console.log('No such document in Google!');
     }
-  }
+  }*/
   // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
   function listeningSessionEvent() {
     const auth = getAuth();
@@ -196,7 +198,7 @@ export const publicationBeforeTemplate = () => {
         onNavigate('/');
       } else {
         const uid = user.uid;
-        obtenerUsuarioId(uid);
+        //obtenerUsuarioId(uid);
       }
     });
   }

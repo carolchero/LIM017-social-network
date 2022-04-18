@@ -24,8 +24,8 @@ export const Feed = () => {
         <section class= 'container-publication-final' >
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
-                 <img class= 'photo-user-pub' id = 'photoUser' src='' alt='foto de perfil'>
-                 <figcaption class ='user-name-pub' ></figcaption>
+                 <img class= 'photo-user-pub' id = 'photoUser' src='${sessionStorage.getItem('photoUser')}' alt='foto de perfil'>
+                 <figcaption class ='user-name-pub' >${sessionStorage.getItem('name')}</figcaption>
                  <img class= 'share-edit-logo' data-id='${doc2.id}' src='img/icomon/pencil.jpg' alt='logo para editar'>
                  <img class= 'share-trash-logo' data-id='${doc2.id}' src='img/icomon/bin.jpg' alt='logo para eliminar publicación'>
              </figure>
@@ -140,15 +140,15 @@ export const Feed = () => {
         }
       }
       function loginGooglePhoto() {
-        const photoNameGoogle = sessionStorage.getItem('photo');
+        const photoNameGoogle = sessionStorage.getItem('photoUser');
         if (photoNameGoogle != null) {
-          sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photo');
+          sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photoUser');
         } else {
           sectionPublication.querySelector('.photo-user-pub').src = 'img/icomon/user.jpg';
         }
       }
 
-      async function obtenerUsuarioId(id) {
+     /* async function obtenerUsuarioId(id) {
         let user = null;
         const docRef = doc(db, 'dataUsers', id);
         const docSnap = await getDoc(docRef);
@@ -176,7 +176,7 @@ export const Feed = () => {
           loginGooglePhoto();
           console.log('No such document in Google!');
         }
-      }
+      }*/
 
       // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
       function listeningSessionEvent() {
@@ -187,8 +187,8 @@ export const Feed = () => {
           // https://firebase.google.com/docs/reference/js/firebase.User
             onNavigate('/');
           } else {
-            const uid = user.uid;
-            obtenerUsuarioId(uid);
+            //const uid = user.uid;
+           // obtenerUsuarioId(uid);
           }
         });
       }

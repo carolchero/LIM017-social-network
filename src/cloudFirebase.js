@@ -1,9 +1,8 @@
 /* eslint-disable object-curly-newline */
 // eslint-disable-next-line import/no-unresolved
-import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc, setDoc, getDoc, query, where, updateDoc, orderBy, limit } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
+import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc, setDoc, getDoc, query, where, updateDoc, orderBy } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
 
 export const db = getFirestore();
-const uid = sessionStorage.getItem('uid');
 
 // para almacenar datos del usuario
 export async function dataUser(id, name, email, password) {
@@ -19,9 +18,7 @@ export async function dataUser(id, name, email, password) {
 }
 
 // obtener informacion del usuario despues del login
-export function getUser(id) {
-  return getDoc(doc(db, 'dataUsers', id));
-}
+export const getUser = (id) => getDoc(doc(db, 'dataUsers', id));
 
 // para verificar que se agregaron los datos
 export async function reviewResult() {
@@ -41,13 +38,13 @@ export async function reviewResultPublication() {
   });
 }
 
-// para alamacenar datos de publicación
-export const dataPublication = (title, text, date) => addDoc(collection(db, 'dataPublication'), { uid, title, text, date });
+// para almacenar datos de publicación
+export const dataPublication = (uid, title, text, date) => addDoc(collection(db, 'dataPublication'), { uid, title, text, date });
 export const getPublication = () => getDocs(collection(db, 'dataPublication'));
 
 // se agrega la publicación nueva sin recargar
 export const onGetPublication = (callback) => onSnapshot(query(collection(db, 'dataPublication'), orderBy('date', 'desc')), callback);
-export const onGetPublicationUser = (callback) => onSnapshot(query(collection(db, 'dataPublication'), where('uid', '==', uid)), callback);
+export const onGetPublicationUser = (callback) => onSnapshot(query(collection(db, 'dataPublication'), where('uid', '==', sessionStorage.getItem('uid')), orderBy('date', 'desc')), callback);
 
 // elimiminar  y editar publicación
 export const deletePublication = (id) => deleteDoc(doc(db, 'dataPublication', id));

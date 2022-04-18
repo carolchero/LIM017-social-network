@@ -5,7 +5,7 @@ import {
 } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from './main.js';
-import { dataUser } from './cloudFirebase.js';
+import { dataUser, getUser } from './cloudFirebase.js';
 
 // función para crear nuevos usuarios
 export async function register(name, email, password) {
@@ -42,13 +42,25 @@ export async function register(name, email, password) {
 export function accesUser(email, password) {
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       // Signed in
       const usuario = userCredential.user.uid;
       sessionStorage.setItem('uid', usuario);
+      console.log('uid:', sessionStorage.getItem('uid'));
+      // obtener data de usuario
+      const user = await getUser(usuario);
+      if (user.data()) {
+        sessionStorage.setItem('name', user.data().name);
+        if (user.data().userProfilePicture) {
+          sessionStorage.setItem('photoUser', user.data().userProfilePicture);
+        } else {
+          sessionStorage.setItem('photoUser', 'img/icomon/user.jpg');
+        }
+      } else {
+        sessionStorage.setItem('name', 'Username');
+        sessionStorage.setItem('photoUser', 'img/icomon/user.jpg');
+      }
       onNavigate('/feed');
-
-      // //img
     })
     .catch((error) => {
       console.log(error.message);
@@ -61,7 +73,7 @@ const provider = new GoogleAuthProvider();
 export function accesGoogle() {
   const auth = getAuth();
   signInWithPopup(auth, provider)
-    .then((result) => {
+    .then(async (result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
@@ -69,21 +81,23 @@ export function accesGoogle() {
       // The signed-in user info.
       const user = result.user;
       sessionStorage.setItem('uid', user.uid);
+      console.log('uid: ', sessionStorage.getItem('uid'));
       sessionStorage.setItem('name', user.displayName);
-      console.log(user.displayName);
-      console.log(user.photoURL);
-      /* let photoUrl;
 
-      if (user.photoURL != null) {
-        photoUrl = user.photoURL;
+      /*if (user.photoURL != null) {
+        sessionStorage.setItem('photoUser', user.photoURL);
       } else {
-        photoUrl = 'img/un-usuario.jpg';
-      } */
+        sessionStorage.setItem('photoUser', 'img/un-usuario.jpg');
+      }*/
+      // obtener data de usuario
+      const userD = await getUser(user.uid);
 
-      if (user.photoURL != null) {
-        sessionStorage.setItem('photo', user.photoURL);
+      if (userD.data()) {
+        sessionStorage.setItem('photoUser', userD.data().userProfilePicture);
+      } else if (user.photoURL != null) {
+        sessionStorage.setItem('photoUser', user.photoURL);
       } else {
-        sessionStorage.setItem('photo', 'img/un-usuario.jpg');
+        sessionStorage.setItem('photoUser', 'img/icomon/user.jpg');
       }
 
       onNavigate('/feed');
@@ -138,6 +152,7 @@ export function cerrarSesion() {
     // eslint-disable-next-line no-unused-vars
     .then((userCredencial) => {
       // Password reset email sent!
+      sessionStorage.clear();
       onNavigate('/');
     })
     .catch((error) => {

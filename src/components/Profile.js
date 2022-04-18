@@ -7,7 +7,9 @@ import {
 } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
+// eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
+// eslint-disable-next-line object-curly-newline
 import { onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db } from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
@@ -25,13 +27,14 @@ export const Profile = () => {
     let html = '';
     querySnapshot.forEach((doc2) => {
       const publicationNew = doc2.data();
+      console.log(publicationNew);
       if (publicationNew.uid === sessionStorage.getItem('uid')) {
         html += `
         <section class= 'container-publication-final' >
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
-                 <img class= 'photo-user-pub' id = 'photoUser' src='' alt='foto de perfil'>
-                 <figcaption class ='user-name-pub' ></figcaption>
+             <img class= 'photo-user-pub' id = 'photoUser' src='${sessionStorage.getItem('photoUser')}' alt='foto de perfil'>
+             <figcaption class ='user-name-pub' >${sessionStorage.getItem('name')}</figcaption>
                  <img class= 'share-edit-logo' data-id='${doc2.id}' src='img/icomon/pencil.jpg' alt='logo para editar'>
                  <img class= 'share-trash-logo' data-id='${doc2.id}' src='img/icomon/bin.jpg' alt='logo para eliminar publicación'>
              </figure>
@@ -48,23 +51,6 @@ export const Profile = () => {
           
         </section>
        `;
-      } else {
-        html += `
-        <section class= 'container-publication-final' >
-          <div class = 'container-user-edit direction' >
-             <figure class = figure-name-photo direction' >
-                 <img class= 'photo-user-pub' id= 'photoUser' src='img/icomon/user.jpg' alt='foto de perfil'>
-                 <figcaption class ='user-name-pub' >Username</figcaption>
-             </figure>
-          </div>
-          <div  contentEditable ='false' id= 'newTitle'>${publicationNew.title}</div>
-          <div  contentEditable ='false'  class= 'p-text-publication' id= 'newText' >${publicationNew.text}</div>
-          <div class = 'direction' >
-             <img class= 'like-love-smile' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
-             <img class= 'like-love-smile' src='img/icomon/heart.jpg' alt='logo para dar love'>
-          </div>
-        </section>
-      `;
       }
     });
     mainTemplate.innerHTML = html;
@@ -145,15 +131,15 @@ export const Profile = () => {
         }
       }
       function loginGooglePhoto() {
-        const photoNameGoogle = sessionStorage.getItem('photo');
+        const photoNameGoogle = sessionStorage.getItem('photoUser');
         if (photoNameGoogle != null) {
-          sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photo');
+          sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photoUser');
         } else {
           sectionPublication.querySelector('.photo-user-pub').src = 'img/icomon/user.jpg';
         }
       }
 
-      async function obtenerUsuarioId2(id) {
+      /*async function obtenerUsuarioId2(id) {
         let user = null;
         const docRef = doc(db, 'dataUsers', id);
         const docSnap = await getDoc(docRef);
@@ -182,10 +168,10 @@ export const Profile = () => {
           loginGooglePhoto();
           console.log('No such document in firebase!');
         }
-      }
+      }*/
 
       // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
-      function listeningSessionEvent2() {
+    /*  function listeningSessionEvent2() {
         const auth = getAuth();
         // eslint-disable-next-line no-shadow
         onAuthStateChanged(auth, (user) => {
@@ -194,11 +180,11 @@ export const Profile = () => {
             onNavigate('/');
           } else {
             const uid = user.uid;
-            obtenerUsuarioId2(uid);
+           // obtenerUsuarioId2(uid);
           }
         });
       }
-      listeningSessionEvent2();
+      listeningSessionEvent2();*/
     });
   });
 
@@ -208,12 +194,14 @@ export const Profile = () => {
   const labelNameUsuario = document.createElement('label');
   labelNameUsuario.className = 'name-label';
   labelNameUsuario.id = 'nameLabel';
+  labelNameUsuario.innerText = `BIENVENIDO  ${sessionStorage.getItem('name')}`;
 
   const coverPageProfilePhotoContainer = document.createElement('div');
   coverPageProfilePhotoContainer.className = 'container-coverPage-profilePhoto';
   coverPageProfilePhotoContainer.id = 'coverProfileContainer';
   const divProfilePhoto = document.createElement('div');
   divProfilePhoto.className = 'photo-profile';
+  divProfilePhoto.style.backgroundImage = `url('${sessionStorage.getItem('photoUser')}'`;
   // divProfilePhoto.style.backgroundImage = `url('${sessionStorage.getItem('photoUser')}')`;
   // div e input para subir foto de usuario
   const coverPagePhoto = document.createElement('div');
@@ -250,7 +238,7 @@ export const Profile = () => {
       labelNameUsuario.innerText = `BIENVENIDO  ${userNameGoogle}`;
     }
   }
-  async function obtenerUsuarioId(id) {
+  /*async function obtenerUsuarioId(id) {
     let user = null;
     const docRef = doc(db, 'dataUsers', id);
     const docSnap = await getDoc(docRef);
@@ -276,7 +264,7 @@ export const Profile = () => {
     } else {
       divProfilePhoto.style.backgroundImage = 'url(../img/un-usuario.jpg)';
     }
-  }
+  }*/
 
   // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
   function listeningSessionEvent() {
@@ -288,7 +276,7 @@ export const Profile = () => {
         onNavigate('/');
       } else {
         const uid = user.uid;
-        obtenerUsuarioId(uid);
+        //obtenerUsuarioId(uid);
         console.log(uid);
       }
     });

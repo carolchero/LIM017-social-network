@@ -1,5 +1,6 @@
+// eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import/no-unresolved
 import { doc, getDoc, getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
@@ -20,8 +21,10 @@ export const headerTemplate = () => {
   imgUser.className = 'photo-user';
   imgUser.id = 'imagenUsuario';
   imgUser.alt = 'foto de perfil';
+  imgUser.src = sessionStorage.getItem('photoUser');
   const figcaptionName = document.createElement('figcaption');
   figcaptionName.className = 'figcaption-name';
+  figcaptionName.innerText = sessionStorage.getItem('name');
 
   // contenedor del buscador
   const containerSearch = document.createElement('div');
@@ -136,15 +139,15 @@ export const headerTemplate = () => {
     }
   }
   function loginGooglePhoto() {
-    const photoNameGoogle = sessionStorage.getItem('photo');
+    const photoNameGoogle = sessionStorage.getItem('photoUser');
     if (photoNameGoogle != null) {
-      imgUser.src = sessionStorage.getItem('photo');
+      imgUser.src = sessionStorage.getItem('photoUser');
     } else {
       imgUser.src = 'img/icomon/user.jpg';
     }
   }
 
-  async function obtenerUsuarioId(id) {
+ /* async function obtenerUsuarioId(id) {
     let user = null;
     const docRef = doc(db, 'dataUsers', id);
     const docSnap = await getDoc(docRef);
@@ -172,7 +175,7 @@ export const headerTemplate = () => {
       loginGooglePhoto();
       console.log('No such document in Google!');
     }
-  }
+  }*/
   // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
   function listeningSessionEvent() {
     const auth = getAuth();
@@ -183,7 +186,7 @@ export const headerTemplate = () => {
         onNavigate('/');
       } else {
         const uid = user.uid;
-        obtenerUsuarioId(uid);
+       // obtenerUsuarioId(uid);
       }
     });
   }
