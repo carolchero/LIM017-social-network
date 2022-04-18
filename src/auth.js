@@ -52,9 +52,12 @@ export function accesUser(email, password) {
     .then((userCredential) => {
       // Signed in
       const usuario = userCredential.user.uid;
+      const nameUser = userCredential.user.nameUser;
       sessionStorage.setItem('uid', usuario);
       // sessionStorage.setItem('name', nameUsuarie);
       sessionStorage.setItem('email', email);
+      sessionStorage.setItem('nameUser', nameUser);
+
       onNavigate('/feed');
     })
     .catch((error) => {
@@ -93,11 +96,13 @@ export async function accesGoogle() {
 
         if (docSnap.exists()) {
           urlPhotoUser = docSnap.data().urlPhotoUser;
+          sessionStorage.setItem('photoUser', urlPhotoUser);
           urlCoverPage = docSnap.data().urlCoverPage;
+          sessionStorage.setItem('nameUser', nameUser);
           dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
         } else { // doc.data() will be undefined in this case
           // imagenes predeterminadas ¿'opcion de poner foto de google?
-          urlPhotoUser = 'https://firebasestorage.googleapis.com/v0/b/social-network-programmers.appspot.com/o/un-usuario.jpg?alt=media&token=a737c6e4-16b4-4515-b336-ca761ac7abae';
+          urlPhotoUser = user.photoURL;
           urlCoverPage = 'https://firebasestorage.googleapis.com/v0/b/social-network-programmers.appspot.com/o/cover-default.jpg?alt=media&token=5a5ea188-4df6-41e6-8279-37f40e57711b';
           dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
         }
@@ -158,6 +163,7 @@ export function cerrarSesion() {
     // eslint-disable-next-line no-unused-vars
     .then((userCredencial) => {
       // Password reset email sent!
+      sessionStorage.clear();
       onNavigate('/');
     })
     .catch((error) => {

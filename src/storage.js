@@ -22,6 +22,7 @@ export async function dowloadImagePhoto(image) {
       updateDataUsers(chooseId(), {
         urlPhotoUser: url,
       });
+      sessionStorage.setItem('photoUser', url);
     }).catch((error) => {
       console.log(error);
     });
