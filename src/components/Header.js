@@ -142,6 +142,7 @@ export const headerTemplate = () => {
       figcaptionName.innerText = 'username';
     }
   }
+  // eslint-disable-next-line spaced-comment
   /*function loginGooglePhoto() {
     const photoNameGoogle = sessionStorage.getItem('photo');
     if (photoNameGoogle != null) {
@@ -168,6 +169,7 @@ export const headerTemplate = () => {
       console.log('No such document in Google!');
     }
 
+    // eslint-disable-next-line spaced-comment
     /*if (docSnap.exists()) {
       user = docSnap.data();
       if (user.photo != null) {

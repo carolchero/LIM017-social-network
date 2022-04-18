@@ -149,7 +149,9 @@ export function restorePassword() {
     })
     .catch((error) => {
       const errorCode = error.code;
+      console.log(errorCode);
       const errorMessage = error.message;
+      console.log(errorMessage);
 
       // ..
     });

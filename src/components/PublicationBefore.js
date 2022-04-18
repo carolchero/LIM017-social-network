@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+// eslint-disable-next-line import/no-unresolved
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 import f from '../lib/function.js';
 import { dataPublication, reviewResultPublication, db } from '../cloudFirebase.js';
@@ -159,6 +161,7 @@ export const publicationBeforeTemplate = () => {
       figcaptionUser.innerText = 'username';
     }
   }
+  // eslint-disable-next-line spaced-comment
   /*function loginGooglePhoto() {
     const photoNameGoogle = sessionStorage.getItem('photo');
     if (photoNameGoogle != null) {
@@ -185,6 +188,7 @@ export const publicationBeforeTemplate = () => {
       console.log('No such document in Google!');
     }
 
+    // eslint-disable-next-line spaced-comment
     /*if (docSnap.exists()) {
       user = docSnap.data();
       if (user.photo != null) {

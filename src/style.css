@@ -13,6 +13,7 @@
      background-color: #fff;
      height: 100vh;
      width: 100vw;
+     overflow: scroll;
  }
  .full-page{
      background: url(img/diseno-fondo.webp) no-repeat center center;
@@ -45,7 +46,7 @@
  }
 
  .card-header { /*contenedor del logo*/
-     padding: 15px 20px;
+     /*padding: 15px 20px;*/
      box-shadow: 0 10px 30px -12px rgb(0 0 0 / 42%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
      margin: -20px 15px 0;
      border-radius: 3px;
@@ -173,7 +174,7 @@
       flex-direction: column;
       justify-content: center;
       align-items:center ;
-      color: rgba(0,0,0, 0.87);;
+      color: rgba(0,0,0, 0.87);
      font-size:medium;
      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   }
@@ -409,9 +410,9 @@
 }
 
 /* MURO*/
-body {
+/*body {
     overflow: scroll;
-}
+}*/
 body::-webkit-scrollbar{
     display: none;
    }
@@ -595,10 +596,10 @@ body::-webkit-scrollbar{
     .logo-computer{
         height: 70px;
     }
-    .input-search{
-        width:90%;
-        padding-right: 90px;
-    }
+    /*.input-search{*/
+    /*    width:90%;*/
+    /*    padding-right: 90px;*/
+    /*}*/
     .search-logo{
         height: 45px;
     }
