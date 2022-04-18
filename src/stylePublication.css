@@ -7,7 +7,7 @@
     border-radius: 15px;
     padding:1%;
     width:80%;
-    background-color: white;    
+    background-color: white;
 }
 .name-before {
     padding-top: 2%;
@@ -69,7 +69,7 @@
 .button-publication {
     padding: 5px 10px;
     border:0;
-    font-size: 13px; 
+    font-size: 13px;
     box-shadow: 2px 2px 5px #999;
     background-image: linear-gradient(to top right, #89253e, #3a6186);
     color:white;
@@ -151,12 +151,12 @@
     }
     .button-publication {
         padding: 6px 9px;
-        font-size: 15px; 
+        font-size: 15px;
         margin-left:  50%;
         width:130px;
     }
 }
-@media (min-width:800px){ 
+@media (min-width:800px){
     .container-publication-section {
         font-size: 11px;
         margin:3% auto;
@@ -191,7 +191,7 @@
     }
     .button-publication {
         padding: 6px 9px;
-        font-size: 16px; 
+        font-size: 16px;
         margin-left:  53%;
         width:135px;
     }
@@ -204,7 +204,7 @@
         width:60%;
     }
     .button-publication {
-        font-size: 18px; 
+        font-size: 18px;
         margin-left:  56%;
         width:150px;
     }
@@ -215,11 +215,11 @@
 }
 @media (min-width:1200px){
     .container-publication-section {
-        margin:9% auto 0% auto;  
+        margin:9% auto 0% auto;
         width:50%;
     }
     .button-publication {
-        font-size: 18px; 
+        font-size: 18px;
         margin-left:  65%;
     }
     .emoticon{/*emoticon que se pintara en el texto*/
@@ -246,12 +246,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-color: white;
+    /*background-color: white;*/
     margin:5% 10%;
     border-radius: 15px;
     padding:1%;
     background-color: rgb(207 159 159 / 36%);
-    width:80%; 
+    width:80%;
 }
 .container-publication-final {/*contenedor de una publicación*/
     display: flex;
@@ -262,7 +262,7 @@
     margin:5% 12%;
     border-radius: 15px;
     padding:1%;
-    width:90% 
+    width:90%
 }
 .direction {/*container-user-edit,figure-name-photo, logos like.love(feed,profile)*/
     display: flex;
@@ -374,7 +374,7 @@
     .container-publication {/*contenedor de todas las publicaciones*/
         margin:4% auto;
         padding:0%;
-        width:70%; 
+        width:70%;
     }
     .container-publication-final {
         width: 90%;
@@ -414,7 +414,7 @@
     .container-publication {/*contenedor de todas las publicaciones*/
         margin:4% auto;
         padding:0%;
-        width:60%; 
+        width:60%;
     }
     .container-publication-final {
         width: 90%;
@@ -458,9 +458,9 @@
 }
 
 /*.container-profile {
-    background: url(img/diseno-fondo.webp) no-repeat center center; 
+    background: url(img/diseno-fondo.webp) no-repeat center center;
     min-height: 100%;
-    min-width: 100%; 
+    min-width: 100%;
     background-size: cover;
     position: absolute;
     font-family: Verdana;

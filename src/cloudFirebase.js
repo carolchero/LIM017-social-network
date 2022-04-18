@@ -1,6 +1,8 @@
 /* eslint-disable object-curly-newline */
 // eslint-disable-next-line import/no-unresolved
-import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc, setDoc, getDoc, query, where, updateDoc, orderBy, limit } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
+// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line import/no-unresolved
+import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc, setDoc, getDoc, query, where, updateDoc, orderBy } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
 
 export const db = getFirestore();
 const uid = sessionStorage.getItem('uid');

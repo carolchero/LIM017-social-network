@@ -1,3 +1,7 @@
+/* eslint-disable import/no-unresolved */
+// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line object-curly-newline
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-storage.js';
 // Create a root reference
 const storage = getStorage();
