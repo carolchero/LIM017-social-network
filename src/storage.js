@@ -1,4 +1,4 @@
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-storage.js';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-storage.js';
 // Create a root reference
 import {updateDataUsers} from './cloudFirebase.js';
 
@@ -28,12 +28,19 @@ export async function dowloadImagePhoto(image) {
   return urlImage;
 }
 // funcion para subir la foto del usuario al storage
-export async function photoUser(photo) {
+export async function photoUser(photo, div) {
   let result = '';
   const photoRef = ref(storage, `foto-user/${photo.name}`);
-  await uploadBytes(photoRef, photo);
+  const upload = await uploadBytesResumable(photoRef, photo);
+  function time() {
+    // eslint-disable-next-line no-param-reassign
+    div.display = 'none';
+  }
+  if (upload.state === 'success') {
+    setTimeout(time, 2000);
+  }
   result = true;
-  await dowloadImagePhoto(photo.name);
+  await dowloadImagePhoto(photo.name, div);
   return result;
 }
 
@@ -52,12 +59,18 @@ export async function dowloadCoverPage(image) {
   return urlImage;
 }
 // funcion para subir la foto de portada del usuario al storage
-export async function coverPageUser(coverPage) {
+export async function coverPageUser(coverPage, div) {
   let result = '';
   const coverPageRef = ref(storage, `portada-user/${coverPage.name}`);
-  await uploadBytes(coverPageRef, coverPage);
+  const upload = await uploadBytesResumable(coverPageRef, coverPage);
+  function time() {
+    // eslint-disable-next-line no-param-reassign
+    div.display = 'none';
+  }
+  if (upload.state === 'success') {
+    setTimeout(time, 2000);
+  }
   result = true;
-  // setTimeout(dowloadImage, 5000);
   await dowloadCoverPage(coverPage.name);
   return result;
 }
@@ -72,10 +85,17 @@ async function dowloadImage(imagePreview, image) {
     });
 }
 // funcion para subir la imagen de la publicación al storage
-export async function publicationUser(image, imagePreview) {
+export async function publicationUser(image, imagePreview, logoChange) {
   let result = '';
   const publicationRef = ref(storage, `image-publication/${image.name}`);
-  await uploadBytes(publicationRef, image);
+  const upload = await uploadBytesResumable(publicationRef, image);
+  function time() {
+    // eslint-disable-next-line no-param-reassign
+    logoChange.display = 'none';
+  }
+  if (upload.state === 'success') {
+    setTimeout(time, 2000);
+  }
   result = true;
   await dowloadImage(imagePreview, image.name);
   return result;

@@ -68,7 +68,17 @@ export const publicationBeforeTemplate = () => {
   imageUploader.id = 'imgUploader';
   imageUploader.className = 'img-uploader';
   divPreview.appendChild(imagePreview);
-
+  // div para mostrar logo mientras carga foto
+  const divChangeLogoDisplay = document.createElement('div');
+  divChangeLogoDisplay.style.display = 'none';
+  divChangeLogoDisplay.className = 'div-display-change';
+  const divChangeLogo = document.createElement('div');
+  divChangeLogo.className = 'div-logo-change-image-publication';
+  const imageLogo = document.createElement('img');
+  imageLogo.src = '../img/cargando.gif';
+  imageLogo.alt = 'gif de cargando';
+  divChangeLogo.appendChild(imageLogo);
+  divChangeLogoDisplay.appendChild(divChangeLogo);
   // div para emoticos
   const divEmoticons = document.createElement('div');
   divEmoticons.className = 'div-emoticons';
@@ -88,8 +98,8 @@ export const publicationBeforeTemplate = () => {
   // agregando contenedores pequeños a medianos
   figureSection.appendChild(imgPhotoUser);
   figureSection.appendChild(figcaptionUser);
+  formInputs.appendChild(divChangeLogoDisplay);
   formInputs.appendChild(inputTitle);
-  // formInputs.appendChild(inputText);
   formInputs.appendChild(divText);
   containerLogosButton.appendChild(imgShareImage);
   containerLogosButton.appendChild(imgShareStickers);
@@ -207,7 +217,8 @@ export const publicationBeforeTemplate = () => {
     divText.appendChild(divPreview);
     const file = e.target.files[0]; // url de la foto
     console.log(file);
-    publicationUser(file, imagePreview);
+    divChangeLogoDisplay.style.display = 'block';
+    publicationUser(file, imagePreview, divChangeLogoDisplay.style);
   });
   return sectionPublication;
 };
