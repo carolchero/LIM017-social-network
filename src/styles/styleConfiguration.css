@@ -10,7 +10,7 @@
     max-width: 580px;
 }
 .section-configuration{
-    background: url(img/diseno-fondo.webp) no-repeat center center;
+    background: url(../img/diseno-fondo.webp) no-repeat center center;
     background-size: cover;
     display: flex;
     justify-content: center;align-items: center;

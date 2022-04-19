@@ -43,7 +43,7 @@ export async function photoUser(photo, div) {
     div.display = 'none';
   }
   if (upload.state === 'success') {
-    setTimeout(time, 2000);
+    setTimeout(time, 500);
   }
   result = true;
   await dowloadImagePhoto(photo.name, div);
@@ -74,7 +74,7 @@ export async function coverPageUser(coverPage, div) {
     div.display = 'none';
   }
   if (upload.state === 'success') {
-    setTimeout(time, 2000);
+    setTimeout(time, 500);
   }
   result = true;
   await dowloadCoverPage(coverPage.name);
@@ -100,7 +100,7 @@ export async function publicationUser(image, imagePreview, logoChange) {
     logoChange.display = 'none';
   }
   if (upload.state === 'success') {
-    setTimeout(time, 2000);
+    setTimeout(time, 500);
   }
   result = true;
   await dowloadImage(imagePreview, image.name);
