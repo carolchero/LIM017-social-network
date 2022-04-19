@@ -5,8 +5,8 @@
 import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc, setDoc, getDoc, query, where, updateDoc, orderBy } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
 
 export const db = getFirestore();
-const uid = sessionStorage.getItem('uid');
 
+const uid = sessionStorage.getItem('uid');
 // para almacenar datos del usuario
 export async function dataUser(id, name, email, password, urlPhotoUser, urlCoverPage) {
   try {
@@ -41,4 +41,12 @@ export async function reviewResultPublication() {
       console.log(doc1.data());
     });
   });
+}
+
+export async function likePublication(id) {
+  try {
+    const docRef = await setDoc(doc(db, 'dataPublication', id, 'like', sessionStorage.getItem('uid')), {});
+  } catch (e) {
+    // console.error('Error adding document: ', e);
+  }
 }

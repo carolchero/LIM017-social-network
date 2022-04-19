@@ -49,7 +49,7 @@ export async function register(name, email, password) {
 export function accesUser(email, password) {
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       // Signed in
       const usuario = userCredential.user.uid;
       const nameUser = userCredential.user.nameUser;
@@ -79,6 +79,7 @@ export async function accesGoogle() {
       // The signed-in user info.
       const user = result.user;
       sessionStorage.setItem('uid', user.uid);
+      console.log('uid: ', sessionStorage.getItem('uid'));
       sessionStorage.setItem('name', user.displayName);
       console.log(user);
       console.log(user.displayName);

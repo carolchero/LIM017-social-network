@@ -10,7 +10,8 @@ import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import {
-  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db, onGetUser,
+  // eslint-disable-next-line max-len
+  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db, onGetUser, likePublication,
 } from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
@@ -98,13 +99,14 @@ export const Profile = () => {
     let html = '';
     querySnapshot.forEach((doc2) => {
       const publicationNew = doc2.data();
+      console.log(publicationNew);
       if (publicationNew.uid === sessionStorage.getItem('uid')) {
         html += `
         <section class= 'container-publication-final' >
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
-                 <img class= 'photo-user-pub' id = 'photoUser' src='' alt='foto de perfil'>
-                 <figcaption class ='user-name-pub' ></figcaption>
+             <img class= 'photo-user-pub' id = 'photoUser' src='${sessionStorage.getItem('photoUser')}' alt='foto de perfil'>
+             <figcaption class ='user-name-pub' >${sessionStorage.getItem('name')}</figcaption>
                  <img class= 'share-edit-logo' data-id='${doc2.id}' src='img/icomon/pencil.jpg' alt='logo para editar'>
                  <img class= 'share-trash-logo' data-id='${doc2.id}' src='img/icomon/bin.jpg' alt='logo para eliminar publicación'>
              </figure>
@@ -113,34 +115,24 @@ export const Profile = () => {
           <div  contentEditable ='false'   class= 'text-area div-text' id= 'newText'>${publicationNew.text}</div>
           <div class = 'direction' >
              <img  style='display:none;' class='share-stickers-logo like-love-smile' src='img/icomon/smile.jpg' alt='logo para agregar stickers a la publicación'>
-             <img class= 'like-love-smile ' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
-             <img class= 'like-love-smile' src='img/icomon/heart.jpg' alt='logo para dar love'>
+             <img class= 'like-love-smile btnlike' data-id='${doc2.id}' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
+             <img class= 'like-love-smile btnlove' data-id='${doc2.id}' src='img/icomon/heart.jpg' alt='logo para dar love'>
              <button style='display:none;'  class = 'btn-save'>Guardar cambios</button>
              <div class='div-emoticons' id='divEmoticon'; style='display: none;'></div>
           </div>
           
         </section>
        `;
-      } else {
-        html += `
-        <section class= 'container-publication-final' >
-          <div class = 'container-user-edit direction' >
-             <figure class = figure-name-photo direction' >
-                 <img class= 'photo-user-pub' id= 'photoUser' src='img/icomon/user.jpg' alt='foto de perfil'>
-                 <figcaption class ='user-name-pub' >Username</figcaption>
-             </figure>
-          </div>
-          <div  contentEditable ='false' id= 'newTitle'>${publicationNew.title}</div>
-          <div  contentEditable ='false'  class= 'p-text-publication' id= 'newText' >${publicationNew.text}</div>
-          <div class = 'direction' >
-             <img class= 'like-love-smile' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
-             <img class= 'like-love-smile' src='img/icomon/heart.jpg' alt='logo para dar love'>
-          </div>
-        </section>
-      `;
       }
     });
     mainTemplate.innerHTML = html;
+    // LIKE A PUBLICACIONES
+    const buttonLike = mainTemplate.querySelectorAll('.btnlike');
+    buttonLike.forEach((btn) => {
+      btn.addEventListener('click', ({ target: { dataset } }) => {
+        likePublication(dataset.id);
+      });
+    });
     // eliminando publicaciones
     const buttonDelete = mainTemplate.querySelectorAll('.share-trash-logo');
     buttonDelete.forEach((btn) => {
@@ -218,15 +210,15 @@ export const Profile = () => {
         }
       }
       function loginGooglePhoto() {
-        const photoNameGoogle = sessionStorage.getItem('photo');
+        const photoNameGoogle = sessionStorage.getItem('photoUser');
         if (photoNameGoogle != null) {
-          sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photo');
+          sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photoUser');
         } else {
           sectionPublication.querySelector('.photo-user-pub').src = 'img/icomon/user.jpg';
         }
       }
 
-      async function obtenerUsuarioId2(id) {
+      /*async function obtenerUsuarioId2(id) {
         let user = null;
         const docRef = doc(db, 'dataUsers', id);
         const docSnap = await getDoc(docRef);
@@ -254,10 +246,10 @@ export const Profile = () => {
           loginGooglePhoto();
           console.log('No such document in firebase!');
         }
-      }
+      }*/
 
       // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
-      function listeningSessionEvent2() {
+    /*  function listeningSessionEvent2() {
         const auth = getAuth();
         // eslint-disable-next-line no-shadow
         onAuthStateChanged(auth, (user) => {
@@ -266,11 +258,11 @@ export const Profile = () => {
             onNavigate('/');
           } else {
             const uid = user.uid;
-            obtenerUsuarioId2(uid);
+           // obtenerUsuarioId2(uid);
           }
         });
       }
-      listeningSessionEvent2();
+      listeningSessionEvent2();*/
     });
   });
   profileContainer.appendChild(divChangeImageDisplay);

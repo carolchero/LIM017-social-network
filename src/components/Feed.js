@@ -169,7 +169,7 @@ export const Feed = () => {
         }
       }*/
 
-      async function obtenerUsuarioId(id) {
+     /* async function obtenerUsuarioId(id) {
         let user = null;
         const docRef = doc(db, 'dataUsers', id);
         const docSnap = await getDoc(docRef);
@@ -197,8 +197,8 @@ export const Feed = () => {
         } else { // doc.data() will be undefined in this case
           loginGooglePhoto();
           console.log('No such document in Google!');
-        }*/
-      }
+        }
+      }*/
 
       // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
       function listeningSessionEvent() {
@@ -209,8 +209,8 @@ export const Feed = () => {
           // https://firebase.google.com/docs/reference/js/firebase.User
             onNavigate('/');
           } else {
-            const uid = user.uid;
-            obtenerUsuarioId(uid);
+            //const uid = user.uid;
+           // obtenerUsuarioId(uid);
           }
         });
       }
