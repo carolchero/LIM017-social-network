@@ -29,7 +29,7 @@ export const updateDataUsers = (id, newFields) => updateDoc(doc(db, 'dataUsers',
 export const dataPublication = (title, text, date) => addDoc(collection(db, 'dataPublication'), { uid, title, text, date }); // para alamacenar datos de publicación
 export const getPublication = () => getDocs(collection(db, 'dataPublication')); // obtener informacion
 export const onGetPublication = (callback) => onSnapshot(query(collection(db, 'dataPublication'), orderBy('date', 'desc')), callback);// se agrega la publicación nueva sin recargar
-export const onGetPublicationUser = (callback) => onSnapshot(query(collection(db, 'dataPublication'), where('uid', '==', uid)), callback); // se agrega la publicación nueva sin recargar POR USUARIO
+export const onGetPublicationUser = (callback) => onSnapshot(query(collection(db, 'dataPublication'), where('uid', '==', sessionStorage.getItem('uid'))), callback); // se agrega la publicación nueva sin recargar POR USUARIO
 export const deletePublication = (id) => deleteDoc(doc(db, 'dataPublication', id)); // eliminar publicación
 export const getOnlyPublication = (id) => getDoc(doc(db, 'dataPublication', id)); // editar publicación
 export const updatePublication = (id, newFields) => updateDoc(doc(db, 'dataPublication', id), newFields); // actualizar publicación

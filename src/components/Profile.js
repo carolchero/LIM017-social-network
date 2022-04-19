@@ -103,17 +103,22 @@ export const Profile = () => {
       if (publicationNew.uid === sessionStorage.getItem('uid')) {
         html += `
         <section class= 'container-publication-final' >
+            <div style='display:none;' class = 'message-alert-content div-alert-message-color'>
+                <p>¿Estas seguro de eliminar esta publicación?</p>
+                <button  class ='button-yes button-alert' data-id='${doc2.id}' >SI</button>
+                <button class= 'button-no button-alert'>NO</button>
+            </div>
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
-             <img class= 'photo-user-pub' id = 'photoUser' src='${sessionStorage.getItem('photoUser')}' alt='foto de perfil'>
-             <figcaption class ='user-name-pub' >${sessionStorage.getItem('name')}</figcaption>
+                 <img class= 'photo-user-pub' id = 'photoUser' src='${sessionStorage.getItem('photoUser')}' alt='foto de perfil'>
+                 <figcaption class ='user-name-pub' >${sessionStorage.getItem('nameUser')}</figcaption>
                  <img class= 'share-edit-logo' data-id='${doc2.id}' src='img/icomon/pencil.jpg' alt='logo para editar'>
                  <img class= 'share-trash-logo' data-id='${doc2.id}' src='img/icomon/bin.jpg' alt='logo para eliminar publicación'>
              </figure>
           </div>
-          <div  contentEditable ='false' class= 'title-area'  id= 'newTitle' >${publicationNew.title}</div>
+          <div  contentEditable ='false' class= 'title-area '  id= 'newTitle' >${publicationNew.title}</div>
           <div  contentEditable ='false'   class= 'text-area div-text' id= 'newText'>${publicationNew.text}</div>
-          <div class = 'direction' >
+         <div class = 'direction' >
              <img  style='display:none;' class='share-stickers-logo like-love-smile' src='img/icomon/smile.jpg' alt='logo para agregar stickers a la publicación'>
              <img class= 'like-love-smile btnlike' data-id='${doc2.id}' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
              <img class= 'like-love-smile btnlove' data-id='${doc2.id}' src='img/icomon/heart.jpg' alt='logo para dar love'>
@@ -136,8 +141,20 @@ export const Profile = () => {
     // eliminando publicaciones
     const buttonDelete = mainTemplate.querySelectorAll('.share-trash-logo');
     buttonDelete.forEach((btn) => {
-      btn.addEventListener('click', ({ target: { dataset } }) => {
-        deletePublication(dataset.id);
+      const sectionPublication = btn.parentNode.parentNode.parentNode;
+      const buttonDeleteOnly = sectionPublication.querySelector('.share-trash-logo');
+      const messageAlert = sectionPublication.querySelector('.div-alert-message-color');
+      const messageAlertYes = sectionPublication.querySelector('.button-yes');
+      const messageAlertNo = sectionPublication.querySelector('.button-no');
+      buttonDeleteOnly.addEventListener('click', () => {
+        messageAlert.style.display = 'block';
+        messageAlertYes.addEventListener('click', ({ target: { dataset } }) => {
+          deletePublication(dataset.id);
+          messageAlert.style.display = 'none';
+        });
+        messageAlertNo.addEventListener('click', () => {
+          messageAlert.style.display = 'none';
+        });
       });
     });
     // EDITANDO PUBLICACIONES
@@ -197,72 +214,6 @@ export const Profile = () => {
           areaText.contentEditable = false;
         });
       });
-    });
-    buttonEdit.forEach((btn) => {
-      const sectionPublication = btn.parentNode.parentNode;
-      // obtener nombre y foto de firebase o de google de cada usuario
-      function loginGoogleName() {
-        const userNameGoogle = sessionStorage.getItem('name');
-        if (userNameGoogle != null) {
-          sectionPublication.querySelector('.user-name-pub').innerText = sessionStorage.getItem('name');
-        } else {
-          sectionPublication.querySelector('.user-name-pub').innerText = 'username';
-        }
-      }
-      function loginGooglePhoto() {
-        const photoNameGoogle = sessionStorage.getItem('photoUser');
-        if (photoNameGoogle != null) {
-          sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photoUser');
-        } else {
-          sectionPublication.querySelector('.photo-user-pub').src = 'img/icomon/user.jpg';
-        }
-      }
-
-      /*async function obtenerUsuarioId2(id) {
-        let user = null;
-        const docRef = doc(db, 'dataUsers', id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          user = docSnap.data();
-          if (user.name != null) {
-            sectionPublication.querySelector('.user-name-pub').innerText = user.name;
-          } else {
-            sectionPublication.querySelector('.user-name-pub').innerText = 'username';
-          }
-        } else { // doc.data() will be undefined in this case
-          loginGoogleName();
-          console.log('No such document in firebase!');
-        }
-
-        if (docSnap.exists()) {
-          user = docSnap.data();
-          if (user.photo != null) {
-            console.log(user.photo);
-          } else {
-            sectionPublication.querySelector('.photo-user-pub').src = 'img/icomon/user.jpg';
-          }
-        } else { // doc.data() will be undefined in this case
-          loginGooglePhoto();
-          console.log('No such document in firebase!');
-        }
-      }*/
-
-      // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
-    /*  function listeningSessionEvent2() {
-        const auth = getAuth();
-        // eslint-disable-next-line no-shadow
-        onAuthStateChanged(auth, (user) => {
-          if (user === null) { // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-            onNavigate('/');
-          } else {
-            const uid = user.uid;
-           // obtenerUsuarioId2(uid);
-          }
-        });
-      }
-      listeningSessionEvent2();*/
     });
   });
   profileContainer.appendChild(divChangeImageDisplay);

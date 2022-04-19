@@ -9,7 +9,7 @@ import {
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from './main.js';
-import { dataUser, db } from './cloudFirebase.js';
+import { dataUser, db, getUser } from './cloudFirebase.js';
 
 // función para crear nuevos usuarios
 export async function register(name, email, password) {
@@ -52,11 +52,14 @@ export function accesUser(email, password) {
     .then(async (userCredential) => {
       // Signed in
       const usuario = userCredential.user.uid;
-      const nameUser = userCredential.user.nameUser;
-      sessionStorage.setItem('uid', usuario);
-      // sessionStorage.setItem('name', nameUsuarie);
+      const docSnap = await getUser(usuario);
+      const urlPhotoUser = docSnap.data().urlPhotoUser;
+      const nameUser = docSnap.data().name;
+      const id = docSnap.data().id;
+      sessionStorage.setItem('uid', id);
       sessionStorage.setItem('email', email);
       sessionStorage.setItem('nameUser', nameUser);
+      sessionStorage.setItem('photoUser', urlPhotoUser);
 
       onNavigate('/feed');
     })
@@ -71,44 +74,36 @@ const provider = new GoogleAuthProvider();
 export async function accesGoogle() {
   const auth1 = getAuth();
   signInWithPopup(auth1, provider)
-    .then((result) => {
+    .then(async (result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       console.log(token);
       // The signed-in user info.
       const user = result.user;
-      sessionStorage.setItem('uid', user.uid);
-      console.log('uid: ', sessionStorage.getItem('uid'));
-      sessionStorage.setItem('name', user.displayName);
-      console.log(user);
-      console.log(user.displayName);
-      console.log(user.photoURL);
       const nameUser = user.displayName;
       const idUser = user.uid;
-      sessionStorage.setItem('uidGoogle', idUser);
       const emailUser = user.email;
 
-      async function obtenerUsuarioId(id) {
-        let urlPhotoUser = null;
-        let urlCoverPage = null;
-        const docRef = doc(db, 'dataUsers', id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          urlPhotoUser = docSnap.data().urlPhotoUser;
-          sessionStorage.setItem('photoUser', urlPhotoUser);
-          urlCoverPage = docSnap.data().urlCoverPage;
-          sessionStorage.setItem('nameUser', nameUser);
-          dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
-        } else { // doc.data() will be undefined in this case
-          // imagenes predeterminadas ¿'opcion de poner foto de google?
-          urlPhotoUser = user.photoURL;
-          urlCoverPage = 'https://firebasestorage.googleapis.com/v0/b/social-network-programmers.appspot.com/o/cover-default.jpg?alt=media&token=5a5ea188-4df6-41e6-8279-37f40e57711b';
-          dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
-        }
+      let urlPhotoUser = null;
+      let urlCoverPage = null;
+      const docSnap = await getUser(idUser);
+      if (docSnap.exists()) {
+        urlPhotoUser = docSnap.data().urlPhotoUser;
+        urlCoverPage = docSnap.data().urlCoverPage;
+        sessionStorage.setItem('uid', user.uid);
+        sessionStorage.setItem('photoUser', urlPhotoUser);
+        sessionStorage.setItem('nameUser', nameUser);
+        dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
+      } else { // doc.data() will be undefined in this case
+        // imagenes predeterminadas ¿'opcion de poner foto de google?
+        urlPhotoUser = user.photoURL;
+        sessionStorage.setItem('uid', user.uid);
+        sessionStorage.setItem('nameUser', nameUser);
+        sessionStorage.setItem('photoUser', urlPhotoUser);
+        urlCoverPage = 'https://firebasestorage.googleapis.com/v0/b/social-network-programmers.appspot.com/o/cover-default.jpg?alt=media&token=5a5ea188-4df6-41e6-8279-37f40e57711b';
+        dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
       }
-      obtenerUsuarioId(idUser);
       onNavigate('/feed');
     }).catch((error) => {
       const credential = GoogleAuthProvider.credentialFromError(error);

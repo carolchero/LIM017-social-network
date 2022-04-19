@@ -27,6 +27,7 @@ export const headerTemplate = () => {
   imgUser.setAttributeNode(attr);
   const figcaptionName = document.createElement('figcaption');
   figcaptionName.className = 'figcaption-name';
+  figcaptionName.innerText = sessionStorage.getItem('nameUser');
 
   // contenedor del buscador
   const containerSearch = document.createElement('div');
@@ -133,55 +134,7 @@ export const headerTemplate = () => {
       containerNavHide.style.display = 'none';
     }
   });
-  // obtener nombre y foto de firebase o de google
-  function loginGoogleName() {
-    const userNameGoogle = sessionStorage.getItem('name');
-    if (userNameGoogle != null) {
-      figcaptionName.innerText = sessionStorage.getItem('name');
-    } else {
-      figcaptionName.innerText = 'username';
-    }
-  }
-  // eslint-disable-next-line spaced-comment
-  /*function loginGooglePhoto() {
-    const photoNameGoogle = sessionStorage.getItem('photo');
-    if (photoNameGoogle != null) {
-      imgUser.src = sessionStorage.getItem('photo');
-    } else {
-      imgUser.src = 'img/icomon/user.jpg';
-    }
-  }*/
 
-  async function obtenerUsuarioId(id) {
-    let user = null;
-    const docRef = doc(db, 'dataUsers', id);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      user = docSnap.data();
-      if (user.name != null) {
-        figcaptionName.innerText = user.name;
-      } else {
-        figcaptionName.innerText = 'username';
-      }
-    } else { // doc.data() will be undefined in this case
-      loginGoogleName();
-      console.log('No such document in Google!');
-    }
-
-    // eslint-disable-next-line spaced-comment
-    /*if (docSnap.exists()) {
-      user = docSnap.data();
-      if (user.photo != null) {
-        console.log(user.photo);
-      } else {
-        imgUser.src = 'img/icomon/user.jpg';
-      }
-    } else { // doc.data() will be undefined in this case
-      loginGooglePhoto();
-      console.log('No such document in Google!');
-    }*/
-  }
   // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
   function listeningSessionEvent() {
     const auth = getAuth();
@@ -191,8 +144,7 @@ export const headerTemplate = () => {
       // https://firebase.google.com/docs/reference/js/firebase.User
         onNavigate('/');
       } else {
-        const uid = user.uid;
-        obtenerUsuarioId(uid);
+        console.log('bienvenido programador@');
       }
     });
   }
