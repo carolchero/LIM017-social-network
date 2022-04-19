@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
 // eslint-disable-next-line import/no-unresolved
@@ -158,6 +159,7 @@ export const Feed = () => {
           sectionPublication.querySelector('.user-name-pub').innerText = 'username';
         }
       }
+      // eslint-disable-next-line spaced-comment
       /*function loginGooglePhoto() {
         const photoNameGoogle = sessionStorage.getItem('photo');
         if (photoNameGoogle != null) {
@@ -184,6 +186,7 @@ export const Feed = () => {
           console.log('No such document in Google!');
         }
 
+        // eslint-disable-next-line spaced-comment
         /*if (docSnap.exists()) {
           user = docSnap.data();
           if (user.photo != null) {

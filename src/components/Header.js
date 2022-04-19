@@ -27,7 +27,6 @@ export const headerTemplate = () => {
   imgUser.setAttributeNode(attr);
   const figcaptionName = document.createElement('figcaption');
   figcaptionName.className = 'figcaption-name';
-  figcaptionName.innerText = sessionStorage.getItem('name');
 
   // contenedor del buscador
   const containerSearch = document.createElement('div');
@@ -143,14 +142,15 @@ export const headerTemplate = () => {
       figcaptionName.innerText = 'username';
     }
   }
-  function loginGooglePhoto() {
+  // eslint-disable-next-line spaced-comment
+  /*function loginGooglePhoto() {
     const photoNameGoogle = sessionStorage.getItem('photo');
     if (photoNameGoogle != null) {
-      imgUser.src = sessionStorage.getItem('photoUser');
+      imgUser.src = sessionStorage.getItem('photo');
     } else {
       imgUser.src = 'img/icomon/user.jpg';
     }
-  }
+  }*/
 
   async function obtenerUsuarioId(id) {
     let user = null;
@@ -169,7 +169,8 @@ export const headerTemplate = () => {
       console.log('No such document in Google!');
     }
 
-    if (docSnap.exists()) {
+    // eslint-disable-next-line spaced-comment
+    /*if (docSnap.exists()) {
       user = docSnap.data();
       if (user.photo != null) {
         console.log(user.photo);
@@ -179,7 +180,7 @@ export const headerTemplate = () => {
     } else { // doc.data() will be undefined in this case
       loginGooglePhoto();
       console.log('No such document in Google!');
-    }
+    }*/
   }
   // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
   function listeningSessionEvent() {

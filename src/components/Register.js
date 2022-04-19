@@ -214,7 +214,6 @@ export const Register = () => {
         divLevelSecurity.className = 'input-form div-level-low';
         break;
     }
-
   });
 
   divHeader.appendChild(imgLogo);

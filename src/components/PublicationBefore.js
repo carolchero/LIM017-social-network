@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+// eslint-disable-next-line import/no-unresolved
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 import f from '../lib/function.js';
 import { dataPublication, reviewResultPublication, db } from '../cloudFirebase.js';
@@ -20,10 +22,8 @@ export const publicationBeforeTemplate = () => {
   imgPhotoUser.src = sessionStorage.getItem('photoUser');
   imgPhotoUser.alt = 'foto de perfil';
   imgPhotoUser.id = 'imagenUsuario';
-  imgPhotoUser.src = sessionStorage.getItem('photoUser');
   const figcaptionUser = document.createElement('figcaption');
   figcaptionUser.className = 'figcaption-name name-before';
-  figcaptionUser.innerText = sessionStorage.getItem('name');
   // inputs de publicación
   const formInputs = document.createElement('form');
   const inputTitle = document.createElement('div');
@@ -125,7 +125,7 @@ export const publicationBeforeTemplate = () => {
     if ((title === '') || (text === '')) {
       messageTitleText.style.display = 'block';
     } else {
-      dataPublication(sessionStorage.getItem('uid'), title, text, date);
+      dataPublication(title, text, date);
       messageTitleText.style.display = 'none';
       reviewResultPublication();
       inputTitle.innerHTML = '';
@@ -161,14 +161,15 @@ export const publicationBeforeTemplate = () => {
       figcaptionUser.innerText = 'username';
     }
   }
-  function loginGooglePhoto() {
+  // eslint-disable-next-line spaced-comment
+  /*function loginGooglePhoto() {
     const photoNameGoogle = sessionStorage.getItem('photo');
     if (photoNameGoogle != null) {
-      imgPhotoUser.src = sessionStorage.getItem('photoUser');
+      imgPhotoUser.src = sessionStorage.getItem('photo');
     } else {
       imgPhotoUser.src = 'img/icomon/user.jpg';
     }
-  }
+  }*/
 
   async function obtenerUsuarioId(id) {
     let user = null;
@@ -187,7 +188,8 @@ export const publicationBeforeTemplate = () => {
       console.log('No such document in Google!');
     }
 
-    if (docSnap.exists()) {
+    // eslint-disable-next-line spaced-comment
+    /*if (docSnap.exists()) {
       user = docSnap.data();
       if (user.photo != null) {
         console.log(user.photo);
@@ -197,7 +199,7 @@ export const publicationBeforeTemplate = () => {
     } else { // doc.data() will be undefined in this case
       loginGooglePhoto();
       console.log('No such document in Google!');
-    }
+    }*/
   }
   // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
   function listeningSessionEvent() {
@@ -209,7 +211,7 @@ export const publicationBeforeTemplate = () => {
         onNavigate('/');
       } else {
         const uid = user.uid;
-        //obtenerUsuarioId(uid);
+        obtenerUsuarioId(uid);
       }
     });
   }
