@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+// eslint-disable-next-line import/no-unresolved
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 import f from '../lib/function.js';
 import { dataPublication, reviewResultPublication, db } from '../cloudFirebase.js';
@@ -17,6 +19,7 @@ export const publicationBeforeTemplate = () => {
   // foto de usuario
   const imgPhotoUser = document.createElement('img');
   imgPhotoUser.className = 'photo-user';
+  imgPhotoUser.src = sessionStorage.getItem('photoUser');
   imgPhotoUser.alt = 'foto de perfil';
   imgPhotoUser.id = 'imagenUsuario';
   const figcaptionUser = document.createElement('figcaption');
@@ -68,7 +71,17 @@ export const publicationBeforeTemplate = () => {
   imageUploader.id = 'imgUploader';
   imageUploader.className = 'img-uploader';
   divPreview.appendChild(imagePreview);
-
+  // div para mostrar logo mientras carga foto
+  const divChangeLogoDisplay = document.createElement('div');
+  divChangeLogoDisplay.style.display = 'none';
+  divChangeLogoDisplay.className = 'div-display-change';
+  const divChangeLogo = document.createElement('div');
+  divChangeLogo.className = 'div-logo-change-image-publication';
+  const imageLogo = document.createElement('img');
+  imageLogo.src = '../img/cargando.gif';
+  imageLogo.alt = 'gif de cargando';
+  divChangeLogo.appendChild(imageLogo);
+  divChangeLogoDisplay.appendChild(divChangeLogo);
   // div para emoticos
   const divEmoticons = document.createElement('div');
   divEmoticons.className = 'div-emoticons';
@@ -88,8 +101,8 @@ export const publicationBeforeTemplate = () => {
   // agregando contenedores pequeños a medianos
   figureSection.appendChild(imgPhotoUser);
   figureSection.appendChild(figcaptionUser);
+  formInputs.appendChild(divChangeLogoDisplay);
   formInputs.appendChild(inputTitle);
-  // formInputs.appendChild(inputText);
   formInputs.appendChild(divText);
   containerLogosButton.appendChild(imgShareImage);
   containerLogosButton.appendChild(imgShareStickers);
@@ -148,14 +161,15 @@ export const publicationBeforeTemplate = () => {
       figcaptionUser.innerText = 'username';
     }
   }
-  function loginGooglePhoto() {
+  // eslint-disable-next-line spaced-comment
+  /*function loginGooglePhoto() {
     const photoNameGoogle = sessionStorage.getItem('photo');
     if (photoNameGoogle != null) {
       imgPhotoUser.src = sessionStorage.getItem('photo');
     } else {
       imgPhotoUser.src = 'img/icomon/user.jpg';
     }
-  }
+  }*/
 
   async function obtenerUsuarioId(id) {
     let user = null;
@@ -174,7 +188,8 @@ export const publicationBeforeTemplate = () => {
       console.log('No such document in Google!');
     }
 
-    if (docSnap.exists()) {
+    // eslint-disable-next-line spaced-comment
+    /*if (docSnap.exists()) {
       user = docSnap.data();
       if (user.photo != null) {
         console.log(user.photo);
@@ -184,7 +199,7 @@ export const publicationBeforeTemplate = () => {
     } else { // doc.data() will be undefined in this case
       loginGooglePhoto();
       console.log('No such document in Google!');
-    }
+    }*/
   }
   // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
   function listeningSessionEvent() {
@@ -207,7 +222,8 @@ export const publicationBeforeTemplate = () => {
     divText.appendChild(divPreview);
     const file = e.target.files[0]; // url de la foto
     console.log(file);
-    publicationUser(file, imagePreview);
+    divChangeLogoDisplay.style.display = 'block';
+    publicationUser(file, imagePreview, divChangeLogoDisplay.style);
   });
   return sectionPublication;
 };

@@ -113,9 +113,9 @@ export const Register = () => {
   divDateHide.className = 'message-hide';
   divDateHide.innerText = 'Fecha de nacimiento invalido'; */
 
-  /* const divPhoneHide = document.createElement('div');
-  divPhoneHide.className = 'message-hide';
-  divPhoneHide.innerText = 'Número de celular invalido'; ELIMINAR*/
+  // /* const divPhoneHide = document.createElement('div');
+  // divPhoneHide.className = 'message-hide';
+  // divPhoneHide.innerText = 'Número de celular invalido'; ELIMINAR*/
 
   const divMessageAlert = document.createElement('div');
   divMessageAlert.className = 'message-alert';
@@ -214,7 +214,6 @@ export const Register = () => {
         divLevelSecurity.className = 'input-form div-level-low';
         break;
     }
-
   });
 
   divHeader.appendChild(imgLogo);
