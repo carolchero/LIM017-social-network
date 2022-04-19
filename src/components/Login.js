@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { register, accesUser, accesGoogle, accesFacebook } from '../auth.js';
+import { accesUser, accesGoogle, accesFacebook } from '../auth.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 
@@ -93,8 +93,9 @@ export const Login = () => {
   buttonSignUp.addEventListener('click', () => onNavigate('/register'));
   const linkLogin = document.createElement('a');
   linkLogin.className = 'link-login';
-  linkLogin.href = '#';
+  // linkLogin.href = '#';
   linkLogin.innerText = '¿Olvidaste tu contraseña?';
+  linkLogin.addEventListener('click',() => onNavigate('/resetPassword'));
 
   divCardHeader.appendChild(imgLogo);
 

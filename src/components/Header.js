@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/order,import/no-unresolved
 import { doc, getDoc, getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
@@ -19,9 +19,12 @@ export const headerTemplate = () => {
   const aPhoto = document.createElement('a');
   const imgUser = document.createElement('img');
   imgUser.className = 'photo-user';
+  imgUser.src = sessionStorage.getItem('photoUser');
   imgUser.id = 'imagenUsuario';
   imgUser.alt = 'foto de perfil';
-  imgUser.src = sessionStorage.getItem('photoUser');
+  const attr = document.createAttribute('referrerpolicy');
+  attr.value = 'no-referrer';
+  imgUser.setAttributeNode(attr);
   const figcaptionName = document.createElement('figcaption');
   figcaptionName.className = 'figcaption-name';
   figcaptionName.innerText = sessionStorage.getItem('name');
@@ -73,8 +76,10 @@ export const headerTemplate = () => {
 
   const liConfig = document.createElement('li');
   const aConfig = document.createElement('a');
-  aConfig.href = '#';
   aConfig.innerText = 'Configurar cuenta';
+  aConfig.addEventListener('click', () => {
+    onNavigate('/configurar');
+  });
 
   const liDelete = document.createElement('li');
   const aDelete = document.createElement('a');
@@ -139,7 +144,7 @@ export const headerTemplate = () => {
     }
   }
   function loginGooglePhoto() {
-    const photoNameGoogle = sessionStorage.getItem('photoUser');
+    const photoNameGoogle = sessionStorage.getItem('photo');
     if (photoNameGoogle != null) {
       imgUser.src = sessionStorage.getItem('photoUser');
     } else {
@@ -147,7 +152,7 @@ export const headerTemplate = () => {
     }
   }
 
- /* async function obtenerUsuarioId(id) {
+  async function obtenerUsuarioId(id) {
     let user = null;
     const docRef = doc(db, 'dataUsers', id);
     const docSnap = await getDoc(docRef);
@@ -175,7 +180,7 @@ export const headerTemplate = () => {
       loginGooglePhoto();
       console.log('No such document in Google!');
     }
-  }*/
+  }
   // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
   function listeningSessionEvent() {
     const auth = getAuth();
@@ -186,7 +191,7 @@ export const headerTemplate = () => {
         onNavigate('/');
       } else {
         const uid = user.uid;
-       // obtenerUsuarioId(uid);
+        obtenerUsuarioId(uid);
       }
     });
   }

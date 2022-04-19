@@ -17,6 +17,7 @@ export const publicationBeforeTemplate = () => {
   // foto de usuario
   const imgPhotoUser = document.createElement('img');
   imgPhotoUser.className = 'photo-user';
+  imgPhotoUser.src = sessionStorage.getItem('photoUser');
   imgPhotoUser.alt = 'foto de perfil';
   imgPhotoUser.id = 'imagenUsuario';
   imgPhotoUser.src = sessionStorage.getItem('photoUser');
@@ -70,7 +71,17 @@ export const publicationBeforeTemplate = () => {
   imageUploader.id = 'imgUploader';
   imageUploader.className = 'img-uploader';
   divPreview.appendChild(imagePreview);
-
+  // div para mostrar logo mientras carga foto
+  const divChangeLogoDisplay = document.createElement('div');
+  divChangeLogoDisplay.style.display = 'none';
+  divChangeLogoDisplay.className = 'div-display-change';
+  const divChangeLogo = document.createElement('div');
+  divChangeLogo.className = 'div-logo-change-image-publication';
+  const imageLogo = document.createElement('img');
+  imageLogo.src = '../img/cargando.gif';
+  imageLogo.alt = 'gif de cargando';
+  divChangeLogo.appendChild(imageLogo);
+  divChangeLogoDisplay.appendChild(divChangeLogo);
   // div para emoticos
   const divEmoticons = document.createElement('div');
   divEmoticons.className = 'div-emoticons';
@@ -90,8 +101,8 @@ export const publicationBeforeTemplate = () => {
   // agregando contenedores pequeños a medianos
   figureSection.appendChild(imgPhotoUser);
   figureSection.appendChild(figcaptionUser);
+  formInputs.appendChild(divChangeLogoDisplay);
   formInputs.appendChild(inputTitle);
-  // formInputs.appendChild(inputText);
   formInputs.appendChild(divText);
   containerLogosButton.appendChild(imgShareImage);
   containerLogosButton.appendChild(imgShareStickers);
@@ -151,7 +162,7 @@ export const publicationBeforeTemplate = () => {
     }
   }
   function loginGooglePhoto() {
-    const photoNameGoogle = sessionStorage.getItem('photoUser');
+    const photoNameGoogle = sessionStorage.getItem('photo');
     if (photoNameGoogle != null) {
       imgPhotoUser.src = sessionStorage.getItem('photoUser');
     } else {
@@ -159,7 +170,7 @@ export const publicationBeforeTemplate = () => {
     }
   }
 
-  /*async function obtenerUsuarioId(id) {
+  async function obtenerUsuarioId(id) {
     let user = null;
     const docRef = doc(db, 'dataUsers', id);
     const docSnap = await getDoc(docRef);
@@ -187,7 +198,7 @@ export const publicationBeforeTemplate = () => {
       loginGooglePhoto();
       console.log('No such document in Google!');
     }
-  }*/
+  }
   // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
   function listeningSessionEvent() {
     const auth = getAuth();
@@ -209,7 +220,8 @@ export const publicationBeforeTemplate = () => {
     divText.appendChild(divPreview);
     const file = e.target.files[0]; // url de la foto
     console.log(file);
-    publicationUser(file, imagePreview);
+    divChangeLogoDisplay.style.display = 'block';
+    publicationUser(file, imagePreview, divChangeLogoDisplay.style);
   });
   return sectionPublication;
 };
