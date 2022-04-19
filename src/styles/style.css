@@ -16,7 +16,7 @@
      overflow: scroll;
  }
  .full-page{
-     background: url(img/diseno-fondo.webp) no-repeat center center;
+     background: url(../img/diseno-fondo.webp) no-repeat center center;
      background-size: cover;
      display: block;
      position: absolute;  /*saca del flujo el elemento , mantiene el lugar especificado*/
@@ -88,29 +88,29 @@
       display: table-cell;
   }
   .ico-user {
-      content: url(img/usuario.png);
+      content: url(../img/usuario.png);
   }
   .ico-eye {
-      content: url(img/ver.png);
+      content: url(../img/ver.png);
       margin: 7px 5px 0px 0px;
   }
   .ico-eye-hide {
-      content: url(img/invisible.png);
+      content: url(../img/invisible.png);
       margin: 7px 5px 0px 0px;
   }
   .ico-lock {
-      content: url(img/password.png);
+      content: url(../img/password.png);
   }
   .ico-correct {
-    content: url(img/correct.png);
+    content: url(../img/correct.png);
     margin-top: -15%;
   }
   .ico-incorrect {
-    content: url(img/incorrect.png);
+    content: url(../img/incorrect.png);
     margin-top: -15%;
   }
   .ico-danger {
-    content: url(img/alert.png);
+    content: url(../img/alert.png);
     margin-top: -15%;
   }
   .control-label {
@@ -164,7 +164,7 @@
   }
   /* STYLE CREATE USER(REGISTER.JS) */
   #pageCreate{
-      background: url(img/diseno-fondo.webp) no-repeat center center;
+      background: url(../img/diseno-fondo.webp) no-repeat center center;
       min-height: 100%;
       min-width: 100%;
       padding:15px 10px;
@@ -359,12 +359,12 @@
     justify-content: center;
 }
 .icon-google {
-    content: url(img/icono-google.png);
+    content: url(../img/icono-google.png);
     height: 35px;
     margin: 10px;
 }
 .icon-fb {
-    content: url(img/icono-fb2.png);
+    content: url(../img/icono-fb2.png);
     height: 35px;
     margin: 10px;
 }
@@ -418,7 +418,7 @@ body::-webkit-scrollbar{
    }
 /*HEADER STYLE MOBILE FIRST */
 .container-feed { /*contenedor general feed-profile*/
-    background: url(img/diseno-fondo.webp) no-repeat center center;
+    background: url(../img/diseno-fondo.webp) no-repeat center center;
     min-height: 100vh;
     min-width: 100vw;
     background-size: cover;
