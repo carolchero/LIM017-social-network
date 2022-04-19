@@ -24,6 +24,7 @@ export const publicationBeforeTemplate = () => {
   imgPhotoUser.id = 'imagenUsuario';
   const figcaptionUser = document.createElement('figcaption');
   figcaptionUser.className = 'figcaption-name name-before';
+  figcaptionUser.innerText = sessionStorage.getItem('nameUser');
   // inputs de publicación
   const formInputs = document.createElement('form');
   const inputTitle = document.createElement('div');
@@ -152,70 +153,6 @@ export const publicationBeforeTemplate = () => {
       divUploader.style.display = 'none';
     }
   });
-  // obtener nombre y foto de firebase o de google
-  function loginGoogleName() {
-    const userNameGoogle = sessionStorage.getItem('name');
-    if (userNameGoogle != null) {
-      figcaptionUser.innerText = sessionStorage.getItem('name');
-    } else {
-      figcaptionUser.innerText = 'username';
-    }
-  }
-  // eslint-disable-next-line spaced-comment
-  /*function loginGooglePhoto() {
-    const photoNameGoogle = sessionStorage.getItem('photo');
-    if (photoNameGoogle != null) {
-      imgPhotoUser.src = sessionStorage.getItem('photo');
-    } else {
-      imgPhotoUser.src = 'img/icomon/user.jpg';
-    }
-  }*/
-
-  async function obtenerUsuarioId(id) {
-    let user = null;
-    const docRef = doc(db, 'dataUsers', id);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      user = docSnap.data();
-      if (user.name != null) {
-        figcaptionUser.innerText = user.name;
-      } else {
-        figcaptionUser.innerText = 'username';
-      }
-    } else { // doc.data() will be undefined in this case
-      loginGoogleName();
-      console.log('No such document in Google!');
-    }
-
-    // eslint-disable-next-line spaced-comment
-    /*if (docSnap.exists()) {
-      user = docSnap.data();
-      if (user.photo != null) {
-        console.log(user.photo);
-      } else {
-        imgPhotoUser.src = 'img/icomon/user.jpg';
-      }
-    } else { // doc.data() will be undefined in this case
-      loginGooglePhoto();
-      console.log('No such document in Google!');
-    }*/
-  }
-  // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
-  function listeningSessionEvent() {
-    const auth = getAuth();
-    // eslint-disable-next-line no-shadow
-    onAuthStateChanged(auth, (user) => {
-      if (user === null) { // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-        onNavigate('/');
-      } else {
-        const uid = user.uid;
-        obtenerUsuarioId(uid);
-      }
-    });
-  }
-  listeningSessionEvent();
 
   // evento para capturar evento para subir imagen
   imageUploader.addEventListener('change', (e) => {

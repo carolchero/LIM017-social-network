@@ -33,7 +33,7 @@ export const Feed = () => {
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
                  <img class= 'photo-user-pub' id = 'photoUser' src='${sessionStorage.getItem('photoUser')}' alt='foto de perfil'>
-                 <figcaption class ='user-name-pub' ></figcaption>
+                 <figcaption class ='user-name-pub' >${sessionStorage.getItem('nameUser')}</figcaption>
                  <img class= 'share-edit-logo' data-id='${doc2.id}' src='img/icomon/pencil.jpg' alt='logo para editar'>
                  <img class= 'share-trash-logo' data-id='${doc2.id}' src='img/icomon/bin.jpg' alt='logo para eliminar publicación'>
              </figure>
@@ -147,74 +147,6 @@ export const Feed = () => {
           areaText.contentEditable = false;
         });
       });
-    });
-    buttonEdit.forEach((btn) => {
-      const sectionPublication = btn.parentNode.parentNode;
-      // obtener nombre y foto de firebase o de google de cada usuario
-      function loginGoogleName() {
-        const userNameGoogle = sessionStorage.getItem('name');
-        if (userNameGoogle != null) {
-          sectionPublication.querySelector('.user-name-pub').innerText = sessionStorage.getItem('name');
-        } else {
-          sectionPublication.querySelector('.user-name-pub').innerText = 'username';
-        }
-      }
-      // eslint-disable-next-line spaced-comment
-      /*function loginGooglePhoto() {
-        const photoNameGoogle = sessionStorage.getItem('photo');
-        if (photoNameGoogle != null) {
-          sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photoUser');
-        } else {
-          sectionPublication.querySelector('.photo-user-pub').src = 'img/icomon/user.jpg';
-        }
-      }*/
-
-      async function obtenerUsuarioId(id) {
-        let user = null;
-        const docRef = doc(db, 'dataUsers', id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          user = docSnap.data();
-          if (user.name != null) {
-            sectionPublication.querySelector('.user-name-pub').innerText = user.name;
-          } else {
-            sectionPublication.querySelector('.user-name-pub').innerText = 'username';
-          }
-        } else { // doc.data() will be undefined in this case
-          loginGoogleName();
-          console.log('No such document in Google!');
-        }
-
-        // eslint-disable-next-line spaced-comment
-        /*if (docSnap.exists()) {
-          user = docSnap.data();
-          if (user.photo != null) {
-            sectionPublication.querySelector('.photo-user-pub').src = sessionStorage.getItem('photoUser');
-          } else {
-            sectionPublication.querySelector('.photo-user-pub').src = 'img/icomon/user.jpg';
-          }
-        } else { // doc.data() will be undefined in this case
-          loginGooglePhoto();
-          console.log('No such document in Google!');
-        }*/
-      }
-
-      // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
-      function listeningSessionEvent() {
-        const auth = getAuth();
-        // eslint-disable-next-line no-shadow
-        onAuthStateChanged(auth, (user) => {
-          if (user === null) { // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-            onNavigate('/');
-          } else {
-            const uid = user.uid;
-            obtenerUsuarioId(uid);
-          }
-        });
-      }
-      listeningSessionEvent();
     });
   });
   divFeed.appendChild(headerTemplate());
