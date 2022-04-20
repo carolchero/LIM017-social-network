@@ -1,11 +1,5 @@
-// eslint-disable-next-line import/no-unresolved
-import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-// eslint-disable-next-line import/no-unresolved
-import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 import f from '../lib/function.js';
-import { dataPublication, reviewResultPublication, db } from '../cloudFirebase.js';
-// eslint-disable-next-line import/no-cycle
-import { onNavigate } from '../main.js';
+import { dataPublication, reviewResultPublication } from '../cloudFirebase.js';
 import { publicationUser } from '../storage.js';
 
 export const publicationBeforeTemplate = () => {
@@ -137,7 +131,6 @@ export const publicationBeforeTemplate = () => {
   });
 
   // evento para mostrar div de emoticons
-
   imgShareStickers.addEventListener('click', () => {
     if (divEmoticons.style.display === 'none') {
       divEmoticons.style.display = 'grid';

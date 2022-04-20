@@ -1,16 +1,9 @@
-/* eslint-disable max-len */
-// eslint-disable-next-line import/no-unresolved
-import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-// eslint-disable-next-line import/no-unresolved
-import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 // eslint-disable-next-line object-curly-newline
-import { onGetPublication, deletePublication, getOnlyPublication, updatePublication, db, likePublication, lovePublication, getUser } from '../cloudFirebase.js';
-// eslint-disable-next-line import/no-cycle
-import { onNavigate } from '../main.js';
+import { onGetPublication, deletePublication, getOnlyPublication, updatePublication, likePublication, lovePublication, getUsers } from '../cloudFirebase.js';
 
 export const Feed = () => {
   const divFeed = document.createElement('div');
@@ -20,11 +13,16 @@ export const Feed = () => {
 
   onGetPublication(async (querySnapshot) => {
     let html = '';
+
+    const allDataUser = await getUsers();
+    const mapaDato = new Map();
+
+    allDataUser.forEach((dataUser) => {
+      mapaDato.set(`${dataUser.data().id}-photo`, dataUser.data().urlPhotoUser);
+      mapaDato.set(`${dataUser.data().id}-name`, dataUser.data().name);
+    });
     querySnapshot.forEach(async (doc2) => {
-      const publicationNew = await doc2.data();
-      console.log(publicationNew);
-      const allDataUser = await getUser(publicationNew.uid);
-      console.log(allDataUser.data().name);
+      const publicationNew = doc2.data();
       if (sessionStorage.getItem('uid') === publicationNew.uid) {
         html += `
         <section class= 'container-publication-final' >
@@ -58,8 +56,8 @@ export const Feed = () => {
         <section class= 'container-publication-final' >
           <div class = 'container-user-edit direction' >
              <figure class = figure-name-photo direction' >
-                 <img class= 'photo-user-pub' id = 'photoUser' src='img/icomon/user.jpg' alt='foto de perfil'>
-                 <figcaption class ='user-name-pub' >Username</figcaption>
+                 <img class= 'photo-user-pub' id = 'photoUser' src='${mapaDato.get(`${publicationNew.uid.toString()}-photo`)}'  alt='foto de perfil'>
+                 <figcaption class ='user-name-pub' >${mapaDato.get(`${publicationNew.uid.toString()}-name`)}</figcaption>
              </figure>
           </div>
           <div  contentEditable ='false' id= 'newTitle'>${publicationNew.title}</div>
@@ -114,7 +112,7 @@ export const Feed = () => {
         const doc3 = await getOnlyPublication(e.target.dataset.id); // trae publicaciones por id
         const id = e.target.dataset.id;
         const sectionPublication = btn2.parentNode.parentNode.parentNode;
-        // activamos el text area y el div para editar
+        // obtenemos los contenedores
         const areaTitle = sectionPublication.querySelector('.title-area');
         const areaText = sectionPublication.querySelector('.text-area');
         // activando contenedores

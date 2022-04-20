@@ -6,7 +6,6 @@ import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc, 
 
 export const db = getFirestore();
 
-//const uid = sessionStorage.getItem('uid');
 // para almacenar datos del usuario
 export async function dataUser(id, name, email, password, urlPhotoUser, urlCoverPage) {
   try {

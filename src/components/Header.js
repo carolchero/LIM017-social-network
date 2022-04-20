@@ -1,13 +1,8 @@
-// eslint-disable-next-line import/no-unresolved
-import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-// eslint-disable-next-line import/order,import/no-unresolved
-import { doc, getDoc, getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 // eslint-disable-next-line import/no-cycle
-import { cerrarSesion } from '../auth.js';
+import { cerrarSesion, listeningSessionEvent } from '../auth.js';
 
-export const db = getFirestore();
 export const headerTemplate = () => {
   const headerdiv = document.createElement('header');
   // CONTENEDOR DIV( FOTO,NAME,SEARCH)
@@ -135,19 +130,6 @@ export const headerTemplate = () => {
     }
   });
 
-  // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
-  function listeningSessionEvent() {
-    const auth = getAuth();
-    // eslint-disable-next-line no-shadow
-    onAuthStateChanged(auth, (user) => {
-      if (user === null) { // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-        onNavigate('/');
-      } else {
-        console.log('bienvenido programador@');
-      }
-    });
-  }
   listeningSessionEvent();
 
   // Eventos de navegador
