@@ -8,7 +8,7 @@ import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 // eslint-disable-next-line object-curly-newline
-import { onGetPublication, deletePublication, getOnlyPublication, updatePublication, db } from '../cloudFirebase.js';
+import { onGetPublication, deletePublication, getOnlyPublication, updatePublication, db, likePublication, lovePublication } from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 
@@ -42,8 +42,8 @@ export const Feed = () => {
           <div  contentEditable ='false'   class= 'text-area div-text' id= 'newText'>${publicationNew.text}</div>
           <div class = 'direction' >
              <img  style='display:none;' class='share-stickers-logo like-love-smile ' src='img/icomon/smile.jpg' alt='logo para agregar stickers a la publicación'>
-             <img class= 'like-love-smile ' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
-             <img class= 'like-love-smile ' src='img/icomon/heart.jpg' alt='logo para dar love'>
+             <img class= 'like-love-smile btnlike' data-id='${doc2.id}' src= ${!publicationNew.like ? 'img/icomon/like.jpg' : publicationNew.like.find((e) => e === sessionStorage.getItem('uid')) ? 'img/icomon/likeO.jpg' : 'img/icomon/like.jpg'} alt='logo para dar me encanta'><figcaption class ='count-like-love' >${publicationNew.like ? publicationNew.like.length : 0}</figcaption>
+             <img class= 'like-love-smile btnlove' data-id='${doc2.id}' src= ${!publicationNew.love ? 'img/icomon/heart.jpg' : publicationNew.love.find((e) => e === sessionStorage.getItem('uid')) ? 'img/icomon/heartO.jpg' : 'img/icomon/heart.jpg'} alt='logo para dar love'><figcaption class ='count-like-love' >${publicationNew.love ? publicationNew.love.length : 0}</figcaption>
              <button style='display:none;'  class = 'btn-save'>Guardar cambios</button>
              <div class='div-emoticons ' id='divEmoticon'; style='display: none;'></div>
           </div>
@@ -62,14 +62,28 @@ export const Feed = () => {
           <div  contentEditable ='false' id= 'newTitle'>${publicationNew.title}</div>
           <div  contentEditable ='false'  class= 'p-text-publication' id= 'newText' >${publicationNew.text}</div>
           <div class = 'direction' >
-             <img class= 'like-love-smile' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
-             <img class= 'like-love-smile' src='img/icomon/heart.jpg' alt='logo para dar love'>
+          <img class= 'like-love-smile btnlike' data-id='${doc2.id}' src= ${!publicationNew.like ? 'img/icomon/like.jpg' : publicationNew.like.find((e) => e === sessionStorage.getItem('uid')) ? 'img/icomon/likeO.jpg' : 'img/icomon/like.jpg'} alt='logo para dar me encanta'><figcaption class ='count-like-love' >${publicationNew.like ? publicationNew.like.length : 0}</figcaption>
+          <img class= 'like-love-smile btnlove' data-id='${doc2.id}' src= ${!publicationNew.love ? 'img/icomon/heart.jpg' : publicationNew.love.find((e) => e === sessionStorage.getItem('uid')) ? 'img/icomon/heartO.jpg' : 'img/icomon/heart.jpg'} alt='logo para dar love'><figcaption class ='count-like-love' >${publicationNew.love ? publicationNew.love.length : 0}</figcaption>
           </div>
         </section>
       `;
       }
     });
     mainTemplate.innerHTML = html;
+    // LIKE A PUBLICACIONES
+    const buttonLike = mainTemplate.querySelectorAll('.btnlike');
+    buttonLike.forEach((btn) => {
+      btn.addEventListener('click', ({ target: { dataset } }) => {
+        likePublication(dataset.id);
+      });
+    });
+    // LOVE A PUBLICACIONES
+    const buttonLove = mainTemplate.querySelectorAll('.btnlove');
+    buttonLove.forEach((btn) => {
+      btn.addEventListener('click', ({ target: { dataset } }) => {
+        lovePublication(dataset.id);
+      });
+    });
     // ELIMINANDO PUBLICACIONES
     const buttonDelete = mainTemplate.querySelectorAll('.share-trash-logo');
     buttonDelete.forEach((btn) => {
