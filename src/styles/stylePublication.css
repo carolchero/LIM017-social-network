@@ -338,6 +338,11 @@
     width: 100px;
     font-size: 13px;
 }
+.count-like-love {
+    margin: 0 10% 0 1%;
+    font-family: cursive;
+    font-size: 13px;
+}
 .p-text-publication {/*texto que no se puede editar*/
     height: auto;
     width: 90%;
@@ -426,6 +431,10 @@
         margin: 1% 20px 2% 4%;
         font-size: 14px;
         width:120px;
+    }
+    .count-like-love {
+        margin: 0 10% 0 1%;
+        font-size: 14px;
     }
     .figure-name-photo {
         margin: 1% 40% 1% 0%;
