@@ -8,7 +8,7 @@ import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 // eslint-disable-next-line object-curly-newline
-import { onGetPublication, deletePublication, getOnlyPublication, updatePublication, db, likePublication, lovePublication } from '../cloudFirebase.js';
+import { onGetPublication, deletePublication, getOnlyPublication, updatePublication, db, likePublication, lovePublication, getUser } from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 
@@ -18,11 +18,14 @@ export const Feed = () => {
   const mainTemplate = document.createElement('main');
   mainTemplate.className = 'container-publication';
 
-  onGetPublication((querySnapshot) => {
+  onGetPublication(async (querySnapshot) => {
     let html = '';
-    querySnapshot.forEach((doc2) => {
-      const publicationNew = doc2.data();
-      if (publicationNew.uid === sessionStorage.getItem('uid')) {
+    querySnapshot.forEach(async (doc2) => {
+      const publicationNew = await doc2.data();
+      console.log(publicationNew);
+      const allDataUser = await getUser(publicationNew.uid);
+      console.log(allDataUser.data().name);
+      if (sessionStorage.getItem('uid') === publicationNew.uid) {
         html += `
         <section class= 'container-publication-final' >
             <div style='display:none;' class = 'message-alert-content div-alert-message-color'>
