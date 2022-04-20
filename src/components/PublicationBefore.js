@@ -123,10 +123,11 @@ export const publicationBeforeTemplate = () => {
     const title = inputTitle.innerHTML;
     const text = divText.innerHTML;
     const date = f.timeNow();
+    const uid = sessionStorage.getItem('uid');
     if ((title === '') || (text === '')) {
       messageTitleText.style.display = 'block';
     } else {
-      dataPublication(title, text, date);
+      dataPublication(uid, title, text, date);
       messageTitleText.style.display = 'none';
       reviewResultPublication();
       inputTitle.innerHTML = '';

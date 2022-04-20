@@ -1,17 +1,15 @@
+/* eslint-disable no-nested-ternary */
 // eslint-disable-next-line import/no-cycle
 // eslint-disable-next-line import/no-unresolved
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-import {
-  doc, getDoc,
-// eslint-disable-next-line import/no-unresolved
-} from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
+import { doc, getDoc} from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import {
   // eslint-disable-next-line max-len
-  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db, onGetUser, likePublication,
+  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db, onGetUser, likePublication, lovePublication,
 } from '../cloudFirebase.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
@@ -99,7 +97,6 @@ export const Profile = () => {
     let html = '';
     querySnapshot.forEach((doc2) => {
       const publicationNew = doc2.data();
-      console.log(publicationNew);
       if (publicationNew.uid === sessionStorage.getItem('uid')) {
         html += `
         <section class= 'container-publication-final' >
@@ -120,8 +117,8 @@ export const Profile = () => {
           <div  contentEditable ='false'   class= 'text-area div-text' id= 'newText'>${publicationNew.text}</div>
          <div class = 'direction' >
              <img  style='display:none;' class='share-stickers-logo like-love-smile' src='img/icomon/smile.jpg' alt='logo para agregar stickers a la publicación'>
-             <img class= 'like-love-smile btnlike' data-id='${doc2.id}' src='img/icomon/like.jpg' alt='logo para dar me encanta'>
-             <img class= 'like-love-smile btnlove' data-id='${doc2.id}' src='img/icomon/heart.jpg' alt='logo para dar love'>
+             <img class= 'like-love-smile btnlike' data-id='${doc2.id}' src= ${!publicationNew.like ? 'img/icomon/like.jpg' : publicationNew.like.find((e) => e === sessionStorage.getItem('uid')) ? 'img/icomon/likeO.jpg' : 'img/icomon/like.jpg'} alt='logo para dar me encanta'><figcaption class ='count-like-love' >${publicationNew.like ? publicationNew.like.length : 0}</figcaption>
+             <img class= 'like-love-smile btnlove' data-id='${doc2.id}' src= ${!publicationNew.love ? 'img/icomon/heart.jpg' : publicationNew.love.find((e) => e === sessionStorage.getItem('uid')) ? 'img/icomon/heartO.jpg' : 'img/icomon/heart.jpg'} alt='logo para dar love'><figcaption class ='count-like-love' >${publicationNew.love ? publicationNew.love.length : 0}</figcaption>
              <button style='display:none;'  class = 'btn-save'>Guardar cambios</button>
              <div class='div-emoticons' id='divEmoticon'; style='display: none;'></div>
           </div>
@@ -136,6 +133,13 @@ export const Profile = () => {
     buttonLike.forEach((btn) => {
       btn.addEventListener('click', ({ target: { dataset } }) => {
         likePublication(dataset.id);
+      });
+    });
+    // LOVE A PUBLICACIONES
+    const buttonLove = mainTemplate.querySelectorAll('.btnlove');
+    buttonLove.forEach((btn) => {
+      btn.addEventListener('click', ({ target: { dataset } }) => {
+        lovePublication(dataset.id);
       });
     });
     // eliminando publicaciones
