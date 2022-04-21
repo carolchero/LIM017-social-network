@@ -1,6 +1,7 @@
-/* eslint-disable import/no-unresolved */
-// eslint-disable-next-line object-curly-newline
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-storage.js';
+import {
+  getStorage, ref, uploadBytesResumable, getDownloadURL,
+// eslint-disable-next-line import/no-unresolved
+} from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-storage.js';
 // eslint-disable-next-line object-curly-spacing
 import {updateDataUsers} from './cloudFirebase.js';
 

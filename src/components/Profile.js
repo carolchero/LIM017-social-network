@@ -1,18 +1,11 @@
-/* eslint-disable no-nested-ternary */
-// eslint-disable-next-line import/no-cycle
-// eslint-disable-next-line import/no-unresolved
-import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-import { doc, getDoc} from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import {
   // eslint-disable-next-line max-len
-  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, db, onGetUser, likePublication, lovePublication,
+  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, onGetUser, likePublication, lovePublication,
 } from '../cloudFirebase.js';
-// eslint-disable-next-line import/no-cycle
-import { onNavigate } from '../main.js';
 import { photoUser, coverPageUser } from '../storage.js';
 
 export const Profile = () => {
@@ -32,7 +25,6 @@ export const Profile = () => {
   divChangeImageDisplay.appendChild(divChangeImage);
   divChangeImage.appendChild(logoChange);
 
-  // mainTemplate.appendChild(publications());
   // FOTO DE PORTADA Y FOTO DEL USUARIO EN GRANDE
   onGetUser((querySnapshot) => {
     let html = '';
@@ -61,38 +53,19 @@ export const Profile = () => {
     const imageUploaderPhoto = coverPagePhotoContainer.querySelector('#imgUploaderphoto');
     const imageUploaderCover = coverPagePhotoContainer.querySelector('#imgUploaderPortada');
 
-    // ver autentificacion si la sesion  esta activa o inactiva //inicia y cerrar sesion
-    function listeningSessionEvent() {
-      const auth = getAuth();
-      onAuthStateChanged(auth, (user) => {
-        if (user === null) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-          onNavigate('/');
-        } else {
-          const uid = user.uid;
-          console.log(uid);
-        }
-      });
-    }
-    listeningSessionEvent();
-    // const id = sessionStorage.getItem('uid');
-
     // AÑADIENDO FUNCIONALIDAD PARA PONER LA FOTO DEL USUARIO EN EL PROFILE
     imageUploaderPhoto.addEventListener('change', (e) => {
       const file = e.target.files[0]; // url de la foto
-      console.log(file);
       divChangeImageDisplay.style.display = 'block';
       photoUser(file, divChangeImageDisplay.style);
     });
     imageUploaderCover.addEventListener('change', (e) => {
       const file = e.target.files[0]; // url de la foto
-      console.log(file);
       divChangeImageDisplay.style.display = 'block';
       coverPageUser(file, divChangeImageDisplay.style);
     });
-    // actualizando fotos
   });
+  // PUBLICACIONES SOLO DEL USUARIO
   onGetPublicationUser((querySnapshot) => {
     let html = '';
     querySnapshot.forEach((doc2) => {
@@ -168,7 +141,7 @@ export const Profile = () => {
         const doc3 = await getOnlyPublication(e.target.dataset.id); // trae publicaciones por id
         const id = e.target.dataset.id;
         const sectionPublication = btn2.parentNode.parentNode.parentNode;
-        // activamos el text area y el div para editar
+        // obtenemos los contenedores
         const areaTitle = sectionPublication.querySelector('.title-area');
         const areaText = sectionPublication.querySelector('.text-area');
         // activando contenedores
@@ -202,12 +175,13 @@ export const Profile = () => {
           }
         });
         buttonSave.style.display = 'block';
+        // ACTUALIZANDO PUBLICACIONES
         buttonSave.addEventListener('click', () => {
           let titleNew = doc3.data().title;
           titleNew = sectionPublication.querySelector('#newTitle').innerHTML;
           let textNew = doc3.data().text;
           textNew = sectionPublication.querySelector('#newText').innerHTML;
-          updatePublication(id, { // actualizando publicaciones
+          updatePublication(id, {
             title: titleNew,
             text: textNew,
           });
