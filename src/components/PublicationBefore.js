@@ -1,5 +1,16 @@
+<<<<<<< Updated upstream
 import f from '../lib/function.js';
 import { dataPublication, reviewResultPublication } from '../cloudFirebase.js';
+=======
+// eslint-disable-next-line import/no-unresolved
+// import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+// eslint-disable-next-line import/no-unresolved
+// import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
+import f from '../lib/function.js';
+import { dataPublication, reviewResultPublication } from '../cloudFirebase.js';
+// eslint-disable-next-line import/no-cycle
+// import { onNavigate } from '../main.js';
+>>>>>>> Stashed changes
 import { publicationUser } from '../storage.js';
 
 export const publicationBeforeTemplate = () => {

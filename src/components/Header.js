@@ -1,3 +1,10 @@
+<<<<<<< Updated upstream
+=======
+// eslint-disable-next-line import/no-unresolved
+import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+// eslint-disable-next-line import/order,import/no-unresolved
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
+>>>>>>> Stashed changes
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../main.js';
 // eslint-disable-next-line import/no-cycle
