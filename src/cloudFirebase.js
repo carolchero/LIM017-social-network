@@ -32,15 +32,8 @@ export const onGetPublicationUser = (callback) => onSnapshot(query(collection(db
 export const deletePublication = (id) => deleteDoc(doc(db, 'dataPublication', id)); // eliminar publicación
 export const getOnlyPublication = (id) => getDoc(doc(db, 'dataPublication', id)); // editar publicación
 export const updatePublication = (id, newFields) => updateDoc(doc(db, 'dataPublication', id), newFields); // actualizar publicación
-// para que se muestren en consola las publicaciones
-export async function reviewResultPublication() {
-  // const querySnapshot = await getDocs(collection(db, 'dataPublication'));
-  onSnapshot(collection(db, 'dataPublication'), (querySnapshot) => {
-    querySnapshot.forEach((doc1) => {
-      console.log(doc1.data());
-    });
-  });
-}
+
+/* FUNCIONES DE LIKE Y LOVE */
 export async function likePublication(id) {
   try {
     let docRef;

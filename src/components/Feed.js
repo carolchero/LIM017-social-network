@@ -2,8 +2,10 @@
 import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
-// eslint-disable-next-line object-curly-newline
-import { onGetPublication, deletePublication, getOnlyPublication, updatePublication, likePublication, lovePublication, getUsers } from '../cloudFirebase.js';
+import {
+  onGetPublication, deletePublication, getOnlyPublication, updatePublication,
+  likePublication, lovePublication, getUsers,
+} from '../cloudFirebase.js';
 import { publicationUser } from '../storage.js';
 
 export const Feed = () => {

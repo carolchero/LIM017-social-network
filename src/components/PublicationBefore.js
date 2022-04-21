@@ -1,5 +1,5 @@
 import f from '../lib/function.js';
-import { dataPublication, reviewResultPublication } from '../cloudFirebase.js';
+import { dataPublication } from '../cloudFirebase.js';
 import { publicationUser } from '../storage.js';
 
 export const publicationBeforeTemplate = () => {
@@ -122,8 +122,9 @@ export const publicationBeforeTemplate = () => {
       messageTitleText.style.display = 'block';
     } else {
       dataPublication(uid, title, text, date);
-      reviewResultPublication();
-      window.history.go(-1);
+      inputTitle.innerHTML = '';
+      divText.innerHTML = '';
+      divEmoticons.style.display = 'none';
     }
   });
 
