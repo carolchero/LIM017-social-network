@@ -4,6 +4,7 @@ import { headerTemplate } from './Header.js';
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 // eslint-disable-next-line object-curly-newline
 import { onGetPublication, deletePublication, getOnlyPublication, updatePublication, likePublication, lovePublication, getUsers } from '../cloudFirebase.js';
+import { publicationUser } from '../storage.js';
 
 export const Feed = () => {
   const divFeed = document.createElement('div');
@@ -39,14 +40,24 @@ export const Feed = () => {
                  <img class= 'share-trash-logo' data-id='${doc2.id}' src='img/icomon/bin.jpg' alt='logo para eliminar publicación'>
              </figure>
           </div>
+          <div class='div-display-change' style='display: none;'>
+                <div class='div-logo-change-image-publication'>
+                  <img src='../img/cargando.gif' alt='gif de cargando'>
+                </div>
+          </div>
           <div  contentEditable ='false' class= 'title-area '  id= 'newTitle' >${publicationNew.title}</div>
-          <div  contentEditable ='false'   class= 'text-area div-text' id= 'newText'>${publicationNew.text}</div>
+          <div  contentEditable ='false'   class= 'text-area div-text' id= 'newText'>${publicationNew.text}
+          </div>
           <div class = 'direction' >
+             <img style='display:none;' class="share-image-logo logo-smile-image" data-id='${doc2.id}'  src="img/icomon/images.jpg" alt="logo para agregar imagenes a la publicación">
              <img  style='display:none;' class='share-stickers-logo like-love-smile ' src='img/icomon/smile.jpg' alt='logo para agregar stickers a la publicación'>
              <img class= 'like-love-smile btnlike' data-id='${doc2.id}' src= ${!publicationNew.like ? 'img/icomon/like.jpg' : publicationNew.like.find((e) => e === sessionStorage.getItem('uid')) ? 'img/icomon/likeO.jpg' : 'img/icomon/like.jpg'} alt='logo para dar me encanta'><figcaption class ='count-like-love' >${publicationNew.like ? publicationNew.like.length : 0}</figcaption>
              <img class= 'like-love-smile btnlove' data-id='${doc2.id}' src= ${!publicationNew.love ? 'img/icomon/heart.jpg' : publicationNew.love.find((e) => e === sessionStorage.getItem('uid')) ? 'img/icomon/heartO.jpg' : 'img/icomon/heart.jpg'} alt='logo para dar love'><figcaption class ='count-like-love' >${publicationNew.love ? publicationNew.love.length : 0}</figcaption>
              <button style='display:none;'  class = 'btn-save'>Guardar cambios</button>
              <div class='div-emoticons ' id='divEmoticon'; style='display: none;'></div>
+          </div>
+          <div class = 'div-uploader' style='display:none;'>
+                 <input type ='file' id = 'imgUploader' class = 'img-uploader' >
           </div>
           
         </section>
@@ -71,6 +82,38 @@ export const Feed = () => {
       }
     });
     mainTemplate.innerHTML = html;
+    // AGREGANDO FUNCIONALIDAD DE IMAGENES
+    const buttonShareImage = mainTemplate.querySelectorAll('.share-image-logo');
+    buttonShareImage.forEach((btnImage) => {
+      const sectionPublication = btnImage.parentNode.parentNode;
+      const divUploader = sectionPublication.querySelector('.div-uploader');
+      const inputUploader = sectionPublication.querySelector('.img-uploader');
+      const divEmoticon = sectionPublication.querySelector('.div-emoticons');
+      const areaText = sectionPublication.querySelector('.text-area');
+      const divChangeLogoDisplay = sectionPublication.querySelector('.div-display-change');
+      const buttonShare = sectionPublication.querySelector('.share-image-logo');
+      buttonShare.addEventListener('click', () => {
+        if (divUploader.style.display === 'none') {
+          divUploader.style.display = 'flex';
+          divEmoticon.style.display = 'none';
+        } else {
+          divUploader.style.display = 'none';
+        }
+      });
+      inputUploader.addEventListener('change', (e) => {
+        const divPreview = document.createElement('div');
+        divPreview.className = 'div-preview';
+        const imagePreview = document.createElement('img');
+        imagePreview.id = 'imgPreview';
+        divPreview.appendChild(imagePreview);
+        areaText.appendChild(divPreview);
+
+        const file = e.target.files[0]; // url de la foto
+        console.log(file);
+        divChangeLogoDisplay.style.display = 'block';
+        publicationUser(file, imagePreview, divChangeLogoDisplay.style);
+      });
+    });
     // LIKE A PUBLICACIONES
     const buttonLike = mainTemplate.querySelectorAll('.btnlike');
     buttonLike.forEach((btn) => {
@@ -119,6 +162,9 @@ export const Feed = () => {
         areaTitle.contentEditable = true;
         areaText.contentEditable = true;
         // mostramos boton para guardar cambios
+        const inputUploader = sectionPublication.querySelector('.div-uploader');
+        const imgUploader = sectionPublication.querySelector('.share-image-logo');
+        imgUploader.style.display = 'block';
         const emoticon = sectionPublication.querySelector('.share-stickers-logo');
         const buttonSave = sectionPublication.querySelector('.btn-save');
         // eslint-disable-next-line no-param-reassign
@@ -141,6 +187,7 @@ export const Feed = () => {
         emoticon.addEventListener('click', () => {
           if (divEmoticon.style.display === 'none') {
             divEmoticon.style.display = 'grid';
+            inputUploader.style.display = 'none';
           } else {
             divEmoticon.style.display = 'none';
           }

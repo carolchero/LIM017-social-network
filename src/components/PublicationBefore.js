@@ -122,11 +122,8 @@ export const publicationBeforeTemplate = () => {
       messageTitleText.style.display = 'block';
     } else {
       dataPublication(uid, title, text, date);
-      messageTitleText.style.display = 'none';
       reviewResultPublication();
-      inputTitle.innerHTML = '';
-      divText.innerHTML = '';
-      divEmoticons.style.display = 'none';
+      window.history.go(-1);
     }
   });
 
@@ -134,6 +131,7 @@ export const publicationBeforeTemplate = () => {
   imgShareStickers.addEventListener('click', () => {
     if (divEmoticons.style.display === 'none') {
       divEmoticons.style.display = 'grid';
+      divUploader.style.display = 'none';
     } else {
       divEmoticons.style.display = 'none';
     }
@@ -143,6 +141,7 @@ export const publicationBeforeTemplate = () => {
   imgShareImage.addEventListener('click', () => {
     if (divUploader.style.display === 'none') {
       divUploader.style.display = 'flex';
+      divEmoticons.style.display = 'none';
     } else {
       divUploader.style.display = 'none';
     }
@@ -152,7 +151,6 @@ export const publicationBeforeTemplate = () => {
   imageUploader.addEventListener('change', (e) => {
     divText.appendChild(divPreview);
     const file = e.target.files[0]; // url de la foto
-    console.log(file);
     divChangeLogoDisplay.style.display = 'block';
     publicationUser(file, imagePreview, divChangeLogoDisplay.style);
   });
