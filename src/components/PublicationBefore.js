@@ -1,16 +1,5 @@
-<<<<<<< Updated upstream
 import f from '../lib/function.js';
-import { dataPublication, reviewResultPublication } from '../cloudFirebase.js';
-=======
-// eslint-disable-next-line import/no-unresolved
-// import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-// eslint-disable-next-line import/no-unresolved
-// import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
-import f from '../lib/function.js';
-import { dataPublication, reviewResultPublication } from '../cloudFirebase.js';
-// eslint-disable-next-line import/no-cycle
-// import { onNavigate } from '../main.js';
->>>>>>> Stashed changes
+import { dataPublication } from '../cloudFirebase.js';
 import { publicationUser } from '../storage.js';
 
 export const publicationBeforeTemplate = () => {
@@ -133,8 +122,6 @@ export const publicationBeforeTemplate = () => {
       messageTitleText.style.display = 'block';
     } else {
       dataPublication(uid, title, text, date);
-      messageTitleText.style.display = 'none';
-      reviewResultPublication();
       inputTitle.innerHTML = '';
       divText.innerHTML = '';
       divEmoticons.style.display = 'none';
@@ -145,6 +132,7 @@ export const publicationBeforeTemplate = () => {
   imgShareStickers.addEventListener('click', () => {
     if (divEmoticons.style.display === 'none') {
       divEmoticons.style.display = 'grid';
+      divUploader.style.display = 'none';
     } else {
       divEmoticons.style.display = 'none';
     }
@@ -154,6 +142,7 @@ export const publicationBeforeTemplate = () => {
   imgShareImage.addEventListener('click', () => {
     if (divUploader.style.display === 'none') {
       divUploader.style.display = 'flex';
+      divEmoticons.style.display = 'none';
     } else {
       divUploader.style.display = 'none';
     }
@@ -163,7 +152,6 @@ export const publicationBeforeTemplate = () => {
   imageUploader.addEventListener('change', (e) => {
     divText.appendChild(divPreview);
     const file = e.target.files[0]; // url de la foto
-    console.log(file);
     divChangeLogoDisplay.style.display = 'block';
     publicationUser(file, imagePreview, divChangeLogoDisplay.style);
   });

@@ -377,7 +377,7 @@
     background-image: linear-gradient(to top right, #89253e, #3a6186);
     color:white;
     border-radius: 10px;
-    margin: 5px 5px 5px 83px;
+    margin: 5px 5px 5px 0px;
     padding: 3%;
     font-size: 13px;
 }
@@ -399,7 +399,7 @@
        }
     .btn-save {
         border-radius: 12px;
-        margin: 5px 5px 5px 120px;
+        margin: 5px 5px 5px 10px;
         width: 180px;
         padding: 2%;
     }
@@ -418,8 +418,8 @@
         font-size: 13px;
     }
     .btn-save {
-        margin: 5px 5px 5px 180px;
-        width: 200px;
+        margin: 5px 5px 5px 40px;
+        width: 250px;
     }
     .like-love-smile {
         height: 19px;
@@ -471,8 +471,8 @@
     .btn-save {
         font-size:16px;
         padding: 5px;
-        margin: 5px 5px 5px 150px;
-        width:250px;
+        margin: 5px 5px 5px 50px;
+        width:350px;
     }
 }
 @media (min-width:1200px){
@@ -492,6 +492,10 @@
     .like-love-smile {
         height: 28px;
         margin: 1% 3%;
+    }
+    .btn-save {
+        margin: 5px 5px 5px 30px;
+        width:400px;
     }
 }
 

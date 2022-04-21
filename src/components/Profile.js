@@ -1,26 +1,12 @@
 // eslint-disable-next-line import/no-cycle
-<<<<<<< Updated upstream
-=======
-// eslint-disable-next-line import/no-unresolved
-import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-// import {
-//   doc, getDoc,
-// // eslint-disable-next-line import/no-unresolved
-// } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
-// eslint-disable-next-line import/no-cycle
->>>>>>> Stashed changes
 import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import {
   // eslint-disable-next-line max-len
-<<<<<<< Updated upstream
   onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, onGetUser, likePublication, lovePublication,
-=======
-  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, onGetUser, likePublication,
->>>>>>> Stashed changes
 } from '../cloudFirebase.js';
-import { photoUser, coverPageUser } from '../storage.js';
+import { photoUser, coverPageUser, publicationUser } from '../storage.js';
 
 export const Profile = () => {
   const profileContainer = document.createElement('div');
@@ -115,6 +101,37 @@ export const Profile = () => {
       }
     });
     mainTemplate.innerHTML = html;
+    // AGREGANDO FUNCIONALIDAD DE IMAGENES
+    const buttonShareImage = mainTemplate.querySelectorAll('.share-image-logo');
+    buttonShareImage.forEach((btnImage) => {
+      const sectionPublication = btnImage.parentNode.parentNode;
+      const divUploader = sectionPublication.querySelector('.div-uploader');
+      const inputUploader = sectionPublication.querySelector('.img-uploader');
+      const divEmoticon = sectionPublication.querySelector('.div-emoticons');
+      const areaText = sectionPublication.querySelector('.text-area');
+      const divChangeLogoDisplay = sectionPublication.querySelector('.div-display-change');
+      const buttonShare = sectionPublication.querySelector('.share-image-logo');
+      buttonShare.addEventListener('click', () => {
+        if (divUploader.style.display === 'none') {
+          divUploader.style.display = 'flex';
+          divEmoticon.style.display = 'none';
+        } else {
+          divUploader.style.display = 'none';
+        }
+      });
+      inputUploader.addEventListener('change', (e) => {
+        const divPreview = document.createElement('div');
+        divPreview.className = 'div-preview';
+        const imagePreview = document.createElement('img');
+        imagePreview.id = 'imgPreview';
+        divPreview.appendChild(imagePreview);
+        areaText.appendChild(divPreview);
+
+        const file = e.target.files[0]; // url de la foto
+        divChangeLogoDisplay.style.display = 'block';
+        publicationUser(file, imagePreview, divChangeLogoDisplay.style);
+      });
+    });
     // LIKE A PUBLICACIONES
     const buttonLike = mainTemplate.querySelectorAll('.btnlike');
     buttonLike.forEach((btn) => {

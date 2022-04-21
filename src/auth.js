@@ -5,11 +5,6 @@ import {
   updatePassword, onAuthStateChanged, sendPasswordResetEmail,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
-<<<<<<< Updated upstream
-=======
-// eslint-disable-next-line import/no-cycle,import/no-unresolved
-// import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
->>>>>>> Stashed changes
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from './main.js';
 import { dataUser, getUser } from './cloudFirebase.js';
