@@ -1,9 +1,23 @@
+<<<<<<< Updated upstream
+=======
+/* eslint-disable max-len */
+// eslint-disable-next-line import/no-unresolved
+// import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+// eslint-disable-next-line import/no-unresolved
+// import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
+>>>>>>> Stashed changes
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 // eslint-disable-next-line object-curly-newline
+<<<<<<< Updated upstream
 import { onGetPublication, deletePublication, getOnlyPublication, updatePublication, likePublication, lovePublication, getUsers } from '../cloudFirebase.js';
+=======
+import { onGetPublication, deletePublication, getOnlyPublication, updatePublication } from '../cloudFirebase.js';
+// eslint-disable-next-line import/no-cycle
+// import { onNavigate } from '../main.js';
+>>>>>>> Stashed changes
 
 export const Feed = () => {
   const divFeed = document.createElement('div');

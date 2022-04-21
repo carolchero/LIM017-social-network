@@ -1,10 +1,24 @@
 // eslint-disable-next-line import/no-cycle
+<<<<<<< Updated upstream
+=======
+// eslint-disable-next-line import/no-unresolved
+import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+// import {
+//   doc, getDoc,
+// // eslint-disable-next-line import/no-unresolved
+// } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js';
+// eslint-disable-next-line import/no-cycle
+>>>>>>> Stashed changes
 import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import {
   // eslint-disable-next-line max-len
+<<<<<<< Updated upstream
   onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, onGetUser, likePublication, lovePublication,
+=======
+  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, onGetUser, likePublication,
+>>>>>>> Stashed changes
 } from '../cloudFirebase.js';
 import { photoUser, coverPageUser } from '../storage.js';
 
