@@ -1,4 +1,4 @@
-import './lib/firebase.js';
+import './lib/imports/firebase.js';
 // eslint-disable-next-line import/no-cycle
 import { Register } from './components/Register.js';
 // eslint-disable-next-line import/no-cycle
@@ -25,6 +25,8 @@ const routes = {
 
 export const onNavigate = (pathname) => {
   // pushtate actualiza barra de navegacion(método viene de API.History/navegador)
+  // trabaja en conjunto con el evento onpopstate
+  // actualiza url
   window.history.pushState(
     {},
     pathname,
@@ -33,11 +35,13 @@ export const onNavigate = (pathname) => {
   while (rootDiv.firstChild) {
     rootDiv.removeChild(rootDiv.firstChild);
   }
+  // actualiza la vista actual segun la ruta
   rootDiv.appendChild(routes[pathname]());
 };
 
-const component = routes[window.location.pathname]; // sale ruta
+const component = routes[window.location.pathname]; // cambio de ruta
 
+// alamacena vista anterior
 window.onpopstate = () => {
   rootDiv.appendChild(component());
 };

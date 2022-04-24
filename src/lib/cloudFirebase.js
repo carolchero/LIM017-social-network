@@ -1,10 +1,8 @@
-/* eslint-disable object-curly-newline */
-// eslint-disable-next-line import/no-unresolved
-// eslint-disable-next-line no-unused-vars
-// eslint-disable-next-line import/no-unresolved
-import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc, setDoc, getDoc, query, where, updateDoc, orderBy, arrayUnion, arrayRemove } from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js'; // conectar ,importar,mostrar
-
-export const db = getFirestore();
+import {
+  collection, addDoc, getDocs, onSnapshot,
+  deleteDoc, doc, setDoc, getDoc, query, where, updateDoc, orderBy,
+  arrayUnion, arrayRemove, db,
+} from './imports/firebase-cloudFirebase.js'; // conectar ,importar,mostrar
 
 // para almacenar datos del usuario
 export async function dataUser(id, name, email, password, urlPhotoUser, urlCoverPage) {
@@ -21,11 +19,13 @@ export async function dataUser(id, name, email, password, urlPhotoUser, urlCover
 /* USUARIO  */
 
 export const getUser = (id) => getDoc(doc(db, 'dataUsers', id));// obtener informacion del usuario despues del login
-export const getUsers = () => getDocs(collection(db, 'dataUsers')); // obtener informacion de los usuarios  despues del login
+export const getUsers = async () => getDocs(collection(db, 'dataUsers')); // obtener informacion de los usuarios  despues del login
 export const onGetUser = (callback) => onSnapshot(query(collection(db, 'dataUsers')), callback);
 export const updateDataUsers = (id, newFields) => updateDoc(doc(db, 'dataUsers', id), newFields); // actualizar publicación
 /* PUBLICACIÓN */
-export const dataPublication = (uid, title, text, date) => addDoc(collection(db, 'dataPublication'), { uid, title, text, date }); // para alamacenar datos de publicación
+export const dataPublication = (uid, title, text, date) => addDoc(collection(db, 'dataPublication'), {
+  uid, title, text, date,
+}); // para alamacenar datos de publicación
 export const getPublication = () => getDocs(collection(db, 'dataPublication')); // obtener informacion
 export const onGetPublication = (callback) => onSnapshot(query(collection(db, 'dataPublication'), orderBy('date', 'desc')), callback);// se agrega la publicación nueva sin recargar
 export const onGetPublicationUser = (callback) => onSnapshot(query(collection(db, 'dataPublication'), where('uid', '==', sessionStorage.getItem('uid')), orderBy('date', 'desc')), callback); // se agrega la publicación nueva sin recargar POR USUARIO

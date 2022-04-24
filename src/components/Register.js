@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-cycle
-import { onNavigate } from '../main.js';
+import { onNavigate } from '../Router.js';
 // eslint-disable-next-line import/no-cycle
-import { register } from '../auth.js';
+import { register } from '../lib/auth.js';
 
 export const Register = () => {
   const sectionRegister = document.createElement('section');
