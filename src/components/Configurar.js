@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { configurationPassword } from '../auth.js';
+import { configurationPassword } from '../lib/auth.js';
 
 export const Configurar = () => {
   const sectionChangePassword = document.createElement('section');

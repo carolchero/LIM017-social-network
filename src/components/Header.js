@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-cycle
-import { onNavigate } from '../main.js';
+import { onNavigate } from '../Router.js';
 // eslint-disable-next-line import/no-cycle
-import { cerrarSesion, listeningSessionEvent } from '../auth.js';
+import { cerrarSesion, listeningSessionEvent } from '../lib/auth.js';
 
 export const headerTemplate = () => {
   const headerdiv = document.createElement('header');

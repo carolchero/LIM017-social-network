@@ -1,6 +1,6 @@
-import f from '../lib/function.js';
-import { dataPublication } from '../cloudFirebase.js';
-import { publicationUser } from '../storage.js';
+import f from '../lib/functions.js';
+import { dataPublication } from '../lib/cloudFirebase.js';
+import { publicationUser } from '../lib/storage.js';
 
 export const publicationBeforeTemplate = () => {
   const feedTemplate2 = document.createElement('main');

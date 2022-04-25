@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
@@ -5,8 +6,8 @@ import { publicationBeforeTemplate } from './PublicationBefore.js';
 import {
   onGetPublication, deletePublication, getOnlyPublication, updatePublication,
   likePublication, lovePublication, getUsers,
-} from '../cloudFirebase.js';
-import { publicationUser } from '../storage.js';
+} from '../lib/cloudFirebase.js';
+import { publicationUser } from '../lib/storage.js';
 
 export const Feed = () => {
   const divFeed = document.createElement('div');

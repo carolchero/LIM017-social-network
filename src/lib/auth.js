@@ -1,12 +1,10 @@
-/* eslint-disable max-len */
 import {
-  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut,
-  // eslint-disable-next-line no-unused-vars
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
+  GoogleAuthProvider, FacebookAuthProvider, signOut,
   updatePassword, onAuthStateChanged, sendPasswordResetEmail,
-// eslint-disable-next-line import/no-unresolved
-} from 'https://www.gstatic.com/firebasejs/9.6.9/firebase-auth.js';
+} from './imports/firebase-auth.js';
 // eslint-disable-next-line import/no-cycle
-import { onNavigate } from './main.js';
+import { onNavigate } from '../Router.js';
 import { dataUser, getUser } from './cloudFirebase.js';
 
 // FUNCIÓN PARA CREAR NUEVOS USUARIOS

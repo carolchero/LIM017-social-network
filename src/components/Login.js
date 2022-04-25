@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-cycle
-import { accesUser, accesGoogle, accesFacebook } from '../auth.js';
+import { accesUser, accesGoogle, accesFacebook } from '../lib/auth.js';
 // eslint-disable-next-line import/no-cycle
-import { onNavigate } from '../main.js';
+import { onNavigate } from '../Router.js';
 
 export const Login = () => {
   const divLogin = document.createElement('section');

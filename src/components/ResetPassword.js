@@ -1,9 +1,5 @@
-// restablecer contraseña
 // eslint-disable-next-line import/no-cycle
-
-// eslint-disable-next-line import/no-cycle
-import { restorePassword } from '../auth.js';
-// eslint-disable-next-line import/no-cycle
+import { restorePassword } from '../lib/auth.js';
 
 export const ResetPassword = () => {
   const sectionRestPassword = document.createElement('section');

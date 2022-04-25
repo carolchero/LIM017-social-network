@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 // eslint-disable-next-line import/no-cycle
 import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
@@ -5,8 +6,8 @@ import { publicationBeforeTemplate } from './PublicationBefore.js';
 import {
   // eslint-disable-next-line max-len
   onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, onGetUser, likePublication, lovePublication,
-} from '../cloudFirebase.js';
-import { photoUser, coverPageUser, publicationUser } from '../storage.js';
+} from '../lib/cloudFirebase.js';
+import { photoUser, coverPageUser, publicationUser } from '../lib/storage.js';
 
 export const Profile = () => {
   const profileContainer = document.createElement('div');

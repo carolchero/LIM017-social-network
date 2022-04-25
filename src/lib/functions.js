@@ -1,4 +1,6 @@
+/* FUNCIONES DE LAS PUBLICACIONES */
 const f = {
+  // agrega fecha a las publicaciones
   timeNow() {
     const dateNow = new Date();
     const date = `${this.formatTime(dateNow.getDate())}-${this.formatTime((dateNow.getMonth() + 1))}-${dateNow.getFullYear()} ${this.formatTime(dateNow.getHours())}:${this.formatTime(dateNow.getMinutes())}:${this.formatTime(dateNow.getSeconds())}`;
@@ -11,6 +13,7 @@ const f = {
     }
     return e;
   },
+  // función que permite agregar emoji en cualquier parte del texto
   pasteHtmlAtCaret(html) {
     let range;
     if (window.getSelection) {
