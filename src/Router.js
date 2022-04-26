@@ -1,4 +1,3 @@
-import './lib/imports/firebase.js';
 // eslint-disable-next-line import/no-cycle
 import { Register } from './components/Register.js';
 // eslint-disable-next-line import/no-cycle
