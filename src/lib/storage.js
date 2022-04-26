@@ -1,6 +1,6 @@
 import {
   getStorage, ref, uploadBytesResumable, getDownloadURL,
-} from './imports/firebase-storage.js';
+} from './imports/firebase-imports.js';
 // eslint-disable-next-line object-curly-spacing
 import {updateDataUsers} from './cloudFirebase.js';
 

@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-cycle
 import { restorePassword } from '../lib/auth.js';
+import { onNavigate } from '../Router.js';
 
 export const ResetPassword = () => {
   const sectionRestPassword = document.createElement('section');
@@ -20,7 +21,10 @@ export const ResetPassword = () => {
   const buttonRecuperarCuenta = document.createElement('button');
   buttonRecuperarCuenta.className = 'button-form';
   buttonRecuperarCuenta.innerText = 'Continuar ';
-  buttonRecuperarCuenta.addEventListener('click', () => restorePassword());
+  buttonRecuperarCuenta.addEventListener('click', () => {
+    restorePassword();
+    onNavigate('/');
+  });
 
   // creando div oculto
   const divHideMessage = document.createElement('div');

@@ -1,8 +1,12 @@
 import {
-  collection, addDoc, getDocs, onSnapshot,
+  getFirestore, collection, addDoc, getDocs, onSnapshot,
   deleteDoc, doc, setDoc, getDoc, query, where, updateDoc, orderBy,
-  arrayUnion, arrayRemove, db,
-} from './imports/firebase-cloudFirebase.js'; // conectar ,importar,mostrar
+  arrayUnion, arrayRemove,
+} from './imports/firebase-imports.js'; // conectar ,importar,mostrar
+// import { app } from './imports/firebase.js';
+
+const db = getFirestore();
+// console.log(app);
 
 // para almacenar datos del usuario
 export async function dataUser(id, name, email, password, urlPhotoUser, urlCoverPage) {
