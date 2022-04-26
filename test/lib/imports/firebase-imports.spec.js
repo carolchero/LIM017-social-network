@@ -1,1 +1,1 @@
-jest.mock('../../src/lib/imports/firebase-auth.js');
+jest.mock('../../src/lib/imports/firebase-imports.js');

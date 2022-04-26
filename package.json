@@ -37,5 +37,17 @@
   },
   "dependencies": {
     "firebase": "^9.6.11"
+  },
+  "jest": {
+    "verbose": true ,
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
+
 }

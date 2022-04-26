@@ -3,7 +3,7 @@ import {
   deleteDoc, doc, setDoc, getDoc, query, where, updateDoc, orderBy,
   arrayUnion, arrayRemove,
 } from './imports/firebase-imports.js'; // conectar ,importar,mostrar
-// import { app } from './imports/firebase.js';
+import { app } from './imports/firebase.js';
 
 const db = getFirestore();
 // console.log(app);

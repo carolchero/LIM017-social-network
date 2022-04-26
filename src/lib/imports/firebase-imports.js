@@ -5,20 +5,20 @@ import {
   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
   signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut,
   updatePassword, onAuthStateChanged, sendPasswordResetEmail,
-} from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js';
+// eslint-disable-next-line import/no-relative-packages
+} from '../firebase/firebase-auth.js';
 
 /* CLOUD FIRESTORE */
 import {
   getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc,
   doc, setDoc, getDoc, query, where, updateDoc, orderBy,
   arrayUnion, arrayRemove,
-// eslint-disable-next-line import/no-unresolved
-} from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js'; // conectar ,importar,mostrar
+// eslint-disable-next-line import/no-relative-packages
+} from '../firebase/firebase-firestore.js'; // conectar ,importar,mostrar
 
 import {
   getStorage, ref, uploadBytesResumable, getDownloadURL,
-// eslint-disable-next-line import/no-unresolved
-} from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-storage.js';
+} from '../firebase/firebase-storage.js';
 
 /* AUTH */
 export {
