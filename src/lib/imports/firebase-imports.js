@@ -6,7 +6,7 @@ import {
   signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut,
   updatePassword, onAuthStateChanged, sendPasswordResetEmail,
 // eslint-disable-next-line import/no-relative-packages
-} from '../firebase/firebase-auth.js';
+} from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js';
 
 /* CLOUD FIRESTORE */
 import {
@@ -14,11 +14,11 @@ import {
   doc, setDoc, getDoc, query, where, updateDoc, orderBy,
   arrayUnion, arrayRemove,
 // eslint-disable-next-line import/no-relative-packages
-} from '../firebase/firebase-firestore.js'; // conectar ,importar,mostrar
+} from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js'; // conectar ,importar,mostrar
 
 import {
   getStorage, ref, uploadBytesResumable, getDownloadURL,
-} from '../firebase/firebase-storage.js';
+} from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-storage.js';
 
 /* AUTH */
 export {
