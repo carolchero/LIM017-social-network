@@ -11,9 +11,12 @@ import { Configurar } from './components/Configurar.js';
 // eslint-disable-next-line import/no-cycle
 import { ResetPassword } from './components/ResetPassword.js';
 
+if (document.getElementById('root') == null) {
+  document.body.innerHTML = '<div id="root"> </div>';
+}
 const rootDiv = document.getElementById('root');
 
-const routes = {
+export const routes = {
   '/': Login,
   '/register': Register,
   '/feed': Feed,
