@@ -5,8 +5,7 @@ import {
 } from './imports/firebase-imports.js'; // conectar ,importar,mostrar
 import { app } from './imports/firebase.js';
 
-const db = getFirestore();
-// console.log(app);
+const db = getFirestore(app);
 
 // para almacenar datos del usuario
 export async function dataUser(id, name, email, password, urlPhotoUser, urlCoverPage) {
@@ -20,7 +19,6 @@ export async function dataUser(id, name, email, password, urlPhotoUser, urlCover
     // console.error('Error adding document: ', e);
   }
 }
-/* USUARIO  */
 
 export const getUser = (id) => getDoc(doc(db, 'dataUsers', id));// obtener informacion del usuario despues del login
 export const getUsers = async () => getDocs(collection(db, 'dataUsers')); // obtener informacion de los usuarios  despues del login

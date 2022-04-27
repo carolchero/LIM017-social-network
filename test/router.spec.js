@@ -1,5 +1,7 @@
 import { onNavigate } from '../src/Router';
 
+jest.mock('../src/lib/imports/firebase-imports.js');
+
 console.log(onNavigate);
 
 const routes = [

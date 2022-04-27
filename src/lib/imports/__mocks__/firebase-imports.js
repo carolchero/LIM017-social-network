@@ -54,8 +54,7 @@ export const arrayRemove = () => Promise.resolve({});
 export {
     getStorage, ref, uploadBytesResumable, getDownloadURL,
   }; */
-  export const getStorage = () => Promise.resolve({});
-  export const ref = () => Promise.resolve({});
-  export const uploadBytesResumable = () => Promise.resolve({});
-  export const getDownloadURL = () => Promise.resolve({});
-  
+export const getStorage = () => Promise.resolve({});
+export const ref = () => Promise.resolve({});
+export const uploadBytesResumable = () => Promise.resolve({});
+export const getDownloadURL = () => Promise.resolve({});
