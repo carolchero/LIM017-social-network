@@ -1,4 +1,4 @@
-import { storage } from './storageCarol.js';
+import { storage } from './exampleStorageCarol.js';
 // eslint-disable-next-line spaced-comment
 /* export const users = () => {
   // aqui tu codigo
