@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import {
   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
   GoogleAuthProvider, /* FacebookAuthProvider, */ signOut,
@@ -25,9 +26,9 @@ export const accesUserExist = (email, password) => {
 };
 
 export const signGoogle = () => {
+  const auth = getAuth();
   const provider = new GoogleAuthProvider();
-  const auth1 = getAuth();
-  return signInWithPopup(auth1, provider)
+  return signInWithPopup(auth, provider)
     .then((result) => {
       const user = result.user;
       return (user);
@@ -49,25 +50,22 @@ export const validateCorrectPassword = (email, currentPassword) => {
   return signInWithEmailAndPassword(auth, email, currentPassword);
 };
 
-export function updateNewPassword(user) {
-  return updatePassword(user);
+export function updateNewPassword(user, newPassword) {
+  return updatePassword(user, newPassword);
 }
 
-export const stateUser = () => {
+export const stateUser = (newPassword) => {
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      updateNewPassword(user);
-      console.log('cambio exitoso');
-    } else {
-      console.log(user);
+      updateNewPassword(user, newPassword);
     }
   });
 };
 
 export const verifyUserActive = () => {
-  const auth = getAuth();
   // eslint-disable-next-line no-shadow
+  const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user === null) { // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
