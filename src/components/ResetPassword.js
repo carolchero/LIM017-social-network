@@ -7,6 +7,7 @@ export const ResetPassword = () => {
   sectionRestPassword.className = 'container-publication';
   const titleHeader = document.createElement('h2');
   titleHeader.className = 'text-center';
+  titleHeader.id = 'titlePage';
   titleHeader.innerText = 'Recupera tu cuenta';
   const titleMain = document.createElement('div');
   titleMain.className = 'text-center';
