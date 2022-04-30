@@ -1,39 +1,47 @@
-/* AUTH
-export {
-    getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-    signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut,
-    updatePassword, onAuthStateChanged, sendPasswordResetEmail,
-  }; */
-
 export const initializeApp = () => Promise.resolve({});
+export const getAuth = () => {};
 
-export const getAuth = () => Promise.resolve({});
-export const createUserWithEmailAndPassword = () => Promise.resolve({});
-export const signInWithEmailAndPassword = () => Promise.resolve({});
-export const signInWithPopup = () => Promise.resolve({});
-export const GoogleAuthProvider = () => Promise.resolve({});
-export const FacebookAuthProvider = () => Promise.resolve({});
-export const signOut = () => Promise.resolve({});
-export const updatePassword = () => Promise.resolve({});
-export const onAuthStateChanged = () => Promise.resolve({});
-export const sendPasswordResetEmail = () => Promise.resolve({});
+/* CREAR USUARIO */
+export const createUserWithEmailAndPassword = () => {
+  const userCredentials = {
+    user: { uid: 'xyxyui123' },
+  };
+  return Promise.resolve(userCredentials.user.uid);
+};
 
-/* CLOUD FIRESTORE */
-
-/* const collection = jest.fn((db, collection) => {
-  return {};
+/* INGRESAR CON EMAIL Y PASSWORD */
+export const signInWithEmailAndPassword = jest.fn(() => {
+  const userCredential = {
+    user: { uid: 'xyxyui123' },
+  };
+  return Promise.resolve(userCredential);
 });
 
-// eslint-disable-next-line no-shadow
-function getDocs(collection) {
-  return Promise.resolve({
-  });
-} */
-/* export {
-  getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc,
-  doc, setDoc, getDoc, query, where, updateDoc, orderBy,
-  arrayUnion, arrayRemove,
-}; */
+/* ACCES USER WITH GOOGLE */
+export const GoogleAuthProvider = jest.fn(() => {});
+export const signInWithPopup = jest.fn(() => {
+  const user = {
+    displayName: 'Paola',
+    uid: 'hni12345',
+    email: 'paola@gmail.com',
+    accessToken: 'YYWWXX',
+  };
+  return Promise.resolve(user);
+});
+
+/* OLVIDO DE CONTRASEÑA */
+export const sendPasswordResetEmail = () => jest.fn(() => {});
+
+/* CAMBIAR CONTRASEÑA PASSWORD */
+export const updatePassword = () => Promise.resolve({});
+export const onAuthStateChanged = () => Promise.resolve({});
+
+
+
+export const FacebookAuthProvider = () => Promise.resolve({});
+export const signOut = () => Promise.resolve({});
+
+
 export const getFirestore = () => Promise.resolve({});
 export const collection = () => Promise.resolve({});
 export const addDoc = () => Promise.resolve({});

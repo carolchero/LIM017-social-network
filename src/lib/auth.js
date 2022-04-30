@@ -43,7 +43,7 @@ export async function register(name, email, password) {
 export function accesUser(email, password) {
   accesUserExist(email, password)
     .then(async (credential) => {
-      // Signed in
+    // Signed in
       const usuario = credential.user.uid;
       const docSnap = await getUser(usuario);
       const urlPhotoUser = docSnap.data().urlPhotoUser;
@@ -53,17 +53,16 @@ export function accesUser(email, password) {
       sessionStorage.setItem('email', email);
       sessionStorage.setItem('nameUser', nameUser);
       sessionStorage.setItem('photoUser', urlPhotoUser);
-
       onNavigate('/feed');
     })
-    .catch((error) => {
-      console.log(error.message);
+    .catch(() => {
       document.getElementById('messageHide').style.display = 'block';
     });
 }
 
 // AUTENTICACIÓN CON GOOGLE
 export async function accesGoogle() {
+  let result = '';
   signGoogle()
     .then(async (user) => {
       const nameUser = user.displayName;
@@ -90,9 +89,12 @@ export async function accesGoogle() {
         dataUser(idUser, nameUser, emailUser, token, urlPhotoUser, urlCoverPage);
       }
       onNavigate('/feed');
+      result = true;
     }).catch((error) => {
       console.error(error);
+      result = false;
     });
+  return result;
 }
 
 /* // AUTENTICACIÓN CON FB
@@ -145,8 +147,12 @@ export function cerrarSesion() {
     });
 }
 
+// Cambiar contraseña
 export function validatePassword(password) {
   return password != null && password !== '';
+}
+export function returnLogin() {
+  onNavigate('/');
 }
 
 export function configurationPassword() {
@@ -154,28 +160,45 @@ export function configurationPassword() {
   const newPassword = document.getElementById('txtPasswordNew').value;
   const newPasswordConfirm = document.getElementById('txtPasswordNewRepeat').value;
   const email = sessionStorage.getItem('email');
+  function time() {
+    const messageError = document.getElementById('cardHide');
+    messageError.style.display = 'none';
+  }
   if (newPassword !== newPasswordConfirm) {
-    console.log('las contraseñas no coinciden');
+    const messageError = document.getElementById('cardHide');
+    messageError.innerText = 'Las contraseñas nuevas no coinciden';
+    messageError.style.display = 'block';
+    setTimeout(time, 1000);
     return;
   }
   if (!validatePassword(newPassword)) {
-    console.log('la contraseña no es válida');
+    const messageError = document.getElementById('cardHide');
+    messageError.innerText = 'Contraseña no valida';
+    messageError.style.display = 'block';
+    setTimeout(time, 1000);
     return;
   }
+  async function validyUser() {
+    const docSnap = await getUser(sessionStorage.getItem('uid'));
+    const passwordFirestore = docSnap.data().password;
+    if (currentPassword !== passwordFirestore) {
+      const messageError = document.getElementById('cardHide');
+      messageError.innerText = 'Contraseña antigua es incorrecta';
+      messageError.style.display = 'block';
+      setTimeout(time, 1000);
+    }
+  }
+  validyUser();
 
-  // Hacemos login para validar si currentpassword es la contraseña correcta
+  // actualizamos la contraseña
   validateCorrectPassword(email, currentPassword)
     .then(() => {
-      stateUser();
-      onNavigate('/');
+      stateUser(newPassword);
+      setTimeout(returnLogin, 1000);
     });
 }
 
 // VERIFICAR SI SESIÓN ESTA ACTIVA O NO => CERRAR SI ESTA INACTIVA
 export function listeningSessionEvent() {
   verifyUserActive();
-}
-
-export function returnLogin() {
-  onNavigate('/');
 }
