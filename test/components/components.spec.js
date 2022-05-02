@@ -1,6 +1,7 @@
 import { headerTemplate } from '../../src/components/Header.js';
 import { Profile } from '../../src/components/Profile.js';
 import { Feed } from '../../src/components/Feed.js';
+import { Register } from '../../src/components/Register.js';
 
 jest.mock('../../src/lib/imports/firebase-imports.js');
 
@@ -9,9 +10,19 @@ test('use jsdom in this test file', () => {
   expect(root).not.toBeNull();
 });
 
+describe('Register', () => {
+  it('función que contiene texto HTML', () => {
+    expect(typeof Register().textContent).toBe('string');
+  });
+});
+
 describe('headerTemplate', () => {
   it('función que contiene texto HTML', () => {
     expect(typeof headerTemplate().textContent).toBe('string');
+  });
+  it(' HTML', () => {
+    console.log(headerTemplate());
+    expect(typeof headerTemplate()).toBe('object');
   });
 });
 describe('Profile', () => {

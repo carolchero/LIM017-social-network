@@ -1,3 +1,5 @@
+/* eslint-disable no-return-assign */
+/* eslint-disable no-confusing-arrow */
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../Router.js';
 // eslint-disable-next-line import/no-cycle
@@ -72,9 +74,7 @@ export const headerTemplate = () => {
   const liConfig = document.createElement('li');
   const aConfig = document.createElement('a');
   aConfig.innerText = 'Configurar cuenta';
-  aConfig.addEventListener('click', () => {
-    onNavigate('/configurar');
-  });
+  aConfig.addEventListener('click', () => onNavigate('/configurar'));
 
   const liDelete = document.createElement('li');
   const aDelete = document.createElement('a');
@@ -90,9 +90,7 @@ export const headerTemplate = () => {
   const aClose = document.createElement('a');
   aClose.href = '#';
   aClose.innerText = 'Cerrar cuenta';
-  aClose.addEventListener('click', () => {
-    cerrarSesion();
-  });
+  aClose.addEventListener('click', () => cerrarSesion());
 
   // agregando a contenedor mediano
   divContainerSearchPhoto.appendChild(imgComputer);
@@ -122,13 +120,7 @@ export const headerTemplate = () => {
   headerdiv.appendChild(containerNav);
 
   // evento para aparecer el nav
-  lines.addEventListener('click', () => {
-    if (containerNavHide.style.display === 'none') {
-      containerNavHide.style.display = 'block';
-    } else {
-      containerNavHide.style.display = 'none';
-    }
-  });
+  lines.addEventListener('click', () => (containerNavHide.style.display === 'none') ? (containerNavHide.style.display = 'block') : (containerNavHide.style.display = 'none'));
 
   listeningSessionEvent();
 
