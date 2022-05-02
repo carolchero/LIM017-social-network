@@ -2,6 +2,7 @@
 import { onNavigate } from '../Router.js';
 // eslint-disable-next-line import/no-cycle
 import { register } from '../lib/auth.js';
+import f from '../lib/functions.js';
 
 export const Register = () => {
   const sectionRegister = document.createElement('section');
@@ -146,68 +147,21 @@ export const Register = () => {
   textMessageIncorrect.style.fontSize = '14px';
 
   // validando correo
-  // eslint-disable-next-line no-useless-escape
-  const regexEmail = /([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-  function validy() {
+  inputEmail.addEventListener('keyup', () => {
     // eslint-disable-next-line no-unused-expressions
-    !regexEmail.test(inputEmail.value) ? divEmailHide.style.display = 'block' : divEmailHide.style.display = 'none';
-  }
-  inputEmail.addEventListener('keyup', validy);
+    !f.validyEmail(inputEmail.value) ? divEmailHide.style.display = 'block' : divEmailHide.style.display = 'none';
+  });
 
   // validado contraseña
-  const regexMinus = /(?=.*[a-z]).+$/;
-  const regexMayus = /(?=.*[A-Z]).+$/;
-  const regexNumber = /(?=.*[0-9]).+$/;
-  const regexCharac = /(?=.*[-+_!@#$%^&*.,?]).+$/;
   inputPassword.addEventListener('keyup', () => {
-    let count = 0;
-    if (inputPassword.value.length >= 6) {
-      descSecurityCant.innerHTML = 'Min(6): <img src=\'img/check.png\'></img>';
-      divPasswordHide.style.display = 'none';
-      count += 1;
-    } else {
-      descSecurityCant.innerHTML = 'Min(6): <img src=\'img/false.png\'></img>';
-      divPasswordHide.style.display = 'block';
-    }
-    if (regexMinus.test(inputPassword.value)) {
-      descSecurityMin.innerHTML = 'Minus: <img src=\'img/check.png\'></img>';
-      count += 1;
-    } else {
-      descSecurityMin.innerHTML = 'Minus: <img src=\'img/false.png\'></img>';
-    }
-    if (regexMayus.test(inputPassword.value)) {
-      descSecurityMay.innerHTML = 'Mayus: <img src=\'img/check.png\'></img>';
-      count += 1;
-    } else {
-      descSecurityMay.innerHTML = 'Mayus: <img src=\'img/false.png\'></img>';
-    }
-    if (regexNumber.test(inputPassword.value)) {
-      descSecurityNumber.innerHTML = 'Num: <img src=\'img/check.png\'></img>';
-      count += 1;
-    } else {
-      descSecurityNumber.innerHTML = 'Num: <img src=\'img/false.png\'></img>';
-    }
-    if (regexCharac.test(inputPassword.value)) {
-      descSecurityCharacter.innerHTML = 'Carac: <img src=\'img/check.png\'></img>';
-      count += 1;
-    } else {
-      descSecurityCharacter.innerHTML = 'Carac: <img src=\'img/false.png\'></img>';
-    }
-
-    switch (count) {
-      case 3:
-        divLevelSecurity.className = 'input-form div-level-medium';
-        break;
-      case 4:
-        divLevelSecurity.className = 'input-form div-level-higth';
-        break;
-      case 5:
-        divLevelSecurity.className = 'input-form div-level-higth-top';
-        break;
-      default:
-        divLevelSecurity.className = 'input-form div-level-low';
-        break;
-    }
+    const val = f.validyPassword(inputPassword.value);
+    descSecurityCant.innerHTML = val.cant;
+    divPasswordHide.style.display = val.divH;
+    descSecurityMin.innerHTML = val.minus;
+    descSecurityMay.innerHTML = val.mayus;
+    descSecurityNumber.innerHTML = val.number;
+    descSecurityCharacter.innerHTML = val.character;
+    divLevelSecurity.className = val.levelS;
   });
 
   divHeader.appendChild(imgLogo);
@@ -280,7 +234,7 @@ export const Register = () => {
     if (inputName.value.length === 0) {
       textMessageIncorrect.innerText = 'Nombre invalido';
       divMessageAlertIncorrect.style.display = 'flex';
-    } else if (!regexEmail.test(inputEmail.value)) {
+    } else if (!f.validyEmail(inputEmail.value)) {
       textMessageIncorrect.innerText = 'Correo invalido';
       divMessageAlertIncorrect.style.display = 'flex';
     } else if (inputPassword.value.length < 6) {
