@@ -13,10 +13,9 @@ export async function dataUser(id, name, email, password, urlPhotoUser, urlCover
     const docRef = await setDoc(doc(db, 'dataUsers', id), {
       id, name, email, password, urlPhotoUser, urlCoverPage,
     });
-    // eslint-disable-next-line no-console
-    console.log('id data user: ', docRef.id);
+    return docRef.id;
   } catch (e) {
-    // console.error('Error adding document: ', e);
+    return e;
   }
 }
 
@@ -35,22 +34,27 @@ export const deletePublication = (id) => deleteDoc(doc(db, 'dataPublication', id
 export const getOnlyPublication = (id) => getDoc(doc(db, 'dataPublication', id)); // editar publicación
 export const updatePublication = (id, newFields) => updateDoc(doc(db, 'dataPublication', id), newFields); // actualizar publicación
 
+export const publicationLikeUnion = (id, uid) => setDoc(doc(db, 'dataPublication', id), { like: arrayUnion(uid) }, { merge: true });
+export const publicationLikeRemove = (id, uid) => setDoc(doc(db, 'dataPublication', id), { like: arrayRemove(uid) }, { merge: true });
+export const publicationLoveUnion = (id, uid) => setDoc(doc(db, 'dataPublication', id), { love: arrayUnion(uid) }, { merge: true });
+export const publicationLoveRemove = (id, uid) => setDoc(doc(db, 'dataPublication', id), { love: arrayRemove(uid) }, { merge: true });
 /* FUNCIONES DE LIKE Y LOVE */
 export async function likePublication(id) {
   try {
     let docRef;
     const like = await getOnlyPublication(id);
+    console.log(like);
     if (!like.data().like) {
-      // eslint-disable-next-line no-unused-vars
-      docRef = await setDoc(doc(db, 'dataPublication', id), { like: arrayUnion(sessionStorage.getItem('uid')) }, { merge: true });
+      docRef = await publicationLikeUnion(id, sessionStorage.getItem('uid'));
     } else if (like.data().like.find((e) => e === sessionStorage.getItem('uid'))) {
-      docRef = await setDoc(doc(db, 'dataPublication', id), { like: arrayRemove(sessionStorage.getItem('uid')) }, { merge: true });
+      docRef = await publicationLikeRemove(id, sessionStorage.getItem('uid'));
     } else {
       // eslint-disable-next-line no-unused-vars
-      docRef = await setDoc(doc(db, 'dataPublication', id), { like: arrayUnion(sessionStorage.getItem('uid')) }, { merge: true });
+      docRef = await publicationLikeUnion(id, sessionStorage.getItem('uid'));
     }
+    return true;
   } catch (e) {
-    // console.error('Error adding document: ', e);
+    return false;
   }
 }
 
@@ -59,15 +63,15 @@ export async function lovePublication(id) {
     let docRef;
     const love = await getOnlyPublication(id);
     if (!love.data().love) {
-      // eslint-disable-next-line no-unused-vars
-      docRef = await setDoc(doc(db, 'dataPublication', id), { love: arrayUnion(sessionStorage.getItem('uid')) }, { merge: true });
+      docRef = await publicationLoveUnion(id, sessionStorage.getItem('uid'));
     } else if (love.data().love.find((e) => e === sessionStorage.getItem('uid'))) {
-      docRef = await setDoc(doc(db, 'dataPublication', id), { love: arrayRemove(sessionStorage.getItem('uid')) }, { merge: true });
+      docRef = await publicationLoveRemove(id, sessionStorage.getItem('uid'));
     } else {
       // eslint-disable-next-line no-unused-vars
-      docRef = await setDoc(doc(db, 'dataPublication', id), { love: arrayUnion(sessionStorage.getItem('uid')) }, { merge: true });
+      docRef = await publicationLoveUnion(id, sessionStorage.getItem('uid'));
     }
+    return true;
   } catch (e) {
-    // console.error('Error adding document: ', e);
+    return false;
   }
 }

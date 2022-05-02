@@ -49,7 +49,7 @@ export const getDocs = () => Promise.resolve({});
 export const onSnapshot = () => Promise.resolve({});
 export const deleteDoc = () => Promise.resolve({});
 export const doc = () => Promise.resolve({});
-export const setDoc = () => Promise.resolve({});
+export const setDoc = () => Promise.resolve({ id: 'id' });
 export const getDoc = () => Promise.resolve({});
 export const query = () => Promise.resolve({});
 export const where = () => Promise.resolve({});
