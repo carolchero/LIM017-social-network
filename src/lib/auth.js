@@ -119,17 +119,21 @@ export function accesFacebook() {
 } */
 
 // REESTABLECER CONTRASEÑA
-export function restorePassword() {
-  const email = document.getElementById('txtCorreo').value;
+export function restorePassword(email, message) {
   createNewPassword(email)
     .then(() => {
       // Password reset email sent!
-      console.log('Puede cambiar contraseña');
+      // eslint-disable-next-line no-param-reassign
+      message.innerText = 'Puede cambiar contraseña';
+      // eslint-disable-next-line no-param-reassign
+      message.style.display = 'block';
     })
     .catch((error) => {
-      const errorCode = error.code;
-      console.log(errorCode);
       const errorMessage = error.message;
+      // eslint-disable-next-line no-param-reassign
+      message.innerText = 'Tiene que ingresar un correo válido';
+      // eslint-disable-next-line no-param-reassign
+      message.style.display = 'block';
       console.log(errorMessage);
     });
 }
