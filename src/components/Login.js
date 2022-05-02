@@ -81,6 +81,7 @@ export const Login = () => {
   const buttonLogIn = document.createElement('button');
   buttonLogIn.className = 'button-form';
   buttonLogIn.innerText = 'Iniciar sesión';
+  buttonLogIn.id = 'btnLogin';
   // evento del boton Login
   buttonLogIn.addEventListener('click', () => (accesUser(inputUser.value, inputPassword.value)));
   // condicionar el ingreso

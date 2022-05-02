@@ -30,15 +30,13 @@ export const signInWithPopup = jest.fn(() => {
 });
 
 /* OLVIDO DE CONTRASEÑA */
-export const sendPasswordResetEmail = () => jest.fn(() => {});
+export const sendPasswordResetEmail = jest.fn(() => Promise.resolve({}));
 
 /* CAMBIAR CONTRASEÑA PASSWORD */
 export const updatePassword = () => Promise.resolve({});
 export const onAuthStateChanged = () => Promise.resolve({});
 
-
-
-export const FacebookAuthProvider = () => Promise.resolve({});
+/* CERRAR SESIÓN */
 export const signOut = () => Promise.resolve({});
 
 
@@ -57,7 +55,7 @@ export const updateDoc = () => Promise.resolve({});
 export const orderBy = () => Promise.resolve({});
 export const arrayUnion = () => Promise.resolve({});
 export const arrayRemove = () => Promise.resolve({});
-
+export const FacebookAuthProvider = () => Promise.resolve({});
 /* STORAGE
 export {
     getStorage, ref, uploadBytesResumable, getDownloadURL,
