@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-expressions */
 import {
   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
-  GoogleAuthProvider, FacebookAuthProvider, signOut,
+  GoogleAuthProvider, /* FacebookAuthProvider, */ signOut,
   updatePassword, onAuthStateChanged, sendPasswordResetEmail,
 } from '../imports/firebase-imports.js';
 // eslint-disable-next-line import/no-cycle
 import { returnLogin } from '../auth.js';
-import { onNavigate } from '../../Router.js';
+ // import { onNavigate } from '../../Router.js';
 
 export const createUser = (email, password) => {
   const auth = getAuth();
@@ -75,13 +75,17 @@ export const verifyUserActive = () => {
   });
 };
 
-// AUTENTICACIÓN CON FB
+/* // AUTENTICACIÓN CON FB
 const provider2 = new FacebookAuthProvider();
 
 export function accesFacebook() {
   const auth = getAuth();
+  console.log('holaaaaaaaaaaaaaaaaaaaaaaaaa antes del poput');
+  console.log(auth);
+  console.log(provider2);
   signInWithPopup(auth, provider2)
     .then((result) => {
+      console.log('holaaaaaaaaaaaaaaaaaaaaaaaaa en el then ');
       // The signed-in user info.
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       const credential = FacebookAuthProvider.credentialFromResult(result);
@@ -91,7 +95,10 @@ export function accesFacebook() {
       onNavigate('/feed');
     })
     .catch((error) => {
+      console.log(auth);
+      console.log(provider2);
+      console.log('holaaaaaaaaaaaaaaaaaaaaaaaaa en el catch ');
       const credential = FacebookAuthProvider.credentialFromError(error);
       console.log(credential, error);
     });
-}
+} */

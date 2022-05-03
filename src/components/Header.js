@@ -62,6 +62,7 @@ export const headerTemplate = () => {
   // navegador oculto
   const lines = document.createElement('img');
   lines.className = 'nav-lines';
+  lines.id = 'navLines';
   lines.src = 'img/icomon/menu.jpg';
   const containerNavHide = document.createElement('div');
   containerNavHide.className = 'container-options-nav';

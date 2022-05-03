@@ -95,6 +95,7 @@ export const Feed = () => {
       const areaText = sectionPublication.querySelector('.text-area');
       const divChangeLogoDisplay = sectionPublication.querySelector('.div-display-change');
       const buttonShare = sectionPublication.querySelector('.share-image-logo');
+      buttonShare.id = 'buttonShare';
       buttonShare.addEventListener('click', () => {
         if (divUploader.style.display === 'none') {
           divUploader.style.display = 'flex';
@@ -187,7 +188,7 @@ export const Feed = () => {
             areaText.innerHTML = `${text}<img class="emoticon" src="${emoji}">`;
           });
         }
-        emoticon.addEventListener('click', () => {
+        emoticon.addEventListener('click', () => { // faltaaaaaa
           if (divEmoticon.style.display === 'none') {
             divEmoticon.style.display = 'grid';
             inputUploader.style.display = 'none';
