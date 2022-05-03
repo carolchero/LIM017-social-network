@@ -1,7 +1,8 @@
-import { dataUser, likePublication, lovePublication } from '../src/lib/cloudFirebase';
-import { setDoc } from '../src/lib/imports/firebase-imports';
+import { dataUser, likePublication, lovePublication } from '../../src/lib/cloudFirebase';
+import { setDoc } from '../../src/lib/imports/firebase-imports';
 
-jest.mock('../src/lib/imports/firebase-imports.js');
+jest.mock('../../src/lib/imports/firebase-imports.js');
+
 describe('cloudfirebase', () => {
   it('dataUser', async () => {
     const data = await dataUser('id', 'email', 'password', 'url', 'url');
