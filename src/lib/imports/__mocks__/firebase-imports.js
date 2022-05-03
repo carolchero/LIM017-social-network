@@ -67,7 +67,7 @@ export const deleteDoc = () => Promise.resolve({});
 export const doc = () => Promise.resolve({});
 export const arrayUnion = () => Promise.resolve({});
 export const arrayRemove = () => Promise.resolve({});
-export const FacebookAuthProvider = () => Promise.resolve({});
+// export const FacebookAuthProvider = () => Promise.resolve({});
 /* STORAGE
 export {
     getStorage, ref, uploadBytesResumable, getDownloadURL,
@@ -75,4 +75,4 @@ export {
 export const getStorage = () => Promise.resolve({});
 export const ref = () => Promise.resolve({});
 export const uploadBytesResumable = () => Promise.resolve({});
-export const getDownloadURL = () => Promise.resolve({});
+export const getDownloadURL = (photoName) => (photoName == 'exist' ? Promise.resolve('urlPhoto') : Promise.resolve(''));

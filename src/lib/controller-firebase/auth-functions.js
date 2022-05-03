@@ -6,7 +6,8 @@ import {
 } from '../imports/firebase-imports.js';
 // eslint-disable-next-line import/no-cycle
 import { returnLogin } from '../auth.js';
- // import { onNavigate } from '../../Router.js';
+// eslint-disable-next-line import/no-cycle
+import { onNavigate } from '../../Router.js';
 
 export const createUser = (email, password) => {
   const auth = getAuth();

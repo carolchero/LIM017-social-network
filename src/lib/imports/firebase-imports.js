@@ -3,7 +3,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.11/firebas
 /* eslint-disable import/no-unresolved */
 import {
   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut,
+  signInWithPopup, GoogleAuthProvider, /* FacebookAuthProvider, */ signOut,
   updatePassword, onAuthStateChanged, sendPasswordResetEmail,
 // eslint-disable-next-line import/no-relative-packages
 } from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js';
@@ -23,7 +23,7 @@ import {
 /* AUTH */
 export {
   initializeApp, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, signOut,
+  signInWithPopup, GoogleAuthProvider, /* FacebookAuthProvider, */ signOut,
   updatePassword, onAuthStateChanged, sendPasswordResetEmail,
 };
 /* CLOUD FIRESTORE */
