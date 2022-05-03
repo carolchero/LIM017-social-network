@@ -10,6 +10,7 @@ export const createUserWithEmailAndPassword = () => {
 };
 
 /* INGRESAR CON EMAIL Y PASSWORD */
+
 export const signInWithEmailAndPassword = jest.fn(() => {
   const userCredential = {
     user: { uid: 'xyxyui123' },

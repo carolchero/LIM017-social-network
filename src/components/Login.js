@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 // eslint-disable-next-line import/no-cycle
 import { accesUser, accesGoogle } from '../lib/auth.js';
-import { accesFacebook } from '../lib/controller-firebase/auth-functions.js';
+// import { accesFacebook } from '../lib/controller-firebase/auth-functions.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../Router.js';
 
@@ -86,9 +86,6 @@ export const Login = () => {
   buttonLogIn.id = 'btnLogin';
   // evento del boton Login
   buttonLogIn.addEventListener('click', () => (accesUser(inputUser.value, inputPassword.value)));
-  // condicionar el ingreso
-
-  // buttonLogIn.addEventListener('click', () => onNavigate('/feed'));
   const buttonSignUp = document.createElement('button');
   buttonSignUp.className = 'button-form';
   buttonSignUp.innerText = 'Registrarse';

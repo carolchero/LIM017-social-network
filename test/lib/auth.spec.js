@@ -6,7 +6,7 @@ import { ResetPassword } from '../../src/components/ResetPassword.js';
 import { Login } from '../../src/components/Login.js';
 import { Configurar } from '../../src/components/Configurar.js';
 import {
-  createNewPassword, closeSession, accesUserExist, signGoogle, verifyUserActive, stateUser,
+  createNewPassword, closeSession, accesUserExist, signGoogle, verifyUserActive, stateUser, createUser,
 } from '../../src/lib/controller-firebase/auth-functions.js';
 
 const {

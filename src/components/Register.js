@@ -24,12 +24,14 @@ export const Register = () => {
   labelName.innerText = 'Nombre *';
   const inputName = document.createElement('input');
   inputName.className = 'input-form';
+  inputName.id = 'inputName';
 
   const labelEmail = document.createElement('label');
   labelEmail.className = 'label-form';
   labelEmail.innerText = 'Correo *';
   const inputEmail = document.createElement('input');
   inputEmail.className = 'input-form';
+  inputEmail.id = 'inputEmail';
   inputEmail.type = 'email';
 
   const labelPassword = document.createElement('label');
@@ -44,6 +46,7 @@ export const Register = () => {
 
   const icoEye = document.createElement('i');
   icoEye.className = 'ico-eye-hide';
+  icoEye.id = 'icoEyeHide';
   icoEye.addEventListener('click', () => { if (icoEye.className === 'ico-eye-hide') { icoEye.className = 'ico-eye'; inputPassword.type = 'text'; } else { icoEye.className = 'ico-eye-hide'; inputPassword.type = 'password'; } });
 
   // Nivel de seguridad de contraseña
@@ -52,6 +55,7 @@ export const Register = () => {
   const divDescSecurity = document.createElement('div');
   divDescSecurity.id = 'divSecurityPassword';
   const descSecurityCant = document.createElement('div');
+  descSecurityCant.id = 'descSecurityCant';
   descSecurityCant.innerHTML = 'Min(6): <img src=\'img/false.png\'></img>';
   const descSecurityMin = document.createElement('div');
   descSecurityMin.innerHTML = 'Minus: <img src=\'img/false.png\'></img>';
@@ -78,6 +82,7 @@ export const Register = () => {
 
   const icoEyeConfirm = document.createElement('i');
   icoEyeConfirm.className = 'ico-eye-hide';
+  icoEyeConfirm.id = 'icoEyeConfirm';
   icoEyeConfirm.addEventListener('click', () => {
     if (icoEyeConfirm.className === 'ico-eye-hide') {
       icoEyeConfirm.className = 'ico-eye'; inputConfirmPassword.type = 'text';
@@ -89,6 +94,7 @@ export const Register = () => {
   divButtons.className = 'text-center';
   const buttonRegister = document.createElement('button');
   buttonRegister.className = 'button-form';
+  buttonRegister.id = 'buttonForm';
   buttonRegister.innerText = 'Registrar';
   // boton de iniciar sesión
   const buttonReturn = document.createElement('button');
@@ -104,6 +110,7 @@ export const Register = () => {
 
   const divEmailHide = document.createElement('div');
   divEmailHide.className = 'message-hide';
+  divEmailHide.id = 'messageHide';
   divEmailHide.innerText = 'Correo invalido';
 
   const divPasswordConfirmHide = document.createElement('div');
@@ -144,6 +151,7 @@ export const Register = () => {
   const textMessageAlertContentIncorrect = document.createElement('p');
   textMessageAlertContentIncorrect.innerText = 'REGISTRO INCORRECTO';
   const textMessageIncorrect = document.createElement('p');
+  textMessageIncorrect.id = 'textMessageIncorrect';
   textMessageIncorrect.style.fontSize = '14px';
 
   // validando correo
@@ -221,12 +229,16 @@ export const Register = () => {
   async function resultRegister() {
     // eslint-disable-next-line max-len
     const resp = await register(inputName.value, inputEmail.value, inputPassword.value);
-    if (resp === true) {
+    let result = '';
+    if (resp === true) { //
       divMessageAlert.style.display = 'flex';
+      result = true;
     } else {
       textMessageIncorrect.innerText = resp;
       divMessageAlertIncorrect.style.display = 'flex';
+      result = false;
     }
+    return result;
   }
 
   buttonRegister.addEventListener('click', () => {
