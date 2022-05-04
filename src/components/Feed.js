@@ -14,6 +14,7 @@ export const Feed = () => {
   divFeed.className = 'container-feed'; // contenedor general
   const mainTemplate = document.createElement('main');
   mainTemplate.className = 'container-publication';
+  mainTemplate.id = 'mainTemplate';
 
   onGetPublication(async (querySnapshot) => {
     let html = '';

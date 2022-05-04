@@ -14,6 +14,7 @@ export const headerTemplate = () => {
   const figureNamePhoto = document.createElement('figure');
   figureNamePhoto.className = 'photo-user-container';
   const aPhoto = document.createElement('a');
+  aPhoto.id = 'aPhoto';
   const imgUser = document.createElement('img');
   imgUser.className = 'photo-user';
   imgUser.src = sessionStorage.getItem('photoUser');
@@ -50,6 +51,7 @@ export const headerTemplate = () => {
   const containerNav = document.createElement('nav');
   containerNav.className = 'container-search-photo-nav width-content';
   const aWall = document.createElement('a');
+  aWall.id = 'aWall';
   const imgWall = document.createElement('img');
   imgWall.className = 'logo-wall';
   imgWall.src = 'img/icomon/home.jpg';
@@ -74,6 +76,7 @@ export const headerTemplate = () => {
 
   const liConfig = document.createElement('li');
   const aConfig = document.createElement('a');
+  aConfig.id = 'aConfig';
   aConfig.innerText = 'Configurar cuenta';
   aConfig.addEventListener('click', () => onNavigate('/configurar'));
 
@@ -91,6 +94,7 @@ export const headerTemplate = () => {
   const aClose = document.createElement('a');
   aClose.href = '#';
   aClose.innerText = 'Cerrar cuenta';
+  aClose.id = 'aClose';
   aClose.addEventListener('click', () => cerrarSesion());
 
   // agregando a contenedor mediano

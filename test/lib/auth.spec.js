@@ -4,10 +4,10 @@ import {
 } from '../../src/lib/auth';
 import { ResetPassword } from '../../src/components/ResetPassword.js';
 import { Login } from '../../src/components/Login.js';
-import { Configurar } from '../../src/components/Configurar.js';
 import {
   createNewPassword, closeSession, accesUserExist, signGoogle, verifyUserActive, stateUser, createUser,
 } from '../../src/lib/controller-firebase/auth-functions.js';
+import { Register } from '../../src/components/Register.js';
 
 const {
   getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged,
@@ -36,7 +36,6 @@ describe('register', () => {
     expect(await register(name, email, password)).toBe('Correo y/o contraseña invalido');
   });
 });
-
 describe('accesUser', () => {
   it('la función es llamada para permitir acceso', () => signInWithEmailAndPassword()
     .then(() => {
@@ -72,6 +71,18 @@ describe('Login', () => {
         expect(messageHide.textContent).toBe('Usuario o contraseña no válido');
       });
   });
+  it('buttonsignUp', () => {
+    const result = Login();
+    const buttonSignUp = result.querySelector('#buttonSignUp');
+    buttonSignUp.dispatchEvent(new Event('click'));
+    expect(window.location.pathname).toBe('/register');
+  });
+  it('linkLogin', () => {
+    const result = Login();
+    const linkLogin = result.querySelector('#linkLogin');
+    linkLogin.dispatchEvent(new Event('click'));
+    expect(window.location.pathname).toBe('/resetPassword');
+  });
 });
 
 describe('signInWithPopup with Google', () => {
@@ -105,12 +116,6 @@ describe('createNewPassword', () => {
     }));
 });
 
-describe('Configurar', () => {
-  it('Configurar es una función que contiene texto HTML', () => {
-    expect(typeof Configurar().textContent).toBe('string');
-  });
-});
-
 describe('ResetPassword', () => {
   it('ResetPassword es una función que contiene texto HTML', () => {
     expect(typeof ResetPassword().textContent).toBe('string');
@@ -127,6 +132,12 @@ describe('ResetPassword', () => {
       .catch(() => {
         expect(messageHideCorreo.textContent).toBe('Tiene que ingresar un correo válido');
       });
+  });
+  it('buttonReturn', () => {
+    const result = ResetPassword();
+    const buttonReturn = result.querySelector('#buttonReturnReset');
+    buttonReturn.dispatchEvent(new Event('click'));
+    expect(window.location.pathname).toBe('/feed');
   });
 });
 
