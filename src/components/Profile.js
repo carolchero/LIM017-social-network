@@ -112,7 +112,7 @@ export const Profile = () => {
       const areaText = sectionPublication.querySelector('.text-area');
       const divChangeLogoDisplay = sectionPublication.querySelector('.div-display-change');
       const buttonShare = sectionPublication.querySelector('.share-image-logo');
-      buttonShare.addEventListener('click', () => {
+      buttonShare.addEventListener('click', () => { // faltaaaaaa
         if (divUploader.style.display === 'none') {
           divUploader.style.display = 'flex';
           divEmoticon.style.display = 'none';
@@ -199,7 +199,7 @@ export const Profile = () => {
             areaText.innerHTML = `${text}<img class="emoticon" src="${emoji}">`;
           });
         }
-        emoticon.addEventListener('click', () => {
+        emoticon.addEventListener('click', () => { // faltaaaaaa
           if (divEmoticon.style.display === 'none') {
             divEmoticon.style.display = 'grid';
           } else {

@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-expressions */
 import {
   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup,
-  GoogleAuthProvider, /* FacebookAuthProvider, */ signOut,
+  GoogleAuthProvider, signOut,
   updatePassword, onAuthStateChanged, sendPasswordResetEmail,
 } from '../imports/firebase-imports.js';
 // eslint-disable-next-line import/no-cycle
 import { returnLogin } from '../auth.js';
+// eslint-disable-next-line import/no-cycle
+import { onNavigate } from '../../Router.js';
 
 export const createUser = (email, password) => {
   const auth = getAuth();

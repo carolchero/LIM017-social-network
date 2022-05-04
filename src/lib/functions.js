@@ -63,36 +63,36 @@ const f = {
       levelS;
 
     if (value.length >= 6) {
-      cant = 'Min(6): <img src=\'img/check.png\'></img>';
+      cant = 'Min(6): <img src=\'img/check.png\'>';
       divH = 'none';
       count += 1;
     } else {
-      cant = 'Min(6): <img src=\'img/false.png\'></img>';
+      cant = 'Min(6): <img src=\'img/false.png\'>';
       divH = 'block';
     }
     if (regexMinus.test(value)) {
-      minus = 'Minus: <img src=\'img/check.png\'></img>';
+      minus = 'Minus: <img src=\'img/check.png\'>';
       count += 1;
     } else {
-      minus = 'Minus: <img src=\'img/false.png\'></img>';
+      minus = 'Minus: <img src=\'img/false.png\'>';
     }
     if (regexMayus.test(value)) {
-      mayus = 'Mayus: <img src=\'img/check.png\'></img>';
+      mayus = 'Mayus: <img src=\'img/check.png\'>';
       count += 1;
     } else {
-      mayus = 'Mayus: <img src=\'img/false.png\'></img>';
+      mayus = 'Mayus: <img src=\'img/false.png\'>';
     }
     if (regexNumber.test(value)) {
-      number = 'Num: <img src=\'img/check.png\'></img>';
+      number = 'Num: <img src=\'img/check.png\'>';
       count += 1;
     } else {
-      number = 'Num: <img src=\'img/false.png\'></img>';
+      number = 'Num: <img src=\'img/false.png\'>';
     }
     if (regexCharac.test(value)) {
-      character = 'Carac: <img src=\'img/check.png\'></img>';
+      character = 'Carac: <img src=\'img/check.png\'>';
       count += 1;
     } else {
-      character = 'Carac: <img src=\'img/false.png\'></img>';
+      character = 'Carac: <img src=\'img/false.png\'>';
     }
 
     switch (count) {

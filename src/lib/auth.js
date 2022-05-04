@@ -97,39 +97,22 @@ export async function accesGoogle() {
   return result;
 }
 
-/* // AUTENTICACIÓN CON FB
-const provider2 = new FacebookAuthProvider();
-
-export function accesFacebook() {
-  const auth = getAuth();
-  signInWithPopup(auth, provider2)
-    .then((result) => {
-      // The signed-in user info.
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      const credential = FacebookAuthProvider.credentialFromResult(result);
-      const accessToken = credential.accessToken;
-      const user = result.user;
-      console.log(accessToken, user);
-      onNavigate('/feed');
-    })
-    .catch((error) => {
-      const credential = FacebookAuthProvider.credentialFromError(error);
-      console.log(credential, error);
-    });
-} */
-
 // REESTABLECER CONTRASEÑA
-export function restorePassword() {
-  const email = document.getElementById('txtCorreo').value;
+export function restorePassword(email, message) {
   createNewPassword(email)
     .then(() => {
       // Password reset email sent!
-      console.log('Puede cambiar contraseña');
+      // eslint-disable-next-line no-param-reassign
+      message.innerText = 'Puede cambiar contraseña';
+      // eslint-disable-next-line no-param-reassign
+      message.style.display = 'block';
     })
     .catch((error) => {
-      const errorCode = error.code;
-      console.log(errorCode);
       const errorMessage = error.message;
+      // eslint-disable-next-line no-param-reassign
+      message.innerText = 'Tiene que ingresar un correo válido';
+      // eslint-disable-next-line no-param-reassign
+      message.style.display = 'block';
       console.log(errorMessage);
     });
 }
