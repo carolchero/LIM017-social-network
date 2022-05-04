@@ -15,7 +15,7 @@ export const signInWithEmailAndPassword = jest.fn(() => {
   const userCredential = {
     user: { uid: 'xyxyui123' },
   };
-  return Promise.resolve(userCredential);
+  return Promise.resolve(userCredential.user.uid);
 });
 
 /* ACCES USER WITH GOOGLE */
@@ -67,7 +67,7 @@ export const deleteDoc = () => Promise.resolve({});
 export const doc = () => Promise.resolve({});
 export const arrayUnion = () => Promise.resolve({});
 export const arrayRemove = () => Promise.resolve({});
-export const FacebookAuthProvider = () => Promise.resolve({});
+
 /* STORAGE
 export {
     getStorage, ref, uploadBytesResumable, getDownloadURL,

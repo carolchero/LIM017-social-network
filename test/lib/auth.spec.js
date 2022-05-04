@@ -8,6 +8,7 @@ import { Configurar } from '../../src/components/Configurar.js';
 import {
   createNewPassword, closeSession, accesUserExist, signGoogle, verifyUserActive, stateUser, createUser,
 } from '../../src/lib/controller-firebase/auth-functions.js';
+import { Register } from '../../src/components/Register.js';
 
 const {
   getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged,
@@ -36,7 +37,6 @@ describe('register', () => {
     expect(await register(name, email, password)).toBe('Correo y/o contraseña invalido');
   });
 });
-
 describe('accesUser', () => {
   it('la función es llamada para permitir acceso', () => signInWithEmailAndPassword()
     .then(() => {

@@ -1,7 +1,6 @@
 /* eslint-disable import/no-cycle */
 // eslint-disable-next-line import/no-cycle
 import { accesUser, accesGoogle } from '../lib/auth.js';
-// import { accesFacebook } from '../lib/controller-firebase/auth-functions.js';
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../Router.js';
 
@@ -71,12 +70,7 @@ export const Login = () => {
   const icoGoogle = document.createElement('i');
   icoGoogle.className = 'icon-google';
   icoGoogle.addEventListener('click', () => (accesGoogle()));
-  // icono de fb
-  const icoFb = document.createElement('i');
-  icoFb.className = 'icon-fb';
   divIcon.appendChild(icoGoogle);
-  divIcon.appendChild(icoFb);
-  icoFb.addEventListener('click', () => (accesFacebook()));
 
   const divCardFooter = document.createElement('div');
   divCardFooter.className = 'text-center';
