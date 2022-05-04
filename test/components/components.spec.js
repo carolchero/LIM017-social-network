@@ -2,6 +2,7 @@ import { headerTemplate } from '../../src/components/Header.js';
 import { Profile } from '../../src/components/Profile.js';
 import { Feed } from '../../src/components/Feed.js';
 import { Register } from '../../src/components/Register.js';
+import { Configurar } from '../../src/components/Configurar.js';
 /* eslint-disable object-curly-newline */
 import f from '../../src/lib/functions.js';
 import { publicationBeforeTemplate } from '../../src/components/PublicationBefore.js';
@@ -175,11 +176,61 @@ describe('Evento que oculta y muestra la barra de navegación', () => {
   });
 });
 
+describe('eventos click para cambiar de vista', () => {
+  it('aConfig', () => {
+    const result = headerTemplate();
+    const aConfig = result.querySelector('#aConfig');
+    aConfig.dispatchEvent(new Event('click'));
+    expect(window.location.pathname).toBe('/configurar');
+  });
+  it('aClose', () => {
+    const result = headerTemplate();
+    const aClose = result.querySelector('#aClose');
+    expect(aClose.dispatchEvent(new Event('click'))).toBe(true);
+  });
+  it('aPhoto', () => {
+    const result = headerTemplate();
+    const aPhoto = result.querySelector('#aPhoto');
+    aPhoto.dispatchEvent(new Event('click'));
+    expect(window.location.pathname).toBe('/profile');
+  });
+  it('imgComputer', () => {
+    const result = headerTemplate();
+    const imgComputer = result.querySelector('.logo-computer');
+    imgComputer.dispatchEvent(new Event('click'));
+    expect(window.location.pathname).toBe('/feed');
+  });
+  it('figcaptionName', () => {
+    const result = headerTemplate();
+    const figcaptionName = result.querySelector('.figcaption-name');
+    figcaptionName.dispatchEvent(new Event('click'));
+    expect(window.location.pathname).toBe('/profile');
+  });
+  it('aWall', () => {
+    const result = headerTemplate();
+    const aWall = result.querySelector('#aWall');
+    aWall.dispatchEvent(new Event('click'));
+    expect(window.location.pathname).toBe('/feed');
+  });
+});
+
 /* FEED */
 describe('Feed', () => {
+  const result = Feed();
+  const mainTemplate = result.querySelector('#mainTemplate');
+  console.log(mainTemplate);
+  const btnDelete = mainTemplate.querySelectorAll('.share-trash-logo');
+  console.log(btnDelete);
+  console.log(btnDelete.childNode);
+
   it('función que contiene texto HTML', () => {
     expect(typeof Feed().textContent).toBe('string');
   });
+  /* it('función ne texto HTML', () => {
+    btnDelete.dispatchEvent(new Event('click'));
+    const messageAlert = result.querySelector('.div-alert-message-color');
+    expect(messageAlert.textContent).toBe('¿Estas seguro de eliminar esta publicación?');
+  });*/
 });
 
 /* PUBLICATION BEFORE */
@@ -252,6 +303,18 @@ describe('evento para mostrar y ocultar el input para subir imagenes en las publ
   });
 });
 
+/* CONFIGURAR */
+describe('Configurar', () => {
+  it('Configurar es una función que contiene texto HTML', () => {
+    expect(typeof Configurar().textContent).toBe('string');
+  });
+  it('buttonReturn', () => {
+    const result = Configurar();
+    const buttonReturn = result.querySelector('#buttonReturn');
+    buttonReturn.dispatchEvent(new Event('click'));
+    expect(window.location.pathname).toBe('/feed');
+  });
+});
 
 /* describe('createNewPassword', () => {
   it('createNewPassword es una función', () => {

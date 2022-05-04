@@ -49,6 +49,7 @@ export const Configurar = () => {
 
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-form-configuration';
+  buttonReturn.id = 'buttonReturn';
   buttonReturn.innerText = 'Regresar';
   buttonReturn.addEventListener('click', () => (onNavigate('/feed')));
   sectionChangePassword.appendChild(divCardHide);

@@ -82,10 +82,12 @@ export const Login = () => {
   buttonLogIn.addEventListener('click', () => (accesUser(inputUser.value, inputPassword.value)));
   const buttonSignUp = document.createElement('button');
   buttonSignUp.className = 'button-form';
+  buttonSignUp.id = 'buttonSignUp';
   buttonSignUp.innerText = 'Registrarse';
   // evento del boton sing up(registrarse)
   buttonSignUp.addEventListener('click', () => onNavigate('/register'));
   const linkLogin = document.createElement('a');
+  linkLogin.id = 'linkLogin';
   linkLogin.className = 'link-login';
   // linkLogin.href = '#';
   linkLogin.innerText = '¿Olvidaste tu contraseña?';
