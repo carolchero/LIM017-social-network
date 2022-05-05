@@ -1,6 +1,5 @@
 import { headerTemplate } from '../../src/components/Header.js';
 import { Profile } from '../../src/components/Profile.js';
-import { Feed } from '../../src/components/Feed.js';
 import { Register } from '../../src/components/Register.js';
 import { Configurar } from '../../src/components/Configurar.js';
 /* eslint-disable object-curly-newline */
@@ -212,25 +211,6 @@ describe('eventos click para cambiar de vista', () => {
     aWall.dispatchEvent(new Event('click'));
     expect(window.location.pathname).toBe('/feed');
   });
-});
-
-/* FEED */
-describe('Feed', () => {
-  const result = Feed();
-  const mainTemplate = result.querySelector('#mainTemplate');
-  console.log(mainTemplate);
-  const btnDelete = mainTemplate.querySelectorAll('.share-trash-logo');
-  console.log(btnDelete);
-  console.log(btnDelete.childNode);
-
-  it('función que contiene texto HTML', () => {
-    expect(typeof Feed().textContent).toBe('string');
-  });
-  /* it('función ne texto HTML', () => {
-    btnDelete.dispatchEvent(new Event('click'));
-    const messageAlert = result.querySelector('.div-alert-message-color');
-    expect(messageAlert.textContent).toBe('¿Estas seguro de eliminar esta publicación?');
-  });*/
 });
 
 /* PUBLICATION BEFORE */

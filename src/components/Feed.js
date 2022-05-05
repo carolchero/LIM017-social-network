@@ -4,10 +4,12 @@ import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import {
-  onGetPublication, deletePublication, getOnlyPublication, updatePublication,
-  likePublication, lovePublication, getUsers,
+  onGetPublication, likePublication, lovePublication, getUsers,
 } from '../lib/cloudFirebase.js';
-import { publicationUser } from '../lib/storage.js';
+// eslint-disable-next-line import/named
+import {
+  buttonEditMain, deletePublicationWithMessage, hideShowDivUploader, uploaderImagePublication,
+} from '../lib/functionComponents.js';
 
 export const Feed = () => {
   const divFeed = document.createElement('div');
@@ -15,10 +17,8 @@ export const Feed = () => {
   const mainTemplate = document.createElement('main');
   mainTemplate.className = 'container-publication';
   mainTemplate.id = 'mainTemplate';
-
   onGetPublication(async (querySnapshot) => {
     let html = '';
-
     const allDataUser = await getUsers();
     const mapaDato = new Map();
 
@@ -88,36 +88,13 @@ export const Feed = () => {
     mainTemplate.innerHTML = html;
     // AGREGANDO FUNCIONALIDAD DE IMAGENES
     const buttonShareImage = mainTemplate.querySelectorAll('.share-image-logo');
+    // EVENTO PARA PUBLICAR FOTO
     buttonShareImage.forEach((btnImage) => {
       const sectionPublication = btnImage.parentNode.parentNode;
-      const divUploader = sectionPublication.querySelector('.div-uploader');
-      const inputUploader = sectionPublication.querySelector('.img-uploader');
-      const divEmoticon = sectionPublication.querySelector('.div-emoticons');
-      const areaText = sectionPublication.querySelector('.text-area');
-      const divChangeLogoDisplay = sectionPublication.querySelector('.div-display-change');
       const buttonShare = sectionPublication.querySelector('.share-image-logo');
       buttonShare.id = 'buttonShare';
-      buttonShare.addEventListener('click', () => {
-        if (divUploader.style.display === 'none') {
-          divUploader.style.display = 'flex';
-          divEmoticon.style.display = 'none';
-        } else {
-          divUploader.style.display = 'none';
-        }
-      });
-      inputUploader.addEventListener('change', (e) => {
-        const divPreview = document.createElement('div');
-        divPreview.className = 'div-preview';
-        const imagePreview = document.createElement('img');
-        imagePreview.id = 'imgPreview';
-        divPreview.appendChild(imagePreview);
-        areaText.appendChild(divPreview);
-
-        const file = e.target.files[0]; // url de la foto
-        console.log(file);
-        divChangeLogoDisplay.style.display = 'block';
-        publicationUser(file, imagePreview, divChangeLogoDisplay.style);
-      });
+      hideShowDivUploader(sectionPublication); // FUNCIÓN PARA MOSTRAR Y OCULTAR CONTENEDOR DE FOTOS
+      uploaderImagePublication(sectionPublication); // FUNCIÓN PARA PUBLICAR FOTO
     });
     // LIKE A PUBLICACIONES
     const buttonLike = mainTemplate.querySelectorAll('.btnlike');
@@ -137,84 +114,11 @@ export const Feed = () => {
     const buttonDelete = mainTemplate.querySelectorAll('.share-trash-logo');
     buttonDelete.forEach((btn) => {
       const sectionPublication = btn.parentNode.parentNode.parentNode;
-      const buttonDeleteOnly = sectionPublication.querySelector('.share-trash-logo');
-      const messageAlert = sectionPublication.querySelector('.div-alert-message-color');
-      const messageAlertYes = sectionPublication.querySelector('.button-yes');
-      const messageAlertNo = sectionPublication.querySelector('.button-no');
-      buttonDeleteOnly.addEventListener('click', () => {
-        messageAlert.style.display = 'block';
-        messageAlertYes.addEventListener('click', ({ target: { dataset } }) => {
-          deletePublication(dataset.id);
-          messageAlert.style.display = 'none';
-        });
-        messageAlertNo.addEventListener('click', () => {
-          messageAlert.style.display = 'none';
-        });
-      });
+      deletePublicationWithMessage(sectionPublication);
     });
-
     // EDITANDO PUBLICACIONES
     const buttonEdit = mainTemplate.querySelectorAll('.share-edit-logo');
-    buttonEdit.forEach((btn2) => {
-      btn2.addEventListener('click', async (e) => {
-        const doc3 = await getOnlyPublication(e.target.dataset.id); // trae publicaciones por id
-        const id = e.target.dataset.id;
-        const sectionPublication = btn2.parentNode.parentNode.parentNode;
-        // obtenemos los contenedores
-        const areaTitle = sectionPublication.querySelector('.title-area');
-        const areaText = sectionPublication.querySelector('.text-area');
-        // activando contenedores
-        areaTitle.contentEditable = true;
-        areaText.contentEditable = true;
-        // mostramos boton para guardar cambios
-        const inputUploader = sectionPublication.querySelector('.div-uploader');
-        const imgUploader = sectionPublication.querySelector('.share-image-logo');
-        imgUploader.style.display = 'block';
-        const emoticon = sectionPublication.querySelector('.share-stickers-logo');
-        const buttonSave = sectionPublication.querySelector('.btn-save');
-        // eslint-disable-next-line no-param-reassign
-        emoticon.style.display = 'block';
-
-        // AÑADIENDO STICKERS
-        const divEmoticon = sectionPublication.querySelector('.div-emoticons');
-        // eslint-disable-next-line no-plusplus
-        for (let index = 1; index < 82; index++) {
-          const emoji = `../img/emoji/emoji${index}.png`;
-          const emojiIco = document.createElement('img');
-          emojiIco.className = 'emoticons emoticons-final';
-          emojiIco.src = emoji;
-          divEmoticon.appendChild(emojiIco);
-          emojiIco.addEventListener('click', () => {
-            const text = areaText.innerHTML;
-            areaText.innerHTML = `${text}<img class="emoticon" src="${emoji}">`;
-          });
-        }
-        emoticon.addEventListener('click', () => { // faltaaaaaa
-          if (divEmoticon.style.display === 'none') {
-            divEmoticon.style.display = 'grid';
-            inputUploader.style.display = 'none';
-          } else {
-            divEmoticon.style.display = 'none';
-          }
-        });
-        buttonSave.style.display = 'block';
-        buttonSave.addEventListener('click', () => {
-          let titleNew = doc3.data().title;
-          titleNew = sectionPublication.querySelector('#newTitle').innerHTML;
-          let textNew = doc3.data().text;
-          textNew = sectionPublication.querySelector('#newText').innerHTML;
-          updatePublication(id, { // actualizando publicaciones
-            title: titleNew,
-            text: textNew,
-          });
-          // eslint-disable-next-line no-param-reassign
-          emoticon.style.display = 'none';
-          buttonSave.style.display = 'none';
-          areaTitle.contentEditable = false;
-          areaText.contentEditable = false;
-        });
-      });
-    });
+    buttonEditMain(buttonEdit);
   });
   divFeed.appendChild(headerTemplate());
   divFeed.appendChild(publicationBeforeTemplate());
