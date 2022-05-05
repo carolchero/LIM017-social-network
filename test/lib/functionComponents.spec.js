@@ -1,9 +1,11 @@
 import { Feed } from '../../src/components/Feed.js';
 import {
   filesHide, buttonSaveEdit, createEmoticon, showEmoticons,
-  filesShow, buttonEditMain, deletePublicationWithMessage,
+  filesShow, buttonEditMain, deletePublicationWithMessage, hideShowDivUploader,
+  uploaderImagePublication,
 } from '../../src/lib/functionComponents.js';
 import f from '../../src/lib/functions.js';
+import { publicationUser } from '../../src/lib/storage.js';
 
 jest.mock('../../src/lib/imports/firebase-imports.js');
 
@@ -12,11 +14,16 @@ describe('Feed', () => {
   it('función que contiene texto HTML', () => {
     expect(typeof Feed().textContent).toBe('string');
   });
+  it('MainTemplate contiene texto HTML', () => {
+    const result = Feed();
+    const mainTemplate = result.querySelector('#mainTemplate');
+    expect(typeof mainTemplate.textContent).toBe('string');
+  });
 
   const result = Feed();
   const mainTemplate = result.querySelector('#mainTemplate');
   const buttonEdit = mainTemplate.querySelectorAll('.share-edit-logo');
-  it('función  ', () => {
+  it('función buttonEditMain ', () => {
     expect(buttonEditMain(buttonEdit)).toBe(true);
   });
   it('función2  ', () => {
@@ -168,3 +175,56 @@ describe('deletePublicationWithMessage', () => {
     expect(messageAlert.style.display).toBe('none');
   });
 });
+
+describe('hideShowDivUploader', () => {
+  const sectionPublication = document.createElement('section');
+  sectionPublication.innerHTML = `
+     <img class = "share-image-logo" >
+     <div class = "div-emoticons" ></div>
+     <div class = "div-uploader"></div>
+     `;
+  document.body.appendChild(sectionPublication);
+  const divUploader = sectionPublication.querySelector('.div-uploader');
+  const buttonShare = sectionPublication.querySelector('.share-image-logo');
+  const divEmoticon = sectionPublication.querySelector('.div-emoticons');
+  divUploader.style.display = 'none';
+  it('si los emoticones se muestran el input de fotos de oculta', () => {
+    hideShowDivUploader(sectionPublication);
+    buttonShare.dispatchEvent(new Event('click'));
+    expect(divUploader.style.display).toBe('flex');
+    expect(divEmoticon.style.display).toBe('none');
+    buttonShare.dispatchEvent(new Event('click'));
+    expect(divUploader.style.display).toBe('none');
+  });
+});
+
+/* describe('uploaderImagePublication', () => {
+  const sectionPublication = document.createElement('section');
+  sectionPublication.innerHTML = `
+     <img class = "img-uploader" >
+     <div class = "text-area" ></div>
+     <div class = "div-display-change"></div>
+     `;
+  document.body.appendChild(sectionPublication);
+  const inputUploader = sectionPublication.querySelector('.img-uploader');
+  const areaText = sectionPublication.querySelector('.text-area');
+  const divChangeLogoDisplay = sectionPublication.querySelector('.div-display-change');
+  divChangeLogoDisplay.style.display = 'none';
+  it('subir imagenes', () => {
+    uploaderImagePublication(sectionPublication);
+    inputUploader.dispatchEvent(new Event('change'));
+    const divPreview = document.createElement('div');
+    divPreview.className = 'div-preview';
+    const imagePreview = document.createElement('img');
+    imagePreview.id = 'imgPreview';
+   const e = {
+      target: { files: ['foto', 'name'] },
+    };
+    const file = e.target.files[0];
+    expect(divPreview.appendChild).toBe(imagePreview);
+    expect(areaText.appendChild).toBe(divPreview);
+    expect(divChangeLogoDisplay.style.display).toBe('none');
+    // expect(publicationUser(file, imagePreview, divChangeLogoDisplay.style)).toBe('');
+    // expect(divUploader.style.display).toBe('none');
+  });
+}); */

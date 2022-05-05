@@ -4,12 +4,12 @@ import { headerTemplate } from './Header.js';
 // eslint-disable-next-line import/no-cycle
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import {
-  onGetPublication, deletePublication, getOnlyPublication,
-  likePublication, lovePublication, getUsers,
+  onGetPublication, likePublication, lovePublication, getUsers,
 } from '../lib/cloudFirebase.js';
-import { publicationUser } from '../lib/storage.js';
 // eslint-disable-next-line import/named
-import { buttonEditMain, deletePublicationWithMessage } from '../lib/functionComponents.js';
+import {
+  buttonEditMain, deletePublicationWithMessage, hideShowDivUploader, uploaderImagePublication,
+} from '../lib/functionComponents.js';
 
 export const Feed = () => {
   const divFeed = document.createElement('div');
@@ -17,10 +17,8 @@ export const Feed = () => {
   const mainTemplate = document.createElement('main');
   mainTemplate.className = 'container-publication';
   mainTemplate.id = 'mainTemplate';
-
   onGetPublication(async (querySnapshot) => {
     let html = '';
-
     const allDataUser = await getUsers();
     const mapaDato = new Map();
 
@@ -90,36 +88,13 @@ export const Feed = () => {
     mainTemplate.innerHTML = html;
     // AGREGANDO FUNCIONALIDAD DE IMAGENES
     const buttonShareImage = mainTemplate.querySelectorAll('.share-image-logo');
+    // EVENTO PARA PUBLICAR FOTO
     buttonShareImage.forEach((btnImage) => {
       const sectionPublication = btnImage.parentNode.parentNode;
-      const divUploader = sectionPublication.querySelector('.div-uploader');
-      const inputUploader = sectionPublication.querySelector('.img-uploader');
-      const divEmoticon = sectionPublication.querySelector('.div-emoticons');
-      const areaText = sectionPublication.querySelector('.text-area');
-      const divChangeLogoDisplay = sectionPublication.querySelector('.div-display-change');
       const buttonShare = sectionPublication.querySelector('.share-image-logo');
       buttonShare.id = 'buttonShare';
-      buttonShare.addEventListener('click', () => {
-        if (divUploader.style.display === 'none') {
-          divUploader.style.display = 'flex';
-          divEmoticon.style.display = 'none';
-        } else {
-          divUploader.style.display = 'none';
-        }
-      });
-      inputUploader.addEventListener('change', (e) => {
-        const divPreview = document.createElement('div');
-        divPreview.className = 'div-preview';
-        const imagePreview = document.createElement('img');
-        imagePreview.id = 'imgPreview';
-        divPreview.appendChild(imagePreview);
-        areaText.appendChild(divPreview);
-
-        const file = e.target.files[0]; // url de la foto
-        console.log(file);
-        divChangeLogoDisplay.style.display = 'block';
-        publicationUser(file, imagePreview, divChangeLogoDisplay.style);
-      });
+      hideShowDivUploader(sectionPublication); // FUNCIÓN PARA MOSTRAR Y OCULTAR CONTENEDOR DE FOTOS
+      uploaderImagePublication(sectionPublication); // FUNCIÓN PARA PUBLICAR FOTO
     });
     // LIKE A PUBLICACIONES
     const buttonLike = mainTemplate.querySelectorAll('.btnlike');
@@ -141,7 +116,6 @@ export const Feed = () => {
       const sectionPublication = btn.parentNode.parentNode.parentNode;
       deletePublicationWithMessage(sectionPublication);
     });
-
     // EDITANDO PUBLICACIONES
     const buttonEdit = mainTemplate.querySelectorAll('.share-edit-logo');
     buttonEditMain(buttonEdit);

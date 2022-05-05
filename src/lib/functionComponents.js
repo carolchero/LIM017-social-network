@@ -4,6 +4,7 @@ import {
   } from './cloudFirebase.js';
 // eslint-disable-next-line import/no-unresolved
 import f from './functions.js';
+import { publicationUser } from './storage.js';
 
 /* FUNCIONES FEED */
 
@@ -102,7 +103,7 @@ export function buttonEditMain(buttonEdit) { // falllllllllltaaaaaaaaaaaa
   return true;
 }
 
-// FUNCIONES PARA ELIMINAR PUBLICACIONES
+// FUNCIÓN PARA ELIMINAR PUBLICACIONES
 export function deletePublicationWithMessage(sectionPublication) {
   const buttonDeleteOnly = sectionPublication.querySelector('.share-trash-logo');
   const messageAlert = sectionPublication.querySelector('.div-alert-message-color');
@@ -117,5 +118,37 @@ export function deletePublicationWithMessage(sectionPublication) {
     messageAlertNo.addEventListener('click', () => {
       messageAlert.style.display = 'none';
     });
+  });
+}
+
+// FUNCIÓN PARA MOSTRAR Y OCULTAR CONTENEDOR DE FOTOS Y EMOTICONES
+export function hideShowDivUploader(sectionPublication) {
+  const divUploader = sectionPublication.querySelector('.div-uploader');
+  const buttonShare = sectionPublication.querySelector('.share-image-logo');
+  const divEmoticon = sectionPublication.querySelector('.div-emoticons');
+  buttonShare.addEventListener('click', () => {
+    if (divUploader.style.display === 'none') {
+      divUploader.style.display = 'flex';
+      divEmoticon.style.display = 'none';
+    } else {
+      divUploader.style.display = 'none';
+    }
+  });
+}
+// FUNCIÓN PARA PUBLICAR FOTO FFFFFFFFFFFFFFALTAAAAAAAAAAAAA
+export function uploaderImagePublication(sectionPublication) {
+  const inputUploader = sectionPublication.querySelector('.img-uploader');
+  const areaText = sectionPublication.querySelector('.text-area');
+  const divChangeLogoDisplay = sectionPublication.querySelector('.div-display-change');
+  inputUploader.addEventListener('change', (e) => {
+    const divPreview = document.createElement('div');
+    divPreview.className = 'div-preview';
+    const imagePreview = document.createElement('img');
+    imagePreview.id = 'imgPreview';
+    divPreview.appendChild(imagePreview);
+    areaText.appendChild(divPreview);
+    const file = e.target.files[0]; // url de la foto
+    divChangeLogoDisplay.style.display = 'block';
+    publicationUser(file, imagePreview, divChangeLogoDisplay.style);
   });
 }
