@@ -1,5 +1,5 @@
 import { dataUser, likePublication, lovePublication,
-    getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc,
+    getFirestore, collection, addDoc, getDocs, onSnapshot,
   doc, setDoc, getDoc, query, where, updateDoc, orderBy,
   arrayUnion, arrayRemove,
   getUser, getUsers, onGetUser, updateDataUsers, dataPublication,
@@ -8,6 +8,9 @@ import { dataUser, likePublication, lovePublication,
   publicationLikeUnion, publicationLikeRemove, publicationLoveRemove,
   publicationLoveUnion,
 } from '../../src/lib/cloudFirebase';
+// eslint-disable-next-line import/no-unresolved
+import { deleteDoc } from '../../src/lib/imports/firebase-imports.js';
+import { Feed } from '../../src/components/Feed.js';
 // import { setDoc } from '../../src/lib/imports/firebase-imports';
 
 jest.mock('../../src/lib/imports/firebase-imports.js');
@@ -61,9 +64,40 @@ describe('funciones de datos de usuario y publicaciones', () => {
     expect(typeof onGetPublication()).toBe('object');
     expect(typeof onGetPublicationUser()).toBe('object');
   });
-  it('deletePublication', async () => {
-    expect(typeof deletePublication('xxxxxyyyyzzzz')).toBe('object');
+  it('get', () => {
     expect(typeof getOnlyPublication('xxxxxyyyyzzzz')).toBe('object');
     expect(typeof updatePublication('xxxxxyyyyzzzz')).toBe('object');
+  });
+});
+
+describe('deletePublication', () => {
+  it('debería retornar una funcion', () => {
+    expect(deletePublication('xxxxxyyyyzzzz')).toEqual(deleteDoc());
+  });
+  it('Debería enviar un correo de verificacion', () => {
+    expect(deleteDoc).toHaveBeenCalled();
+    // eslint-disable-next-line quote-props
+    expect(deleteDoc.mock.calls[0][0]).toEqual({ dataPublication: 'xxxxxyyyyzzzz' });
+  });
+});
+
+describe(' likePublication', () => {
+  const id = 'Umn8appNPisPz4eBhswX';
+  const uid = 'Umn8appNPisPz4eBhswX';
+  it('funcionalidad', async () => {
+    const like = await getOnlyPublication(id);
+    expect(likePublication(id)).toStrictEqual(publicationLikeUnion(id, uid));
+    expect(like.data().like).toStrictEqual([0]);
+    expect(await likePublication(id)).toBe(true);
+  });
+});
+describe('lovePublication', () => {
+  it('love', async () => {
+    const id = 'Umn8appNPisPz4eBhswX';
+    const uid = 'Umn8appNPisPz4eBhswX';
+    const love = await getOnlyPublication(id);
+    expect(lovePublication(id)).toStrictEqual(publicationLikeUnion(id, uid));
+    expect(love.data().love).toStrictEqual([0]);
+    expect(await lovePublication(id)).toBe(true);
   });
 });
