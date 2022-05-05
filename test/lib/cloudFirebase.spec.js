@@ -16,19 +16,17 @@ describe('cloudfirebase', () => {
     const data = await dataUser('id', 'email', 'password', 'url', 'url');
     expect(data).toBe('id');
   });
-  it('dataUser error', async () => {
-    const data = await dataUser();
-    expect(data).toBe('id');
-  });
-
   it('likePublication', async () => {
+    sessionStorage.setItem('uid', 'Umn8appNPisPz4eBhswX');
     const like = await likePublication('Umn8appNPisPz4eBhswX');
     expect(like).toBe(true);
     expect(typeof publicationLikeUnion()).toBe('object');
     expect(typeof publicationLikeRemove()).toBe('object');
   });
-  it('lovePublication', () => {
-    expect(true).toBe(true);
+  it('lovePublication', async () => {
+    sessionStorage.setItem('uid', 'Umn8appNPisPz4eBhswX');
+    const love = await lovePublication('Umn8appNPisPz4eBhswX');
+    expect(love).toBe(true);
     expect(typeof publicationLoveUnion()).toBe('object');
     expect(typeof publicationLoveRemove()).toBe('object');
   });
