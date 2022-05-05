@@ -43,7 +43,6 @@ export async function likePublication(id) {
   try {
     let docRef;
     const like = await getOnlyPublication(id);
-    console.log(like);
     if (!like.data().like) {
       docRef = await publicationLikeUnion(id, sessionStorage.getItem('uid'));
     } else if (like.data().like.find((e) => e === sessionStorage.getItem('uid'))) {

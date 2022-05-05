@@ -1,7 +1,5 @@
-import { dataUser, likePublication, lovePublication,
-    getFirestore, collection, addDoc, getDocs, onSnapshot,
-  doc, setDoc, getDoc, query, where, updateDoc, orderBy,
-  arrayUnion, arrayRemove,
+import {
+  dataUser, likePublication, lovePublication,
   getUser, getUsers, onGetUser, updateDataUsers, dataPublication,
   onGetPublication, onGetPublicationUser,
   deletePublication, getOnlyPublication, updatePublication, getPublication,
@@ -10,8 +8,6 @@ import { dataUser, likePublication, lovePublication,
 } from '../../src/lib/cloudFirebase';
 // eslint-disable-next-line import/no-unresolved
 import { deleteDoc } from '../../src/lib/imports/firebase-imports.js';
-import { Feed } from '../../src/components/Feed.js';
-// import { setDoc } from '../../src/lib/imports/firebase-imports';
 
 jest.mock('../../src/lib/imports/firebase-imports.js');
 
