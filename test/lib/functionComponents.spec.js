@@ -1,8 +1,9 @@
+/* eslint-disable object-curly-newline */
 import { Feed } from '../../src/components/Feed.js';
 import {
   filesHide, buttonSaveEdit, createEmoticon, showEmoticons,
   filesShow, buttonEditMain, deletePublicationWithMessage, hideShowDivUploader,
-  uploaderImagePublication,
+  createPublicationFeed, createPublicationProfile, uploaderImagePublication,
 } from '../../src/lib/functionComponents.js';
 import f from '../../src/lib/functions.js';
 import { publicationUser } from '../../src/lib/storage.js';
@@ -195,6 +196,104 @@ describe('hideShowDivUploader', () => {
     expect(divEmoticon.style.display).toBe('none');
     buttonShare.dispatchEvent(new Event('click'));
     expect(divUploader.style.display).toBe('none');
+  });
+});
+
+describe('createPublicationFeed', () => {
+  it('Mostrar elementos de publication template si no es el usuario', () => {
+    sessionStorage.setItem('uid', 'uid1');
+    const toLocal = {
+      toLocaleDateString: () => '5 de mayo de 2022',
+      toLocaleTimeString: () => '12:00:00',
+    };
+    const dateT = {
+      toDate: () => toLocal,
+    };
+    const publicationNew = { uid: 'uid', title: 'title', text: 'text', date: dateT };
+    const doc2 = { id: 'id' };
+    const photo = 'Photo';
+    const name = 'Name';
+    const publication = createPublicationFeed(publicationNew, doc2, photo, name);
+    expect(typeof publication).toBe('string');
+  });
+  it('Mostrar elementos de publication template si no es el usuario, hizo like love', () => {
+    sessionStorage.setItem('uid', 'uid1');
+    const toLocal = {
+      toLocaleDateString: () => '5 de mayo de 2022',
+      toLocaleTimeString: () => '12:00:00',
+    };
+    const dateT = {
+      toDate: () => toLocal,
+    };
+    const publicationNew = { uid: 'uid', title: 'title', text: 'text', date: dateT, like: ['uid1'], love: ['uid1'] };
+    const doc2 = { id: 'id' };
+    const photo = 'Photo';
+    const name = 'Name';
+    const publication = createPublicationFeed(publicationNew, doc2, photo, name);
+    expect(typeof publication).toBe('string');
+  });
+  it('Mostrar elementos de publication template si es el usuario', () => {
+    sessionStorage.setItem('uid', 'uid');
+    const toLocal = {
+      toLocaleDateString: () => '5 de mayo de 2022',
+      toLocaleTimeString: () => '12:00:00',
+    };
+    const dateT = {
+      toDate: () => toLocal,
+    };
+    const publicationNew = { uid: 'uid', title: 'title', text: 'text', date: dateT };
+    const doc2 = { id: 'id' };
+    const photo = 'Photo';
+    const name = 'Name';
+    const publication = createPublicationFeed(publicationNew, doc2, photo, name);
+    expect(typeof publication).toBe('string');
+  });
+  it('Mostrar elementos de publication template si es el usuario, hizo like love', () => {
+    sessionStorage.setItem('uid', 'uid');
+    const toLocal = {
+      toLocaleDateString: () => '5 de mayo de 2022',
+      toLocaleTimeString: () => '12:00:00',
+    };
+    const dateT = {
+      toDate: () => toLocal,
+    };
+    const publicationNew = { uid: 'uid', title: 'title', text: 'text', date: dateT, like: ['uid'], love: ['uid'] };
+    const doc2 = { id: 'id' };
+    const photo = 'Photo';
+    const name = 'Name';
+    const publication = createPublicationFeed(publicationNew, doc2, photo, name);
+    expect(typeof publication).toBe('string');
+  });
+});
+
+describe('createPublicationprofile', () => {
+  it('Mostrar elementos de publication template del usuario', () => {
+    sessionStorage.setItem('uid', 'uid');
+    const toLocal = {
+      toLocaleDateString: () => '5 de mayo de 2022',
+      toLocaleTimeString: () => '12:00:00',
+    };
+    const dateT = {
+      toDate: () => toLocal,
+    };
+    const publicationNew = { uid: 'uid', title: 'title', text: 'text', date: dateT };
+    const doc2 = { id: 'id' };
+    const publication = createPublicationProfile(publicationNew, doc2);
+    expect(typeof publication).toBe('string');
+  });
+  it('Mostrar elementos de publication template del usuario, hizo like love', () => {
+    sessionStorage.setItem('uid', 'uid');
+    const toLocal = {
+      toLocaleDateString: () => '5 de mayo de 2022',
+      toLocaleTimeString: () => '12:00:00',
+    };
+    const dateT = {
+      toDate: () => toLocal,
+    };
+    const publicationNew = { uid: 'uid', title: 'title', text: 'text', date: dateT, like: ['uid'], love: ['uid'] };
+    const doc2 = { id: 'id' };
+    const publication = createPublicationProfile(publicationNew, doc2);
+    expect(typeof publication).toBe('string');
   });
 });
 

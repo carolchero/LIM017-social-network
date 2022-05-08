@@ -8,6 +8,7 @@ import {
   createNewPassword, closeSession, accesUserExist, signGoogle, verifyUserActive, stateUser, createUser,
 } from '../../src/lib/controller-firebase/auth-functions.js';
 import { Register } from '../../src/components/Register.js';
+import { Configurar } from '../../src/components/Configurar';
 
 const {
   getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged,
@@ -27,28 +28,50 @@ describe('register', () => {
     const name = 'Maria';
     const password = 'maria123';
     expect(typeof register(name, email, password)).toBe('object');
+    expect(typeof createUser(email, password)).toBe('object');
   });
 
-  it('si no se crea el usuario, retorna el error', async () => {
+  it('si se crea el usuario, retorna true', async () => {
+    const email = 'maria@gmail.com';
+    const name = 'Maria';
+    const password = 'maria123';
+    expect(await register(name, email, password)).toBe(true);
+  });
+  it('si no se crea el usuario, retorna el error Correo invalido', async () => {
     const email = 'maria';
     const name = 'Maria';
     const password = 'maria123';
+    expect(await register(name, email, password)).toBe('Correo invalido');
+  });
+  it('si no se crea el usuario, retorna el error Contraseña debil', async () => {
+    const email = 'maria@gmail.com';
+    const name = 'Maria';
+    const password = 'maria';
+    expect(await register(name, email, password)).toBe('Contraseña debil');
+  });
+  it('si no se crea el usuario, retorna el error Correo ya está registrado', async () => {
+    const email = 'prueba@gmail.com';
+    const name = 'Maria';
+    const password = 'maria';
+    expect(await register(name, email, password)).toBe('Correo ya está registrado');
+  });
+  it('si no se crea el usuario, retorna el errorCorreo y/o contraseña invalido', async () => {
+    const email = 'maria';
+    const name = 'Maria';
+    const password = false;
     expect(await register(name, email, password)).toBe('Correo y/o contraseña invalido');
   });
 });
+
 describe('accesUser', () => {
-  it('la función es llamada para permitir acceso', () => signInWithEmailAndPassword()
+  it('la función es llamada para permitir acceso', () => signInWithEmailAndPassword('auth', 'email', 'password')
     .then(() => {
       expect(signInWithEmailAndPassword).toHaveBeenCalled();
-      expect(signInWithEmailAndPassword.mock.calls[0][0]).toEqual(getAuth());
+      expect(signInWithEmailAndPassword.mock.calls[0][0]).toEqual('auth');
     }));
   it('si el usuario no existe la promesa es rechazada', () => signInWithEmailAndPassword()
     .catch(() => {
-      expect(accesUser('', '')).toMatch('error');
-    }));
-  it('si el usuario no existe muestra mensaje de error', () => signInWithEmailAndPassword()
-    .catch(() => {
-      expect(accesUser('', '')).toBe('auth/invalid-email');
+      expect(accesUser('', '')).toBeUndefined();
     }));
 });
 
@@ -84,12 +107,11 @@ describe('Login', () => {
     expect(window.location.pathname).toBe('/resetPassword');
   });
 });
-
 describe('signInWithPopup with Google', () => {
-  it('La función es llamada y  permite el acceso al usuario', () => signInWithPopup()
+  it('La función es llamada y  permite el acceso al usuario', () => signInWithPopup(true)
     .then(() => {
       expect(signInWithPopup).toHaveBeenCalled();
-      expect(signInWithPopup.mock.calls[0][0]).toEqual(getAuth());
+      expect(signInWithPopup.mock.calls[0][0]).toEqual(true);
       expect(signInWithPopup.mock.calls[0][1]).toEqual(GoogleAuthProvider());
     }));
   it('si hay algun error al ingresar con google', () => {
@@ -97,6 +119,9 @@ describe('signInWithPopup with Google', () => {
       .catch(() => {
         expect(signGoogle).toMatch('error');
       });
+  });
+  it('access with Google', async () => {
+    expect(typeof accesGoogle()).toBe('object');
   });
 });
 
@@ -107,7 +132,7 @@ describe('createNewPassword', () => {
   it('la función al ser llamada permite el acceso', () => sendPasswordResetEmail()
     .then(() => {
       expect(sendPasswordResetEmail).toHaveBeenCalled();
-      expect(sendPasswordResetEmail.mock.calls[0][0]).toEqual(getAuth());
+      expect(sendPasswordResetEmail.mock.calls[0][0]).toBe(getAuth());
       expect(sendPasswordResetEmail.mock.calls[0][1]).toEqual('holi@gmail.com');
     }));
   it('muestra el error si el email no es definido', () => createNewPassword()
@@ -151,6 +176,6 @@ describe('signOut', () => {
   it('La función signOut es llamada correctamente', () => signOut()
     .then(() => {
       expect(signInWithPopup).toHaveBeenCalled();
-      expect(signInWithPopup.mock.calls[0][0]).toEqual(getAuth());
+      expect(signInWithPopup.mock.calls[0][0]).toEqual(true);
     }));
 });

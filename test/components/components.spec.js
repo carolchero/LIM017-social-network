@@ -242,11 +242,14 @@ describe('evento click para publicar', () => {
     const title = result.querySelector('#divTitle');
     const text = result.querySelector('#divText');
     const btn = result.querySelector('#buttonPublication');
-    title.innerText = '';
-    text.innerText = '';
+    title.innerHTML = '';
+    text.innerHTML = '';
     btn.dispatchEvent(new Event('click'));
     const messageTitleText = result.querySelector('#messageTitleText');
     expect(messageTitleText.innerText).toBe('No se puede publicar título o texto vacío.');
+    title.innerHTML = 'Title';
+    text.innerHTML = 'Text';
+    btn.dispatchEvent(new Event('click'));
   });
   it('si no es publicación vacia retorna true', () => {
     const result = publicationBeforeTemplate();
@@ -280,6 +283,16 @@ describe('evento para mostrar y ocultar el input para subir imagenes en las publ
     expect(divUploader.style.display).toBe('flex');
     buttonshareImage.dispatchEvent(new Event('click'));
     expect(divUploader.style.display).toBe('none');
+  });
+});
+describe('evento para capturar evento para subir imagen', () => {
+  it('con el evento change para capturar image', () => {
+    const result = publicationBeforeTemplate();
+    const imageUploader = result.querySelector('#imgUploader');
+    const divChangeLogoDisplay = result.querySelector('#divChangeLogoDisplay');
+    const e = new Event('change');
+    imageUploader.dispatchEvent(e);
+    expect(divChangeLogoDisplay.style.display).toBe('block');
   });
 });
 

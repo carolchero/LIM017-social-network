@@ -6,16 +6,17 @@ describe('functions', () => {
     expect(typeof f).toBe('object');
   });
 });
-describe('timeNow', () => {
-  it('timeNow return type format ', () => {
-    const time = f.timeNow(new Date('2022-04-28T11:41:24'));
-    expect(time).toBe('28-04-2022 11:41:24');
-  });
-});
 describe('formatTime', () => {
-  it('should  return 01 with "1"', () => {
-    const format = f.formatTime('1');
-    expect(format).toBe('01');
+  it('timeNow return type format ', () => {
+    const toLocal = {
+      toLocaleDateString: () => '5 de mayo de 2022',
+      toLocaleTimeString: () => '12:00:00',
+    };
+    const date = {
+      toDate: () => toLocal,
+    };
+    const time = f.formatTime(date);
+    expect(time).toBe('5 de mayo de 2022 12:00:00');
   });
 });
 describe('pasteHtmlAtCaret', () => {
