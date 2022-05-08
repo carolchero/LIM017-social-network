@@ -1,6 +1,5 @@
 import { headerTemplate } from '../../src/components/Header.js';
 import { Profile } from '../../src/components/Profile.js';
-import { Feed } from '../../src/components/Feed.js';
 import { Register } from '../../src/components/Register.js';
 import { Configurar } from '../../src/components/Configurar.js';
 /* eslint-disable object-curly-newline */
@@ -214,25 +213,6 @@ describe('eventos click para cambiar de vista', () => {
   });
 });
 
-/* FEED */
-describe('Feed', () => {
-  const result = Feed();
-  const mainTemplate = result.querySelector('#mainTemplate');
-  console.log(mainTemplate);
-  const btnDelete = mainTemplate.querySelectorAll('.share-trash-logo');
-  console.log(btnDelete);
-  console.log(btnDelete.childNode);
-
-  it('función que contiene texto HTML', () => {
-    expect(typeof Feed().textContent).toBe('string');
-  });
-  /* it('función ne texto HTML', () => {
-    btnDelete.dispatchEvent(new Event('click'));
-    const messageAlert = result.querySelector('.div-alert-message-color');
-    expect(messageAlert.textContent).toBe('¿Estas seguro de eliminar esta publicación?');
-  });*/
-});
-
 /* PUBLICATION BEFORE */
 
 describe('publicationBeforeTemplate', () => {
@@ -262,11 +242,14 @@ describe('evento click para publicar', () => {
     const title = result.querySelector('#divTitle');
     const text = result.querySelector('#divText');
     const btn = result.querySelector('#buttonPublication');
-    title.innerText = '';
-    text.innerText = '';
+    title.innerHTML = '';
+    text.innerHTML = '';
     btn.dispatchEvent(new Event('click'));
     const messageTitleText = result.querySelector('#messageTitleText');
     expect(messageTitleText.innerText).toBe('No se puede publicar título o texto vacío.');
+    title.innerHTML = 'Title';
+    text.innerHTML = 'Text';
+    btn.dispatchEvent(new Event('click'));
   });
   it('si no es publicación vacia retorna true', () => {
     const result = publicationBeforeTemplate();
@@ -300,6 +283,16 @@ describe('evento para mostrar y ocultar el input para subir imagenes en las publ
     expect(divUploader.style.display).toBe('flex');
     buttonshareImage.dispatchEvent(new Event('click'));
     expect(divUploader.style.display).toBe('none');
+  });
+});
+describe('evento para capturar evento para subir imagen', () => {
+  it('con el evento change para capturar image', () => {
+    const result = publicationBeforeTemplate();
+    const imageUploader = result.querySelector('#imgUploader');
+    const divChangeLogoDisplay = result.querySelector('#divChangeLogoDisplay');
+    const e = new Event('change');
+    imageUploader.dispatchEvent(e);
+    expect(divChangeLogoDisplay.style.display).toBe('block');
   });
 });
 

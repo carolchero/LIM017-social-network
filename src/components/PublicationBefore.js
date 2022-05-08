@@ -126,7 +126,7 @@ export const publicationBeforeTemplate = () => {
   buttonPublication.addEventListener('click', () => {
     const title = inputTitle.innerHTML;
     const text = divText.innerHTML;
-    const date = f.timeNow(new Date());
+    const date = new Date();
     const uid = sessionStorage.getItem('uid');
     let result = '';
     if ((title === '') || (text === '')) {
