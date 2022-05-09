@@ -2,7 +2,6 @@ import { headerTemplate } from '../../src/components/Header.js';
 import { Profile } from '../../src/components/Profile.js';
 import { Register } from '../../src/components/Register.js';
 import { Configurar } from '../../src/components/Configurar.js';
-/* eslint-disable object-curly-newline */
 import f from '../../src/lib/functions.js';
 import { publicationBeforeTemplate } from '../../src/components/PublicationBefore.js';
 

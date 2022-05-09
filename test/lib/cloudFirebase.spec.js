@@ -1,17 +1,12 @@
-import { dataUser, likePublication, lovePublication,
-    getFirestore, collection, addDoc, getDocs, onSnapshot,
-  doc, setDoc, getDoc, query, where, updateDoc, orderBy,
-  arrayUnion, arrayRemove,
+import {
+  dataUser, likePublication, lovePublication,
   getUser, getUsers, onGetUser, updateDataUsers, dataPublication,
   onGetPublication, onGetPublicationUser,
   deletePublication, getOnlyPublication, updatePublication, getPublication,
   publicationLikeUnion, publicationLikeRemove, publicationLoveRemove,
   publicationLoveUnion,
 } from '../../src/lib/cloudFirebase';
-// eslint-disable-next-line import/no-unresolved
 import { deleteDoc } from '../../src/lib/imports/firebase-imports.js';
-import { Feed } from '../../src/components/Feed.js';
-// import { setDoc } from '../../src/lib/imports/firebase-imports';
 
 jest.mock('../../src/lib/imports/firebase-imports.js');
 
@@ -63,7 +58,6 @@ describe('funciones de datos de usuario y publicaciones', () => {
     expect(typeof onGetPublicationUser()).toBe('object');
   });
   it('Feed onGetPublication', async () => {
-    const result = Feed();
     onGetPublication(jest.fn());
     expect(typeof onGetPublication()).toBe('object');
     expect(typeof onGetPublicationUser()).toBe('object');
@@ -87,41 +81,29 @@ describe('deletePublication', () => {
 
 describe('likePublication', () => {
   const id = 'Umn8appNPisPz4eBhswX';
-  const uid = 'Umn8appNPisPz4eBhswX';
-  it('funcionalidad', async () => {
-    const like = await getOnlyPublication(id);
-    expect(likePublication(id)).toStrictEqual(publicationLikeUnion(id, uid));
-    expect(like.data().like).toStrictEqual([{ dataPublication: 'Umn8appNPisPz4eBhswX' }]);
-    expect(await likePublication(id)).toBe(true);
-  });
+  it('funcionalidad', () => likePublication(id)
+    .then((result) => {
+      expect(result).toBe(true);
+    }));
 });
 describe('likePublication no like', () => {
   const id = 0;
-  const uid = 'Umn8appNPisPz4eBhswX';
-  it('funcionalidad', async () => {
-    const like = await getOnlyPublication(id);
-    expect(likePublication(id)).toStrictEqual(publicationLikeUnion(id, uid));
-    expect(like.data().like).toBeUndefined();
-    expect(await likePublication(id)).toBe(false);
-  });
+  it('funcionalidad', () => likePublication(id)
+    .catch((result) => {
+      expect(result).toBe(false);
+    }));
 });
 describe('lovePublication', () => {
-  it('love', async () => {
-    const id = 'Umn8appNPisPz4eBhswX';
-    const uid = 'Umn8appNPisPz4eBhswX';
-    const love = await getOnlyPublication(id);
-    expect(lovePublication(id)).toStrictEqual(publicationLikeUnion(id, uid));
-    expect(love.data().love).toStrictEqual([{ dataPublication: 'Umn8appNPisPz4eBhswX' }]);
-    expect(await lovePublication(id)).toBe(true);
-  });
+  const id = 'Umn8appNPisPz4eBhswX';
+  it('funcionalidad', () => lovePublication(id)
+    .then((result) => {
+      expect(result).toBe(true);
+    }));
 });
-describe('likePublication no love', () => {
-  it('love', async () => {
-    const id = 0;
-    const uid = 'Umn8appNPisPz4eBhswX';
-    const love = await getOnlyPublication(id);
-    expect(lovePublication(id)).toStrictEqual(publicationLikeUnion(id, uid));
-    expect(love.data().love).toBeUndefined();
-    expect(await lovePublication(id)).toBe(false);
-  });
+describe('lovePublication no love', () => {
+  const id = 0;
+  it('funcionalidad', () => lovePublication(id)
+    .catch((result) => {
+      expect(result).toBe(false);
+    }));
 });
