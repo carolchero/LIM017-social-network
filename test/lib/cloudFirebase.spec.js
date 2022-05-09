@@ -19,14 +19,14 @@ describe('cloudfirebase', () => {
     const error = new Error('error');
     await expect(dataUser(null)).resolves.toEqual(error);
   });
-  it('likePublication', async () => {
+  /* it('likePublication', async () => {
     expect(typeof publicationLikeUnion()).toBe('object');
     expect(typeof publicationLikeRemove()).toBe('object');
   });
   it('lovePublication', async () => {
     expect(typeof publicationLoveUnion()).toBe('object');
     expect(typeof publicationLoveRemove()).toBe('object');
-  });
+  }); */
 });
 
 describe('getUsers', () => {
