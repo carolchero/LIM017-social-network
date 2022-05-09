@@ -1,17 +1,14 @@
 import {
-  register, accesUser, accesGoogle, restorePassword, cerrarSesion,
-  configurationPassword, listeningSessionEvent, validateCorrectPassword,
+  register, accesUser, accesGoogle,
 } from '../../src/lib/auth';
 import { ResetPassword } from '../../src/components/ResetPassword.js';
 import { Login } from '../../src/components/Login.js';
 import {
-  createNewPassword, closeSession, accesUserExist, signGoogle, verifyUserActive, stateUser, createUser,
+  createNewPassword, closeSession, accesUserExist, signGoogle, createUser,
 } from '../../src/lib/controller-firebase/auth-functions.js';
-import { Register } from '../../src/components/Register.js';
-import { Configurar } from '../../src/components/Configurar';
 
 const {
-  getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged,
+  getAuth, signInWithPopup, GoogleAuthProvider,
   signInWithEmailAndPassword, sendPasswordResetEmail, signOut,
 } = require('../../src/lib/imports/firebase-imports.js');
 
@@ -35,31 +32,46 @@ describe('register', () => {
     const email = 'maria@gmail.com';
     const name = 'Maria';
     const password = 'maria123';
-    expect(await register(name, email, password)).toBe(true);
+    register(name, email, password)
+      .then((result) => {
+        expect(result).toBe(true);
+      });
   });
   it('si no se crea el usuario, retorna el error Correo invalido', async () => {
     const email = 'maria';
     const name = 'Maria';
     const password = 'maria123';
-    expect(await register(name, email, password)).toBe('Correo invalido');
+    register(name, email, password)
+      .catch((error) => {
+        expect(error).toBe('Correo invalido');
+      });
   });
   it('si no se crea el usuario, retorna el error Contraseña debil', async () => {
     const email = 'maria@gmail.com';
     const name = 'Maria';
     const password = 'maria';
-    expect(await register(name, email, password)).toBe('Contraseña debil');
+    register(name, email, password)
+      .catch((error) => {
+        expect(error).toBe('Contraseña debil');
+      });
   });
   it('si no se crea el usuario, retorna el error Correo ya está registrado', async () => {
     const email = 'prueba@gmail.com';
     const name = 'Maria';
     const password = 'maria';
-    expect(await register(name, email, password)).toBe('Correo ya está registrado');
+    register(name, email, password)
+      .catch((error) => {
+        expect(error).toBe('Correo ya está registrado');
+      });
   });
   it('si no se crea el usuario, retorna el errorCorreo y/o contraseña invalido', async () => {
     const email = 'maria';
     const name = 'Maria';
     const password = false;
-    expect(await register(name, email, password)).toBe('Correo y/o contraseña invalido');
+    register(name, email, password)
+      .catch((error) => {
+        expect(error).toBe('Correo y/o contraseña invalido');
+      });
   });
 });
 

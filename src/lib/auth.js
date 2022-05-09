@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // eslint-disable-next-line import/no-cycle
 import { onNavigate } from '../Router.js';
 import { dataUser, getUser } from './cloudFirebase.js';
@@ -91,7 +92,6 @@ export async function accesGoogle() {
       onNavigate('/feed');
       result = true;
     }).catch((error) => {
-      console.error(error);
       result = false;
     });
   return result;
@@ -113,7 +113,6 @@ export function restorePassword(email, message) {
       message.innerText = 'Tiene que ingresar un correo válido';
       // eslint-disable-next-line no-param-reassign
       message.style.display = 'block';
-      console.log(errorMessage);
     });
 }
 
