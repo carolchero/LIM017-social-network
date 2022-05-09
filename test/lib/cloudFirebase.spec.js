@@ -16,17 +16,15 @@ describe('cloudfirebase', () => {
     const data = await dataUser('id', 'email', 'password', 'url', 'url');
     expect(data).toBe('id');
   });
+  it('dataUser error', async () => {
+    const error = new Error('error');
+    await expect(dataUser(null)).resolves.toEqual(error);
+  });
   it('likePublication', async () => {
-    sessionStorage.setItem('uid', 'Umn8appNPisPz4eBhswX');
-    const like = await likePublication('Umn8appNPisPz4eBhswX');
-    expect(like).toBe(true);
     expect(typeof publicationLikeUnion()).toBe('object');
     expect(typeof publicationLikeRemove()).toBe('object');
   });
   it('lovePublication', async () => {
-    sessionStorage.setItem('uid', 'Umn8appNPisPz4eBhswX');
-    const love = await lovePublication('Umn8appNPisPz4eBhswX');
-    expect(love).toBe(true);
     expect(typeof publicationLoveUnion()).toBe('object');
     expect(typeof publicationLoveRemove()).toBe('object');
   });
@@ -60,6 +58,12 @@ describe('funciones de datos de usuario y publicaciones', () => {
     expect(typeof onGetPublication()).toBe('object');
     expect(typeof onGetPublicationUser()).toBe('object');
   });
+  it('Feed onGetPublication', async () => {
+    const result = Feed();
+    onGetPublication(jest.fn());
+    expect(typeof onGetPublication()).toBe('object');
+    expect(typeof onGetPublicationUser()).toBe('object');
+  });
   it('get', () => {
     expect(typeof getOnlyPublication('xxxxxyyyyzzzz')).toBe('object');
     expect(typeof updatePublication('xxxxxyyyyzzzz')).toBe('object');
@@ -77,14 +81,24 @@ describe('deletePublication', () => {
   });
 });
 
-describe(' likePublication', () => {
+describe('likePublication', () => {
   const id = 'Umn8appNPisPz4eBhswX';
   const uid = 'Umn8appNPisPz4eBhswX';
   it('funcionalidad', async () => {
     const like = await getOnlyPublication(id);
     expect(likePublication(id)).toStrictEqual(publicationLikeUnion(id, uid));
-    expect(like.data().like).toStrictEqual([0]);
+    expect(like.data().like).toStrictEqual([{ dataPublication: 'Umn8appNPisPz4eBhswX' }]);
     expect(await likePublication(id)).toBe(true);
+  });
+});
+describe('likePublication no like', () => {
+  const id = 0;
+  const uid = 'Umn8appNPisPz4eBhswX';
+  it('funcionalidad', async () => {
+    const like = await getOnlyPublication(id);
+    expect(likePublication(id)).toStrictEqual(publicationLikeUnion(id, uid));
+    expect(like.data().like).toBeUndefined();
+    expect(await likePublication(id)).toBe(false);
   });
 });
 describe('lovePublication', () => {
@@ -93,7 +107,17 @@ describe('lovePublication', () => {
     const uid = 'Umn8appNPisPz4eBhswX';
     const love = await getOnlyPublication(id);
     expect(lovePublication(id)).toStrictEqual(publicationLikeUnion(id, uid));
-    expect(love.data().love).toStrictEqual([0]);
+    expect(love.data().love).toStrictEqual([{ dataPublication: 'Umn8appNPisPz4eBhswX' }]);
     expect(await lovePublication(id)).toBe(true);
+  });
+});
+describe('likePublication no love', () => {
+  it('love', async () => {
+    const id = 0;
+    const uid = 'Umn8appNPisPz4eBhswX';
+    const love = await getOnlyPublication(id);
+    expect(lovePublication(id)).toStrictEqual(publicationLikeUnion(id, uid));
+    expect(love.data().love).toBeUndefined();
+    expect(await lovePublication(id)).toBe(false);
   });
 });

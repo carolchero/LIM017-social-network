@@ -1,17 +1,14 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable one-var */
 /* FUNCIONES DE LAS PUBLICACIONES */
 const f = {
   // agrega fecha a las publicaciones
-  timeNow(dateNow) {
-    const date = `${this.formatTime(dateNow.getDate())}-${this.formatTime((dateNow.getMonth() + 1))}-${dateNow.getFullYear()} ${this.formatTime(dateNow.getHours())}:${this.formatTime(dateNow.getMinutes())}:${this.formatTime(dateNow.getSeconds())}`;
-    return date;
-  },
-  formatTime(e) {
-    if (e.toString().length < 2) {
-      // eslint-disable-next-line no-param-reassign
-      e = `0${e}`;
-    }
-    return e;
+  formatTime(dateTime) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const date = dateTime.toDate().toLocaleDateString('es-ES', options);
+    const time = dateTime.toDate().toLocaleTimeString('es-ES');
+    const dateT = `${date} ${time}`;
+    return dateT;
   },
   // función que permite agregar emoji en cualquier parte del texto
   pasteHtmlAtCaret(html) {
