@@ -111,7 +111,7 @@ export const getDoc = jest.fn((id) => {
         id: 'xxxxxyyyyzzzz',
         uid: 'xxxxxyyyyzzzz',
       }),
-      exists: () => true,
+      exists: () => false,
     };
   }
   return Promise.resolve(date);
