@@ -285,7 +285,7 @@ describe('evento para mostrar y ocultar el input para subir imagenes en las publ
     expect(divUploader.style.display).toBe('none');
   });
 });
-describe('evento para capturar evento para subir imagen', () => {
+/* describe('evento para capturar evento para subir imagen', () => {
   it('con el evento change para capturar image', () => {
     const result = publicationBeforeTemplate();
     const imageUploader = result.querySelector('#imgUploader');
@@ -294,7 +294,7 @@ describe('evento para capturar evento para subir imagen', () => {
     imageUploader.dispatchEvent(e);
     expect(divChangeLogoDisplay.style.display).toBe('block');
   });
-});
+}); */
 
 /* CONFIGURAR */
 describe('Configurar', () => {
@@ -308,15 +308,3 @@ describe('Configurar', () => {
     expect(window.location.pathname).toBe('/feed');
   });
 });
-
-/* describe('createNewPassword', () => {
-  it('createNewPassword es una función', () => {
-    expect(createNewPassword('holi@gmail.com')).toEqual(sendPasswordResetEmail());
-  });
-  it('la función al ser llamada permite el acceso', () => {
-
-  });
-  it('muestra el error si el email no es definido', () => {
-
-  });
-}); */
