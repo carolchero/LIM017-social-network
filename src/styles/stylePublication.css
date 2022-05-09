@@ -303,6 +303,11 @@
     display: flex;
     justify-content: space-between;
 }
+.container-user-date {
+    font-size: 10px;
+    align-self: flex-end;
+    padding-right: 10px;
+}
 .div-alert-message-color {
     background-color: rgb(79 58 101 / 96%);
     color: white;

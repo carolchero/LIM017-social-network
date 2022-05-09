@@ -119,3 +119,4 @@ La aplicación "Programmers Book" fue creada para programadores o para cualquier
 ## 6.Autoras
    *Shirley  Aguilar Aguilar (https://github.com/Shirley-Aguilar-Aguilar)
    *Carol Chero Paz (https://github.com/carolchero/LIM017-social-network)
+   *Myriam Salazar Quispe (https://github.com/myriam555/LIM017-social-network)

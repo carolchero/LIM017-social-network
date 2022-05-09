@@ -1,4 +1,4 @@
-import { onNavigate, routes } from '../src/Router';
+import { onNavigate, routes, elementRoot } from '../src/Router';
 
 jest.mock('../src/lib/imports/firebase-imports.js');
 
@@ -17,6 +17,7 @@ describe('Router', () => {
     expect(window.location.pathname).toBe('/ruta-1');
   });
   it('onNavigate carga la vista correcta ', () => {
+    elementRoot();
     onNavigate('/ruta-1');
     expect(document.getElementById('root').firstChild.innerHTML).toBe('I am a view test!');
   });
