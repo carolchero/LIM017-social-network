@@ -263,3 +263,22 @@ export function createPublicationProfile(publicationNew, doc2) {
        `;
   return html;
 }
+
+export function createPhotoCoverPage(profileNew) {
+  const html = `
+    <div class="container-coverPage-profilePhoto" id="coverProfileContainer"  style="background-image: url('${profileNew.urlCoverPage}');">
+    <div class="photo-profile" style="background-image: url('${profileNew.urlPhotoUser}');">
+      <div class="div-uploader-photo">
+       <input type="file" id="imgUploaderphoto">
+      </div>
+    </div>
+    <div class="name-usuario">
+        <label class="name-label" id="nameLabel"> Bienvenid@ ${profileNew.name}</label>
+    </div>
+    <div class="div-uploader-cover-page">
+         <input type="file" id="imgUploaderPortada">
+    </div>
+    </div>
+    `;
+  return html;
+}
