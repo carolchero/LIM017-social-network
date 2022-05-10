@@ -45,6 +45,7 @@ export const onNavigate = (pathname) => {
 };
 
 const component = routes[window.location.pathname]; // cambio de ruta
+console.log(window.location.pathname);
 // alamacena vista anterior
 window.onpopstate = () => rootDiv.appendChild(component());
 rootDiv.appendChild(component());
