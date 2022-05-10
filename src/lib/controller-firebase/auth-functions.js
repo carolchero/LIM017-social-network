@@ -7,7 +7,6 @@ import {
 // eslint-disable-next-line import/no-cycle
 import { returnLogin } from '../auth.js';
 // eslint-disable-next-line import/no-cycle
-import { onNavigate } from '../../Router.js';
 
 export const createUser = (email, password) => {
   const auth = getAuth();

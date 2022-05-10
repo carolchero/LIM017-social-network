@@ -1,5 +1,3 @@
-/* eslint-disable object-curly-newline */
-/* eslint-disable one-var */
 /* FUNCIONES DE LAS PUBLICACIONES */
 const f = {
   // agrega fecha a las publicaciones
@@ -51,13 +49,13 @@ const f = {
     const regexNumber = /(?=.*[0-9]).+$/;
     const regexCharac = /(?=.*[-+_!@#$%^&*.,?]).+$/;
     let count = 0;
-    let cant,
-      minus,
-      mayus,
-      number,
-      character,
-      divH,
-      levelS;
+    let cant;
+    let minus;
+    let mayus;
+    let number;
+    let character;
+    let divH;
+    let levelS;
 
     if (value.length >= 6) {
       cant = 'Min(6): <img src=\'img/check.png\'>';
