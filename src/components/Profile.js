@@ -9,7 +9,7 @@ import {
 } from '../lib/cloudFirebase.js';
 import { photoUser, coverPageUser, publicationUser } from '../lib/storage.js';
 import {
-  buttonEditMain, deletePublicationWithMessage, hideShowDivUploader, uploaderImagePublication, 
+  buttonEditMain, deletePublicationWithMessage, hideShowDivUploader, uploaderImagePublication,
   createPublicationProfile,
 } from '../lib/functionComponents.js';
 
