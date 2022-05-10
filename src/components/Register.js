@@ -117,14 +117,6 @@ export const Register = () => {
   divPasswordConfirmHide.className = 'message-hide';
   divPasswordConfirmHide.innerText = 'Confirmar contraseña es incorrecta';
 
-  /* const divDateHide = document.createElement('div');
-  divDateHide.className = 'message-hide';
-  divDateHide.innerText = 'Fecha de nacimiento invalido'; */
-
-  // /* const divPhoneHide = document.createElement('div');
-  // divPhoneHide.className = 'message-hide';
-  // divPhoneHide.innerText = 'Número de celular invalido'; ELIMINAR*/
-
   const divMessageAlert = document.createElement('div');
   divMessageAlert.className = 'message-alert';
 

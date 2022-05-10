@@ -26,12 +26,6 @@ describe('Feed', () => {
   it('función buttonEditMain ', () => {
     expect(buttonEditMain(buttonEdit)).toBe(true);
   });
-  it('función2  ', () => {
-    buttonEdit.forEach((btn2) => {
-      btn2.dispatchEvent(new Event('click'));
-      expect(buttonEditMain(buttonEdit)).toBe(true);
-    });
-  });
 });
 
 describe('filesShow', () => {
