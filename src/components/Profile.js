@@ -5,9 +5,9 @@ import { headerTemplate } from './Header.js';
 import { publicationBeforeTemplate } from './PublicationBefore.js';
 import {
   // eslint-disable-next-line max-len
-  onGetPublicationUser, deletePublication, getOnlyPublication, updatePublication, onGetUser, likePublication, lovePublication,
+  onGetPublicationUser, onGetUser, likePublication, lovePublication,
 } from '../lib/cloudFirebase.js';
-import { photoUser, coverPageUser, publicationUser } from '../lib/storage.js';
+import { photoUser, coverPageUser } from '../lib/storage.js';
 import {
   buttonEditMain, deletePublicationWithMessage, hideShowDivUploader, uploaderImagePublication,
   createPublicationProfile,
