@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 // eslint-disable-next-line object-curly-newline
-const { dowloadImagePhoto, photoUser, dowloadCoverPage, coverPageUser /* dowloadImage */, publicationUser } = require('../src/lib/storage.js');
+const { dowloadImagePhoto, photoUser, dowloadCoverPage, coverPageUser, publicationUser } = require('../src/lib/storage.js');
 
 jest.mock('../src/lib/imports/firebase-imports.js');
 // jest.mock('../src/lib/storage.js');
@@ -21,7 +21,7 @@ describe('dowloadImagePhoto', () => {
       expect(data).toEqual(true);
     }));
 
-  it('The function photoUser throws a exception when not exists.', () => photoUser('asdasadasd.jpg')
+  it('The function photoUser throws a exception when not exists.', () => photoUser({ name: '' })
     .catch((data) => {
       expect(data).toEqual('Photo not exists');
     }));
@@ -41,16 +41,6 @@ describe('dowloadImagePhoto', () => {
       expect(data).toEqual(true);
     }));
 
-  /* it('The function dowloadImage return a photo when exists.', () => dowloadImage('exist')
-    .then((data) => {
-      expect(data).toEqual('urlImageDowload');
-    }));
-
-  // eslint-disable-next-line max-len
-  it('The function dowloadImage throws a exception when not exists.', () => dowloadImage('myphotoDowload.jpg')
-    .catch((data) => {
-      expect(data).toEqual('Photo not exists');
-    })); */
   it('The function publicationUser return true when upload a profile photo.', () => publicationUser({ name: 'myphotoPublication.jpg' }, {})
     .then((data) => {
       expect(data).toEqual(true);

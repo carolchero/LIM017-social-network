@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   getStorage, ref, uploadBytesResumable, getDownloadURL,
 } from './imports/firebase-imports.js';
@@ -17,7 +18,6 @@ export async function dowloadImagePhoto(image) {
       });
       sessionStorage.setItem('photoUser', url);
     }).catch((error) => {
-      console.log(error);
     });
   return urlImage;
 }
@@ -48,7 +48,6 @@ export async function dowloadCoverPage(image) {
         urlCoverPage: url,
       });
     }).catch((error) => {
-      console.log(error);
     });
   return urlImage;
 }
@@ -75,7 +74,6 @@ async function dowloadImage(imagePreview, image) {
     .then((url) => {
       imagePreview.setAttribute('src', url);
     }).catch((error) => {
-      console.log(error);
     });
 }
 // funcion para subir la imagen de la publicación al storage

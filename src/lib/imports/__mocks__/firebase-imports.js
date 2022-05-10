@@ -70,7 +70,8 @@ export const signOut = () => Promise.resolve({});
 export const setDoc = (id) => {
   if (id.dataUsers || id.dataPublication) {
     return Promise.resolve({ id: 'id' });
-  } return Promise.reject(new Error('error'));
+  } const error = 'error';
+  return Promise.resolve(error);
 };
 export const db = jest.fn();
 export const collection = jest.fn((_db_, _collection_) => _collection_);

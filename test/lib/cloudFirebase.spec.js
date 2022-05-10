@@ -11,22 +11,27 @@ import { deleteDoc } from '../../src/lib/imports/firebase-imports.js';
 jest.mock('../../src/lib/imports/firebase-imports.js');
 
 describe('cloudfirebase', () => {
-  it('dataUser', async () => {
-    const data = await dataUser('id', 'email', 'password', 'url', 'url');
-    expect(data).toBe('id');
+  it('dataUser', () => {
+    dataUser('id', 'email', 'password', 'url', 'url')
+      .then((result) => {
+        expect(result).toBe('id');
+      });
   });
-  it('dataUser error', async () => {
+  it('dataUser error', () => {
     const error = new Error('error');
-    await expect(dataUser(null)).resolves.toEqual(error);
+    dataUser(null)
+      .catch((result) => {
+        expect(result).toEqual(error);
+      });
   });
-  /* it('likePublication', async () => {
+  it('likePublication', async () => {
     expect(typeof publicationLikeUnion()).toBe('object');
     expect(typeof publicationLikeRemove()).toBe('object');
   });
   it('lovePublication', async () => {
     expect(typeof publicationLoveUnion()).toBe('object');
     expect(typeof publicationLoveRemove()).toBe('object');
-  }); */
+  });
 });
 
 describe('getUsers', () => {
